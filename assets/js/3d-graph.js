@@ -89,13 +89,10 @@ const sidebarData = {
 // Global variables
 let scene, camera, renderer, controls;
 let nodeMeshes = [], edgeLines = [];
-let simulation;
 let raycaster, mouse;
 let labels = [];
-let animationId;
-
-// Get d3 from global
-const d3 = window.d3 || self.d3;
+let nodes = [], links = [];
+let time = 0;
 
 function getCompanyColor(companyId) {
     const company = graphData.nodes.find(n => n.id === companyId);
@@ -108,18 +105,9 @@ function getCompanyName(companyId) {
 }
 
 function init() {
-    console.log('Initializing 3D graph...');
-    console.log('THREE:', typeof THREE);
-    console.log('OrbitControls:', typeof THREE.OrbitControls);
-    console.log('d3:', typeof d3);
-    
     const container = document.getElementById('3d-graph');
-    if (!container) {
-        console.error('Container not found');
-        return;
-    }
+    if (!container) return;
     
-    // Clear loading
     container.innerHTML = '';
     
     // Scene
@@ -148,7 +136,7 @@ function init() {
     controls.autoRotateSpeed = 0.5;
     
     // Lights
-    const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+    const ambient = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambient);
     
     const point1 = new THREE.PointLight(0x00ff88, 0.8, 500);
@@ -159,10 +147,13 @@ function init() {
     point2.position.set(-150, -100, 100);
     scene.add(point2);
     
-    // Create graph
-    createGraph();
+    // Initialize nodes with positions
+    initNodes();
     
-    // Raycaster for click
+    // Create 3D objects
+    createMeshes();
+    
+    // Raycaster
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
     
@@ -176,15 +167,47 @@ function init() {
     // Sidebar
     initSidebar();
     initControls();
-    
-    console.log('3D graph initialized!');
 }
 
-function createGraph() {
-    // Create node meshes
+function initNodes() {
     const companies = graphData.nodes.filter(n => n.group === 'company');
     
     graphData.nodes.forEach((node, index) => {
+        const isCompany = node.group === 'company';
+        
+        if (isCompany) {
+            const idx = companies.indexOf(node);
+            const angle = (idx / companies.length) * Math.PI * 2;
+            node.x = Math.cos(angle) * 130;
+            node.y = Math.sin(angle) * 80;
+            node.z = 0;
+        } else {
+            const parent = graphData.nodes.find(n => n.id === node.parent);
+            if (parent) {
+                const siblings = graphData.nodes.filter(n => n.parent === node.parent);
+                const idx = siblings.indexOf(node);
+                const angle = (idx / siblings.length) * Math.PI * 2;
+                node.x = parent.x + Math.cos(angle) * 45;
+                node.y = parent.y + Math.sin(angle) * 45;
+                node.z = (Math.random() - 0.5) * 20;
+            }
+        }
+        
+        node.vx = 0;
+        node.vy = 0;
+        node.vz = 0;
+    });
+    
+    nodes = graphData.nodes.map(n => ({ ...n }));
+    links = graphData.links.map(l => ({ 
+        source: nodes.find(n => n.id === l.source),
+        target: nodes.find(n => n.id === l.target)
+    }));
+}
+
+function createMeshes() {
+    // Create node meshes
+    nodes.forEach((node, i) => {
         const isCompany = node.group === 'company';
         const radius = isCompany ? 18 : 10 + (node.score || 70) / 15;
         
@@ -194,43 +217,20 @@ function createGraph() {
         const material = new THREE.MeshPhongMaterial({
             color: color,
             emissive: color,
-            emissiveIntensity: 0.15,
+            emissiveIntensity: 0.2,
             shininess: 100
         });
         
         const mesh = new THREE.Mesh(geometry, material);
-        mesh.userData = { node: node, index: index };
-        
-        // Initial position
-        if (isCompany) {
-            const idx = companies.indexOf(node);
-            const angle = (idx / companies.length) * Math.PI * 2;
-            mesh.position.set(
-                Math.cos(angle) * 120,
-                Math.sin(angle) * 80,
-                (Math.random() - 0.5) * 50
-            );
-        } else {
-            const parent = graphData.nodes.find(n => n.id === node.parent);
-            if (parent) {
-                const siblings = graphData.nodes.filter(n => n.parent === node.parent);
-                const idx = siblings.indexOf(node);
-                const angle = (idx / siblings.length) * Math.PI * 2;
-                mesh.position.set(
-                    parent.position ? parent.position.x + Math.cos(angle) * 40 : Math.cos(angle) * 40,
-                    parent.position ? parent.position.y + Math.sin(angle) * 40 : Math.sin(angle) * 40,
-                    (Math.random() - 0.5) * 30
-                );
-            }
-        }
+        mesh.position.set(node.x || 0, node.y || 0, node.z || 0);
+        mesh.userData = { node: node, index: i };
         
         scene.add(mesh);
         nodeMeshes.push(mesh);
         
         // Label
         const label = createLabel(node.name);
-        label.position.copy(mesh.position);
-        label.position.y += radius + 8;
+        label.position.set(node.x || 0, (node.y || 0) + radius + 10, node.z || 0);
         scene.add(label);
         labels.push(label);
     });
@@ -239,63 +239,103 @@ function createGraph() {
     const lineMaterial = new THREE.LineBasicMaterial({
         color: 0x00ff88,
         transparent: true,
-        opacity: 0.25
+        opacity: 0.3
     });
     
-    graphData.links.forEach(link => {
+    links.forEach(link => {
         const geometry = new THREE.BufferGeometry();
         geometry.setFromPoints([
-            new THREE.Vector3(0, 0, 0),
-            new THREE.Vector3(0, 0, 0)
+            new THREE.Vector3(link.source.x || 0, link.source.y || 0, link.source.z || 0),
+            new THREE.Vector3(link.target.x || 0, link.target.y || 0, link.target.z || 0)
         ]);
         
         const line = new THREE.Line(geometry, lineMaterial);
-        line.userData = { source: link.source, target: link.target };
         scene.add(line);
-        edgeLines.push(line);
+        edgeLines.push({ line: line, source: link.source, target: link.target });
+    });
+}
+
+// Simple force simulation
+function updateForces() {
+    const alpha = 0.02;
+    
+    // Link forces
+    links.forEach(link => {
+        const dx = link.target.x - link.source.x;
+        const dy = link.target.y - link.source.y;
+        const dz = link.target.z - link.source.z;
+        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
+        const diff = (dist - 60) / dist;
+        
+        link.source.vx += dx * diff * alpha * 0.5;
+        link.source.vy += dy * diff * alpha * 0.5;
+        link.source.vz += dz * diff * alpha * 0.5;
+        link.target.vx -= dx * diff * alpha * 0.5;
+        link.target.vy -= dy * diff * alpha * 0.5;
+        link.target.vz -= dz * diff * alpha * 0.5;
     });
     
-    // Run d3 force simulation
-    if (d3 && d3.forceSimulation) {
-        const simNodes = graphData.nodes.map(n => ({ ...n }));
-        const simLinks = graphData.links.map(l => ({ ...l }));
+    // Repulsion forces
+    nodes.forEach((node1, i) => {
+        nodes.forEach((node2, j) => {
+            if (i >= j) return;
+            
+            const dx = node1.x - node2.x;
+            const dy = node1.y - node2.y;
+            const dz = node1.z - node2.z;
+            const dist = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1;
+            
+            if (dist < 80) {
+                const force = (80 - dist) / dist * alpha * 2;
+                node1.vx += dx * force;
+                node1.vy += dy * force;
+                node1.vz += dz * force;
+                node2.vx -= dx * force;
+                node2.vy -= dy * force;
+                node2.vz -= dz * force;
+            }
+        });
+    });
+    
+    // Center force
+    nodes.forEach(node => {
+        node.vx -= node.x * alpha * 0.01;
+        node.vy -= node.y * alpha * 0.01;
+        node.vz -= node.z * alpha * 0.005;
         
-        simulation = d3.forceSimulation(simNodes)
-            .force('link', d3.forceLink(simLinks).id(d => d.id).distance(60).strength(0.5))
-            .force('charge', d3.forceManyBody().strength(-300))
-            .force('center', d3.forceCenter(0, 0).strength(0.05))
-            .force('collision', d3.forceCollide().radius(30))
-            .on('tick', () => {
-                simNodes.forEach((node, i) => {
-                    if (nodeMeshes[i]) {
-                        nodeMeshes[i].position.set(node.x || 0, node.y || 0, (node.z || 0) * 0.5);
-                        
-                        if (labels[i]) {
-                            labels[i].position.copy(nodeMeshes[i].position);
-                            labels[i].position.y += node.group === 'company' ? 25 : 15;
-                        }
-                    }
-                });
-                
-                edgeLines.forEach(line => {
-                    const sourceNode = simNodes.find(n => n.id === line.userData.source);
-                    const targetNode = simNodes.find(n => n.id === line.userData.target);
-                    
-                    if (sourceNode && targetNode) {
-                        const positions = line.geometry.attributes.position.array;
-                        positions[0] = sourceNode.x || 0;
-                        positions[1] = sourceNode.y || 0;
-                        positions[2] = (sourceNode.z || 0) * 0.5;
-                        positions[3] = targetNode.x || 0;
-                        positions[4] = targetNode.y || 0;
-                        positions[5] = (targetNode.z || 0) * 0.5;
-                        line.geometry.attributes.position.needsUpdate = true;
-                    }
-                });
-            });
-    } else {
-        console.error('d3-force not loaded');
-    }
+        // Velocity decay
+        node.vx *= 0.9;
+        node.vy *= 0.9;
+        node.vz *= 0.9;
+        
+        // Update position
+        node.x += node.vx;
+        node.y += node.vy;
+        node.z += node.vz;
+    });
+    
+    // Update meshes
+    nodes.forEach((node, i) => {
+        if (nodeMeshes[i]) {
+            nodeMeshes[i].position.set(node.x, node.y, node.z);
+            
+            if (labels[i]) {
+                labels[i].position.set(node.x, node.y + 25, node.z);
+            }
+        }
+    });
+    
+    // Update edges
+    edgeLines.forEach(edge => {
+        const positions = edge.line.geometry.attributes.position.array;
+        positions[0] = edge.source.x;
+        positions[1] = edge.source.y;
+        positions[2] = edge.source.z;
+        positions[3] = edge.target.x;
+        positions[4] = edge.target.y;
+        positions[5] = edge.target.z;
+        edge.line.geometry.attributes.position.needsUpdate = true;
+    });
 }
 
 function createLabel(text) {
@@ -304,7 +344,7 @@ function createLabel(text) {
     canvas.width = 256;
     canvas.height = 64;
     
-    ctx.font = 'bold 24px Outfit, sans-serif';
+    ctx.font = 'bold 22px Outfit, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillStyle = '#ffffff';
     ctx.fillText(text, 128, 40);
@@ -369,7 +409,11 @@ function showModelPopup(node) {
 }
 
 function animate() {
-    animationId = requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
+    
+    // Update physics
+    updateForces();
+    
     controls.update();
     renderer.render(scene, camera);
 }
@@ -417,5 +461,4 @@ function initControls() {
     });
 }
 
-// Start when page loads
 window.addEventListener('load', init);
