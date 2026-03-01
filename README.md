@@ -126,7 +126,8 @@ AI-Rating/
 
 ## 🖥️ 技术栈 | Tech Stack
 
-- **Three.js** + **3d-force-graph** - 3D可视化 | 3D visualization
+- **Three.js** + **OrbitControls** - 3D渲染与交互 | 3D rendering & interaction
+- **自定义力导向算法** - 物理模拟 | Custom force-directed algorithm
 - **Vanilla JS** - 前端逻辑 | Frontend logic
 - **CSS3** - 现代UI样式 | Modern UI styling
 - **GitHub Pages** - 免费托管 | Free hosting
@@ -142,7 +143,7 @@ MIT License - 允许自由使用、修改、分发 | Free to use, modify, distri
 ## 🙏 致谢 | Acknowledgments
 
 - [Three.js](https://threejs.org/) - 3D渲染 | 3D rendering
-- [3d-force-graph](https://github.com/vasturiano/3d-force-graph) - 力导向图 | Force graph
+- [OrbitControls](https://threejs.org/examples/jsm/controls/OrbitControls.html) - 3D交互控制 | 3D interaction controls
 - [GitHub Pages](https://pages.github.com/) - 免费托管 | Free hosting
 - 各AI模型厂商及评测机构 | AI model vendors and evaluation institutions
 
