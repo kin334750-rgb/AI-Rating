@@ -1,4 +1,4 @@
-// AI Model 3D Graph Data
+// Data
 const graphData = {
     nodes: [
         { id: 'openai', name: 'OpenAI', group: 'company', color: '#00d4ff' },
@@ -86,11 +86,16 @@ const sidebarData = {
     ]
 };
 
+// Global variables
 let scene, camera, renderer, controls;
 let nodeMeshes = [], edgeLines = [];
 let simulation;
 let raycaster, mouse;
 let labels = [];
+let animationId;
+
+// Get d3 from global
+const d3 = window.d3 || self.d3;
 
 function getCompanyColor(companyId) {
     const company = graphData.nodes.find(n => n.id === companyId);
@@ -103,8 +108,19 @@ function getCompanyName(companyId) {
 }
 
 function init() {
+    console.log('Initializing 3D graph...');
+    console.log('THREE:', typeof THREE);
+    console.log('OrbitControls:', typeof THREE.OrbitControls);
+    console.log('d3:', typeof d3);
+    
     const container = document.getElementById('3d-graph');
-    if (!container) return;
+    if (!container) {
+        console.error('Container not found');
+        return;
+    }
+    
+    // Clear loading
+    container.innerHTML = '';
     
     // Scene
     scene = new THREE.Scene();
@@ -144,7 +160,7 @@ function init() {
     scene.add(point2);
     
     // Create graph
-    initGraph();
+    createGraph();
     
     // Raycaster for click
     raycaster = new THREE.Raycaster();
@@ -160,10 +176,14 @@ function init() {
     // Sidebar
     initSidebar();
     initControls();
+    
+    console.log('3D graph initialized!');
 }
 
-function initGraph() {
+function createGraph() {
     // Create node meshes
+    const companies = graphData.nodes.filter(n => n.group === 'company');
+    
     graphData.nodes.forEach((node, index) => {
         const isCompany = node.group === 'company';
         const radius = isCompany ? 18 : 10 + (node.score || 70) / 15;
@@ -179,11 +199,12 @@ function initGraph() {
         });
         
         const mesh = new THREE.Mesh(geometry, material);
-        mesh.userData = { node: node };
+        mesh.userData = { node: node, index: index };
         
-        // Initial position - companies in a ring, models around companies
+        // Initial position
         if (isCompany) {
-            const angle = (index / 7) * Math.PI * 2;
+            const idx = companies.indexOf(node);
+            const angle = (idx / companies.length) * Math.PI * 2;
             mesh.position.set(
                 Math.cos(angle) * 120,
                 Math.sin(angle) * 80,
@@ -206,7 +227,7 @@ function initGraph() {
         scene.add(mesh);
         nodeMeshes.push(mesh);
         
-        // Create label
+        // Label
         const label = createLabel(node.name);
         label.position.copy(mesh.position);
         label.position.y += radius + 8;
@@ -222,26 +243,59 @@ function initGraph() {
     });
     
     graphData.links.forEach(link => {
-        const sourceNode = graphData.nodes.find(n => n.id === link.source);
-        const targetNode = graphData.nodes.find(n => n.id === link.target);
+        const geometry = new THREE.BufferGeometry();
+        geometry.setFromPoints([
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(0, 0, 0)
+        ]);
         
-        if (sourceNode && targetNode) {
-            const geometry = new THREE.BufferGeometry();
-            const points = [
-                new THREE.Vector3(0, 0, 0),
-                new THREE.Vector3(0, 0, 0)
-            ];
-            geometry.setFromPoints(points);
-            
-            const line = new THREE.Line(geometry, lineMaterial);
-            line.userData = { source: link.source, target: link.target };
-            scene.add(line);
-            edgeLines.push(line);
-        }
+        const line = new THREE.Line(geometry, lineMaterial);
+        line.userData = { source: link.source, target: link.target };
+        scene.add(line);
+        edgeLines.push(line);
     });
     
-    // Start physics simulation
-    startSimulation();
+    // Run d3 force simulation
+    if (d3 && d3.forceSimulation) {
+        const simNodes = graphData.nodes.map(n => ({ ...n }));
+        const simLinks = graphData.links.map(l => ({ ...l }));
+        
+        simulation = d3.forceSimulation(simNodes)
+            .force('link', d3.forceLink(simLinks).id(d => d.id).distance(60).strength(0.5))
+            .force('charge', d3.forceManyBody().strength(-300))
+            .force('center', d3.forceCenter(0, 0).strength(0.05))
+            .force('collision', d3.forceCollide().radius(30))
+            .on('tick', () => {
+                simNodes.forEach((node, i) => {
+                    if (nodeMeshes[i]) {
+                        nodeMeshes[i].position.set(node.x || 0, node.y || 0, (node.z || 0) * 0.5);
+                        
+                        if (labels[i]) {
+                            labels[i].position.copy(nodeMeshes[i].position);
+                            labels[i].position.y += node.group === 'company' ? 25 : 15;
+                        }
+                    }
+                });
+                
+                edgeLines.forEach(line => {
+                    const sourceNode = simNodes.find(n => n.id === line.userData.source);
+                    const targetNode = simNodes.find(n => n.id === line.userData.target);
+                    
+                    if (sourceNode && targetNode) {
+                        const positions = line.geometry.attributes.position.array;
+                        positions[0] = sourceNode.x || 0;
+                        positions[1] = sourceNode.y || 0;
+                        positions[2] = (sourceNode.z || 0) * 0.5;
+                        positions[3] = targetNode.x || 0;
+                        positions[4] = targetNode.y || 0;
+                        positions[5] = (targetNode.z || 0) * 0.5;
+                        line.geometry.attributes.position.needsUpdate = true;
+                    }
+                });
+            });
+    } else {
+        console.error('d3-force not loaded');
+    }
 }
 
 function createLabel(text) {
@@ -250,64 +304,16 @@ function createLabel(text) {
     canvas.width = 256;
     canvas.height = 64;
     
-    ctx.fillStyle = 'rgba(0,0,0,0)';
-    ctx.fillRect(0, 0, 256, 64);
-    
     ctx.font = 'bold 24px Outfit, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillStyle = '#ffffff';
     ctx.fillText(text, 128, 40);
     
     const texture = new THREE.CanvasTexture(canvas);
-    const material = new THREE.SpriteMaterial({ 
-        map: texture, 
-        transparent: true,
-        depthTest: false
-    });
+    const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false });
     const sprite = new THREE.Sprite(material);
     sprite.scale.set(50, 12.5, 1);
     return sprite;
-}
-
-function startSimulation() {
-    const nodes = graphData.nodes.map(n => ({ ...n }));
-    const links = graphData.links.map(l => ({ ...l }));
-    
-    simulation = d3.forceSimulation(nodes)
-        .force('link', d3.forceLink(links).id(d => d.id).distance(60).strength(0.5))
-        .force('charge', d3.forceManyBody().strength(-300))
-        .force('center', d3.forceCenter(0, 0).strength(0.05))
-        .force('collision', d3.forceCollide().radius(30))
-        .on('tick', () => {
-            nodes.forEach((node, i) => {
-                if (nodeMeshes[i]) {
-                    nodeMeshes[i].position.set(node.x || 0, node.y || 0, (node.z || 0) * 0.5);
-                    
-                    // Update label position
-                    if (labels[i]) {
-                        labels[i].position.copy(nodeMeshes[i].position);
-                        labels[i].position.y += node.group === 'company' ? 25 : 15;
-                    }
-                }
-            });
-            
-            // Update edges
-            edgeLines.forEach(line => {
-                const sourceNode = nodes.find(n => n.id === line.userData.source);
-                const targetNode = nodes.find(n => n.id === line.userData.target);
-                
-                if (sourceNode && targetNode) {
-                    const positions = line.geometry.attributes.position.array;
-                    positions[0] = sourceNode.x || 0;
-                    positions[1] = sourceNode.y || 0;
-                    positions[2] = (sourceNode.z || 0) * 0.5;
-                    positions[3] = targetNode.x || 0;
-                    positions[4] = targetNode.y || 0;
-                    positions[5] = (targetNode.z || 0) * 0.5;
-                    line.geometry.attributes.position.needsUpdate = true;
-                }
-            });
-        });
 }
 
 function onResize() {
@@ -363,7 +369,7 @@ function showModelPopup(node) {
 }
 
 function animate() {
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
     controls.update();
     renderer.render(scene, camera);
 }
@@ -402,25 +408,14 @@ function initSidebar() {
 }
 
 function initControls() {
-    document.getElementById('zoom-in')?.addEventListener('click', () => {
-        camera.position.multiplyScalar(0.8);
-    });
-    document.getElementById('zoom-out')?.addEventListener('click', () => {
-        camera.position.multiplyScalar(1.2);
-    });
-    document.getElementById('reset-view')?.addEventListener('click', () => {
-        camera.position.set(0, 0, 350);
-        controls.reset();
-    });
-    document.getElementById('popup-close')?.addEventListener('click', () => {
-        document.getElementById('node-popup')?.classList.remove('active');
-    });
-    document.getElementById('node-popup')?.addEventListener('click', (e) => {
-        if (e.target.id === 'node-popup') {
-            document.getElementById('node-popup')?.classList.remove('active');
-        }
+    document.getElementById('zoom-in')?.addEventListener('click', () => camera.position.multiplyScalar(0.8));
+    document.getElementById('zoom-out')?.addEventListener('click', () => camera.position.multiplyScalar(1.2));
+    document.getElementById('reset-view')?.addEventListener('click', () => { camera.position.set(0, 0, 350); controls.reset(); });
+    document.getElementById('popup-close')?.addEventListener('click', () => document.getElementById('node-popup')?.classList.remove('active'));
+    document.getElementById('node-popup')?.addEventListener('click', (e) => { 
+        if (e.target.id === 'node-popup') document.getElementById('node-popup')?.classList.remove('active'); 
     });
 }
 
-// Start
-init();
+// Start when page loads
+window.addEventListener('load', init);
