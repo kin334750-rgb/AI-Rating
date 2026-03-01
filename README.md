@@ -7,12 +7,47 @@
 
 ## ✨ 关于
 
-AI-Rating 是一个实时追踪全球AI模型评测动态的平台，基于X（原Twitter）、B站、GitHub等权威信息源，整合最新最热的AI模型评测信息，包括：
+**AI-Rating** 是一个实时追踪全球AI模型评测动态的平台，旨在为AI研究者、开发者和爱好者提供最新、最全面的评测信息。
 
-- 🏆 主流模型对比（GPT-5.2、Claude、Gemini等）
-- 📊 评测基准解读（SWE-bench、MMLU、ARC-AGI等）
-- 🔧 评测工具分析（OpenCompass、EvalScope等）
-- 📈 行业趋势分析
+### 🎯 网站介绍
+
+AI-Rating 通过实时抓取和整合以下平台的信息：
+
+| 信息来源 | 内容类型 |
+|---------|---------|
+| X (Twitter) | 热门讨论、专家观点 |
+| B站 | 评测视频、深度解析 |
+| GitHub | 开源模型、评测工具 |
+| 独立评测机构 | Artificial Analysis、302.AI等 |
+| AI资讯网站 | 行业动态、技术解读 |
+
+### 📱 主要功能
+
+1. **模型对比** - 实时更新GPT、Claude、Gemini、Kimi等主流AI模型评测数据
+2. **Benchmark解读** - 详解SWE-bench、MMLU、ARC-AGI等评测基准
+3. **工具评测** - 对比OpenCompass、EvalScope等主流评测工具
+4. **趋势分析** - 追踪AI评测领域最新发展趋势
+5. **3D图谱** - 可视化呈现AI评测生态关联
+
+### 🌟 特色内容
+
+- 2026年AI模型终极对比：GPT-5.2 vs Claude Opus 4.6 vs Gemini 3.1 Pro
+- Claude Sonnet 4.6性价比之王分析
+- SWE-bench退役与新基准解读
+- 中国开源模型崛起：Kimi K2.5、DeepSeek V3.2、GLM-5
+
+### 📊 数据更新
+
+每次用户发送需求，我们将：
+1. 实时搜索最新评测信息（X、B站、GitHub等）
+2. 整理分析关键数据
+3. 生成结构化文档
+4. 更新3D知识图谱
+5. 保存到本地并推送至GitHub
+
+---
+
+**每次更新耗时约5-10分钟，确保信息的时效性和准确性**
 
 ## ✨ 特性
 
@@ -66,7 +101,7 @@ AI-Rating/
 | GPQA | 科学研究 | Kimi K2.5 (87.6%) |
 | MMLU | 多任务理解 | 90%+ |
 
-> ⚠️ 2026变化：aysebench Verified已退役，新基准SWE-bench Pro/SWE-rebench崛起
+> ⚠️ 2026变化：SWE-bench Verified已退役，新基准SWE-bench Pro/SWE-rebench崛起
 
 ## 🛠️ 评测工具
 
