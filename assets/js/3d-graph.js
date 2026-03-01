@@ -1,8 +1,4 @@
-let scene, camera, renderer, controls;
-let nodes = [], edges = [];
-let raycaster, mouse;
-let selectedNode = null;
-let animationId;
+let graph;
 
 const graphData = {
     nodes: [
@@ -53,47 +49,59 @@ const graphData = {
 
 const benchmarkData = {
     'gpt5.2': [
-        { name: 'ARC-AGI-2', score: '52.9%', rank: 1, desc: '抽象推理基准' },
-        { name: 'AIME 2025', score: '100%', rank: 1, desc: '数学竞赛基准' },
-        { name: 'MMLU', score: '92%', rank: 1, desc: '多任务语言理解' }
+        { name: 'ARC-AGI-2', score: '52.9%', rank: 1, desc: '抽象推理基准', link: '#' },
+        { name: 'AIME 2025', score: '100%', rank: 1, desc: '数学竞赛基准', link: '#' },
+        { name: 'MMLU', score: '92%', rank: 1, desc: '多任务语言理解', link: '#' }
     ],
     'opus4.6': [
-        { name: 'SWE-bench Pro', score: '80.9%', rank: 1, desc: '代码修复基准' },
-        { name: 'HumanEval', score: '92%', rank: 1, desc: '代码生成基准' }
+        { name: 'SWE-bench Pro', score: '80.9%', rank: 1, desc: '代码修复基准', link: '#' },
+        { name: 'HumanEval', score: '92%', rank: 1, desc: '代码生成基准', link: '#' },
+        { name: 'LongBench', score: '76%', rank: 1, desc: '长上下文理解', link: '#' }
     ],
     'gemini3pro': [
-        { name: '12项基准', score: '第一', rank: 1, desc: '综合评测' },
-        { name: '编程成本', score: '<50%', rank: 1, desc: '性价比最优' }
+        { name: '12项基准', score: '第一', rank: 1, desc: '综合评测12项第一', link: '#' },
+        { name: '编程成本', score: '<50%', rank: 1, desc: '性价比最优', link: '#' }
     ],
     'kimi2.5': [
-        { name: 'GPQA', score: '87.6%', rank: 1, desc: '科学研究基准' },
-        { name: 'AIME 2025', score: '87.6%', rank: 2, desc: '数学竞赛基准' }
+        { name: 'GPQA', score: '87.6%', rank: 1, desc: '科学研究基准第一', link: '#' },
+        { name: 'AIME 2025', score: '87.6%', rank: 2, desc: '数学竞赛基准', link: '#' },
+        { name: '长上下文', score: '200万', rank: 1, desc: 'token上下文最长', link: '#' }
     ],
     'deepseekv3': [
-        { name: 'API价格', score: '$0.27/M', rank: 1, desc: '行业最低' },
-        { name: '开源协议', score: 'MIT', rank: 1, desc: '完全开源' }
+        { name: 'API价格', score: '$0.27/M', rank: 1, desc: '行业最低API价格', link: '#' },
+        { name: '开源协议', score: 'MIT', rank: 1, desc: '完全开源可商用', link: '#' }
+    ],
+    'qwen3.5': [
+        { name: '生态完善度', score: '100+', rank: 1, desc: '开源变体数量最多', link: '#' },
+        { name: 'MMLU', score: '86%', rank: 4, desc: '多任务理解', link: '#' }
     ]
 };
 
 const sidebarData = {
     experts: [
-        { name: '李开复', title: '创新工场CEO', desc: 'AI领域知名专家' },
-        { name: '图灵的猫', title: 'B站科技UP主', desc: 'AI模型深度评测' }
+        { name: '李开复', title: '创新工场CEO', desc: 'AI领域知名专家，关注AI评测与产业应用' },
+        { name: '图灵的猫', title: 'B站科技UP主', desc: '72万播放量，AI模型深度评测' },
+        { name: '吴恩达', title: 'AI教育家', desc: 'DeepLearning.AI创始人' },
+        { name: '软件侠何二', title: 'B站UP主', desc: '8.8万粉丝，AI助手排名评测' }
     ],
     tools: [
-        { name: 'OpenCompass', desc: '上海人工智能实验室开源' },
-        { name: 'EvalScope', desc: '阿里魔搭社区开源' },
-        { name: 'FlagEval', desc: '智源研究院评测' }
+        { name: 'OpenCompass', desc: '上海人工智能实验室开源，70+数据集覆盖知识推理、代码生成、数学、长文本等' },
+        { name: 'EvalScope', desc: '阿里魔搭社区开源，支持LLM/多模态/Embedding/AIGC全类型评测' },
+        { name: 'FlagEval', desc: '智源研究院推出，22个数据集8万+评测题目' },
+        { name: 'Artificial Analysis', desc: '独立AI评测机构，AI指数排名，性价比分析' },
+        { name: '302.AI基准实验室', desc: '独立第三方评测，实测案例分析' }
     ],
     reports: [
-        { title: 'GPT-5.2深度评测', date: '2026-03-01', desc: '推理能力登顶' },
-        { title: 'Claude 4.6编程实测', date: '2026-02-28', desc: 'SWE-bench达80.9%' }
+        { title: 'GPT-5.2深度评测', date: '2026-03-01', desc: '推理能力登顶，ARC-AGI-2达52.9%' },
+        { title: 'Claude 4.6编程实测', date: '2026-02-28', desc: 'SWE-bench达80.9%，百万上下文' },
+        { title: '中国开源模型对比', date: '2026-02-26', desc: 'Kimi vs DeepSeek vs Qwen全面对比' },
+        { title: '2026性价比排行', date: '2026-02-20', desc: 'Gemini 3 Pro成本仅为竞品一半' }
     ]
 };
 
 function getCompanyColor(companyId) {
     const company = graphData.nodes.find(n => n.id === companyId);
-    return company ? new THREE.Color(company.color) : new THREE.Color(0x666666);
+    return company ? company.color : '#666666';
 }
 
 function getCompanyName(companyId) {
@@ -101,180 +109,16 @@ function getCompanyName(companyId) {
     return company ? company.name : '';
 }
 
-function initGraph() {
-    const container = document.getElementById('3d-graph');
-    if (!container) return;
-    
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0a0a0f);
-    
-    camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 2000);
-    camera.position.z = 400;
-    
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(width, height);
-    container.appendChild(renderer.domElement);
-    
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.minDistance = 100;
-    controls.maxDistance = 800;
-    
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-    
-    const pointLight = new THREE.PointLight(0x00ff88, 1, 1000);
-    pointLight.position.set(200, 200, 200);
-    scene.add(pointLight);
-    
-    initNodes();
-    initEdges();
-    initLabels();
-    
-    raycaster = new THREE.Raycaster();
-    mouse = new THREE.Vector2();
-    
-    window.addEventListener('resize', onWindowResize);
-    container.addEventListener('click', onMouseClick);
-    
-    animate();
-    
-    initSidebar();
-    initControls();
-}
-
-function initNodes() {
-    const companyGroups = {};
-    
-    graphData.nodes.forEach((node, index) => {
-        if (node.group === 'company') {
-            const angle = (index / 8) * Math.PI * 2;
-            const radius = 150;
-            node.x = Math.cos(angle) * radius;
-            node.y = Math.sin(angle) * radius * 0.6;
-            node.z = 0;
-            companyGroups[node.id] = { x: node.x, y: node.y, z: node.z };
-        }
-    });
-    
-    graphData.nodes.forEach(node => {
-        if (node.group === 'model') {
-            const parent = companyGroups[node.parent];
-            if (parent) {
-                const siblings = graphData.nodes.filter(n => n.parent === node.parent);
-                const idx = siblings.indexOf(node);
-                const angle = (idx / siblings.length) * Math.PI * 2;
-                const radius = 50 + Math.random() * 20;
-                node.x = parent.x + Math.cos(angle) * radius;
-                node.y = parent.y + Math.sin(angle) * radius;
-                node.z = (Math.random() - 0.5) * 30;
-            }
-        }
-        
-        const geometry = new THREE.SphereGeometry(
-            node.group === 'company' ? 15 : 8 + (node.score || 70) / 20, 
-            32, 32
-        );
-        const color = node.group === 'company' ? new THREE.Color(node.color) : getCompanyColor(node.parent);
-        const material = new THREE.MeshPhongMaterial({ 
-            color: color,
-            emissive: color,
-            emissiveIntensity: 0.2,
-            shininess: 100
-        });
-        
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.set(node.x || 0, node.y || 0, node.z || 0);
-        mesh.userData = { node: node };
-        
-        scene.add(mesh);
-        nodes.push(mesh);
-    });
-}
-
-function initEdges() {
-    const lineMaterial = new THREE.LineBasicMaterial({ 
-        color: 0x00ff88, 
-        transparent: true, 
-        opacity: 0.3 
-    });
-    
-    graphData.links.forEach(link => {
-        const sourceNode = graphData.nodes.find(n => n.id === link.source);
-        const targetNode = graphData.nodes.find(n => n.id === link.target);
-        
-        if (sourceNode && targetNode) {
-            const geometry = new THREE.BufferGeometry().setFromPoints([
-                new THREE.Vector3(sourceNode.x || 0, sourceNode.y || 0, sourceNode.z || 0),
-                new THREE.Vector3(targetNode.x || 0, targetNode.y || 0, targetNode.z || 0)
-            ]);
-            const line = new THREE.Line(geometry, lineMaterial);
-            scene.add(line);
-        }
-    });
-}
-
-function initLabels() {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    canvas.width = 256;
-    canvas.height = 64;
-    
-    graphData.nodes.forEach(node => {
-        context.clearRect(0, 0, 256, 64);
-        context.fillStyle = 'white';
-        context.font = 'bold 24px Outfit, sans-serif';
-        context.textAlign = 'center';
-        context.fillText(node.name, 128, 40);
-        
-        const texture = new THREE.CanvasTexture(canvas);
-        const spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: true });
-        const sprite = new THREE.Sprite(spriteMaterial);
-        sprite.scale.set(40, 10, 1);
-        sprite.position.set(node.x || 0, (node.y || 0) + 20, node.z || 0);
-        scene.add(sprite);
-    });
-}
-
-function onWindowResize() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
-}
-
-function onMouseClick(event) {
-    const container = document.getElementById('3d-graph');
-    const rect = container.getBoundingClientRect();
-    
-    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-    
-    raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(nodes);
-    
-    if (intersects.length > 0) {
-        const node = intersects[0].object.userData.node;
-        showModelPopup(node);
-    }
-}
-
 function showModelPopup(node) {
     const popup = document.getElementById('node-popup');
     if (!popup) return;
     
     const benchmarks = benchmarkData[node.id] || [
-        { name: 'MMLU', score: (node.score || 80) + '%', rank: 3, desc: '多任务语言理解' }
+        { name: 'MMLU', score: (node.score || 80) + '%', rank: 3, desc: '多任务语言理解', link: '#' }
     ];
     
     document.getElementById('popup-model-name').textContent = node.name;
-    document.getElementById('popup-company').textContent = getCompanyName(node.parent);
+    document.getElementById('popup-company').textContent = node.group === 'company' ? 'AI公司' : getCompanyName(node.parent);
     document.getElementById('popup-score').textContent = node.score || '--';
     document.getElementById('popup-icon').textContent = node.name.charAt(0);
     
@@ -285,25 +129,18 @@ function showModelPopup(node) {
                 <span class="benchmark-score">${b.score}</span>
             </div>
             <div class="benchmark-desc">${b.desc}</div>
-            <div class="benchmark-meta"><span>热度排名 #${b.rank}</span></div>
+            <div class="benchmark-meta">
+                <span>🔥 热度排名 #${b.rank}</span>
+                <a href="${b.link}" target="_blank">查看详情 →</a>
+            </div>
         </div>
     `).join('');
     
     popup.classList.add('active');
 }
 
-function animate() {
-    animationId = requestAnimationFrame(animate);
-    controls.update();
-    
-    const time = Date.now() * 0.001;
-    nodes.forEach((node, i) => {
-        if (graphData.nodes[i] && graphData.nodes[i].group === 'company') {
-            node.rotation.y = time * 0.2;
-        }
-    });
-    
-    renderer.render(scene, camera);
+function handleNodeClick(node) {
+    showModelPopup(node);
 }
 
 function initSidebar() {
@@ -338,30 +175,104 @@ function initSidebar() {
         `<div class="report-card"><h4>${r.title}</h4><p>${r.desc}</p><div class="report-date">${r.date}</div></div>`
     ).join('');
     
-    document.getElementById('trend-chart').innerHTML = '<p>📈 趋势图表展示区<br><br><span style="color: var(--text-muted);">近期GPT系列评分稳定上升</span></p>';
+    document.getElementById('trend-chart').innerHTML = '<p>📈 趋势图表展示区<br><br><span style="color: var(--text-muted);">GPT系列评分稳定上升，Claude编程能力持续领跑</span></p>';
 }
 
 function initControls() {
-    document.getElementById('zoom-in')?.addEventListener('click', () => {
-        camera.position.multiplyScalar(0.8);
-    });
-    
-    document.getElementById('zoom-out')?.addEventListener('click', () => {
-        camera.position.multiplyScalar(1.2);
-    });
-    
-    document.getElementById('reset-view')?.addEventListener('click', () => {
-        camera.position.set(0, 0, 400);
-        controls.reset();
-    });
-    
-    document.getElementById('popup-close')?.addEventListener('click', () => {
-        document.getElementById('node-popup').classList.remove('active');
-    });
-    
-    document.getElementById('node-popup')?.addEventListener('click', (e) => {
-        if (e.target.id === 'node-popup') {
-            document.getElementById('node-popup').classList.remove('active');
+    document.getElementById('zoom-in')?.addEventListener('click', () => { if (graph) graph.zoom(graph.zoom() * 1.3, 300); });
+    document.getElementById('zoom-out')?.addEventListener('click', () => { if (graph) graph.zoom(graph.zoom() / 1.3, 300); });
+    document.getElementById('reset-view')?.addEventListener('click', () => { 
+        if (graph) {
+            graph.zoomToFit(500);
+            graph.cameraPosition({ x: 0, y: 0, z: 400 });
         }
     });
+    document.getElementById('popup-close')?.addEventListener('click', () => document.getElementById('node-popup').classList.remove('active'));
+    document.getElementById('node-popup')?.addEventListener('click', (e) => { 
+        if (e.target.id === 'node-popup') document.getElementById('node-popup').classList.remove('active'); 
+    });
 }
+
+function initGraph() {
+    const container = document.getElementById('3d-graph');
+    const loading = document.getElementById('loading');
+    
+    if (!container) return;
+    
+    function startGraph() {
+        if (typeof ThreeForceGraph === 'undefined') {
+            console.log('Waiting for ThreeForceGraph...');
+            setTimeout(startGraph, 200);
+            return;
+        }
+        
+        try {
+            graph = ThreeForceGraph()(container)
+                .graphData(graphData)
+                .nodeLabel('name')
+                .nodeColor(node => {
+                    if (node.group === 'company') return node.color || '#ffffff';
+                    return getCompanyColor(node.parent);
+                })
+                .nodeRelSize(6)
+                .nodeVal(node => {
+                    if (node.group === 'company') return 25;
+                    return 8 + (node.score || 70) / 15;
+                })
+                .linkColor(() => 'rgba(0, 255, 136, 0.25)')
+                .linkWidth(1)
+                .linkDirectionalParticles(2)
+                .linkDirectionalParticleSpeed(0.004)
+                .linkDirectionalParticleColor(() => 'rgba(0, 255, 136, 0.6)')
+                .backgroundColor('#0a0a0f')
+                .dagMode('radialout')
+                .dagLevelDistance(80)
+                .d3VelocityDecay(0.15)
+                .onNodeClick(handleNodeClick)
+                .nodeCanvasObject((node, ctx, globalScale) => {
+                    const r = node.group === 'company' ? 12 : 6 + (node.score || 70) / 20;
+                    
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, r, 0, 2 * Math.PI);
+                    ctx.fillStyle = node.group === 'company' ? (node.color || '#ffffff') : getCompanyColor(node.parent);
+                    ctx.fill();
+                    
+                    ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                    
+                    if (globalScale > 1) {
+                        ctx.font = `${Math.max(10, 14/globalScale)}px Outfit, sans-serif`;
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(node.name, node.x, node.y + r + 12/globalScale);
+                    }
+                });
+            
+            graph.d3Force('charge').strength(-350);
+            graph.d3Force('center').strength(0.08);
+            graph.d3Force('collision').strength(18);
+            
+            if (loading) loading.style.display = 'none';
+            
+            setTimeout(() => {
+                if (graph) graph.zoomToFit(600);
+            }, 2000);
+            
+            initSidebar();
+            initControls();
+        } catch (e) {
+            console.error('Graph error:', e);
+            if (loading) loading.textContent = '加载失败: ' + e.message;
+        }
+    }
+    
+    if (typeof THREE !== 'undefined') {
+        startGraph();
+    } else {
+        setTimeout(startGraph, 500);
+    }
+}
+
+window.addEventListener('load', initGraph);
