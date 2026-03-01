@@ -2,138 +2,138 @@
     "files": [
         {
             "id": 1,
-            "title": "大语言模型评测方法综述",
-            "path": "docs/expert-profiles/llm-evaluation-methods.md",
-            "type": "expert-profile",
+            "title": "2026年AI模型终极对决：GPT-5.2 vs Claude Opus 4.6 vs Gemini 3.1 Pro",
+            "path": "docs/conclusion-reports/llm-2026-final-comparison.md",
+            "type": "conclusion-report",
             "date": "2026-03-01",
-            "tag": ["大语言模型", "评测方法", "综述"],
-            "description": "全面介绍当前主流的大语言模型评测方法和基准"
+            "tag": ["GPT-5.2", "Claude", "Gemini", "对比评测", "2026"],
+            "description": "2026年三大AI模型旗舰对比：GPT-5.2推理最强，Claude Opus 4.6编程称王，Gemini 3.1 Pro性价比称霸"
         },
         {
             "id": 2,
-            "title": "评测专家 - 李开复",
-            "path": "docs/expert-profiles/li-kaifu.md",
-            "type": "expert-profile",
+            "title": "Claude Sonnet 4.6评测：性价比之王诞生",
+            "path": "docs/conclusion-reports/sonnet-4-6-review.md",
+            "type": "conclusion-report",
             "date": "2026-02-28",
-            "tag": ["评测专家", "AI领域", "产业应用"],
-            "description": "创新工场创始人李开复的AI评测观点和贡献"
+            "tag": ["Claude", "Sonnet 4.6", "性价比", "评测"],
+            "description": "Anthropic发布史上最强Sonnet，价格仅为Opus五分之一，能力却追平旗舰"
         },
         {
             "id": 3,
-            "title": "评测专家 - 周志华",
-            "path": "docs/expert-profiles/zhou-zhihua.md",
-            "type": "expert-profile",
+            "title": "Gemini 3.1 Pro编码实测：血洗Claude与GPT",
+            "path": "docs/conclusion-reports/gemini-3-1-pro-coding.md",
+            "type": "conclusion-report",
             "date": "2026-02-27",
-            "tag": ["评测专家", "机器学习", "理论分析"],
-            "description": "南京大学教授周志华的机器学习评测研究"
+            "tag": ["Gemini", "编码", "SWE-bench", "评测"],
+            "description": "Gemini 3.1 Pro在12项基准测试中夺得第一，编码能力超越Claude Opus 4.6"
         },
         {
             "id": 4,
-            "title": "OpenAI Evals评测工具详解",
-            "path": "docs/tool-descriptions/openai-evals.md",
-            "type": "tool-description",
+            "title": "Kimi K2.5 vs DeepSeek V3.2：中国开源模型巅峰对决",
+            "path": "docs/conclusion-reports/kimi-vs-deepseek.md",
+            "type": "conclusion-report",
             "date": "2026-02-26",
-            "tag": ["评测工具", "OpenAI", "开源框架"],
-            "description": "深入了解OpenAI官方开源评测框架的使用方法"
+            "tag": ["Kimi", "DeepSeek", "开源", "MoE", "中国模型"],
+            "description": "两大中国开源MoE模型对比：K2.5基准更强，DeepSeek V3.2价格更低"
         },
         {
             "id": 5,
-            "title": "LM-Eval统一评测基准",
-            "path": "docs/tool-descriptions/lm-eval.md",
-            "type": "tool-description",
+            "title": "GPT-5.2 Codex深度评测：推理能力登顶",
+            "path": "docs/conclusion-reports/gpt-5-2-review.md",
+            "type": "conclusion-report",
             "date": "2026-02-25",
-            "tag": ["评测工具", "基准测试", "标准化"],
-            "description": "LM-Eval统一评测框架的功能和使用指南"
+            "tag": ["GPT-5", "OpenAI", "推理", "ARC-AGI"],
+            "description": "GPT-5.2在ARC-AGI-2上取得52.9%成绩，数学能力达100% AIME 2025"
         },
         {
             "id": 6,
-            "title": "HELM评测框架介绍",
-            "path": "docs/tool-descriptions/helm.md",
-            "type": "tool-description",
+            "title": "Claude Opus 4.6实测：百万上下文注入",
+            "path": "docs/conclusion-reports/opus-4-6-review.md",
+            "type": "conclusion-report",
             "date": "2026-02-24",
-            "tag": ["评测工具", "斯坦福", "学术评测"],
-            "description": "斯坦福大学HELM评测框架的详细解析"
+            "tag": ["Claude", "Opus 4.6", "编程", "长上下文"],
+            "description": "Claude Opus 4.6支持100万token上下文，长文检索准确率76%，编程能力提升83%"
         },
         {
             "id": 7,
-            "title": "指令跟随评测流程",
-            "path": "docs/process-documents/instruction-following.md",
-            "type": "process-document",
+            "title": "Qwen3 vs Kimi K2.5 开源模型对比",
+            "path": "docs/conclusion-reports/qwen3-vs-kimi.md",
+            "type": "conclusion-report",
             "date": "2026-02-23",
-            "tag": ["评测流程", "指令跟随", "能力评估"],
-            "description": "如何进行指令跟随能力的系统化评测"
+            "tag": ["Qwen", "Kimi", "开源", "对比"],
+            "description": "阿里Qwen3与月之暗面K2.5开源模型全方位对比"
         },
         {
             "id": 8,
-            "title": "安全对齐评测方法",
-            "path": "docs/process-documents/safety-alignment.md",
+            "title": "2026年AI模型评测基准全解析",
+            "path": "docs/process-documents/benchmark-2026.md",
             "type": "process-document",
             "date": "2026-02-22",
-            "tag": ["评测流程", "安全对齐", "风险评估"],
-            "description": "AI模型安全对齐的评测方法和流程"
+            "tag": ["基准测试", "SWE-bench", "MMLU", "ARC-AGI", "AIME"],
+            "description": "2026年主流AI评测基准详解：SWE-bench、ARC-AGI、MMLU、GPQA、AIME等"
         },
         {
             "id": 9,
-            "title": "多模态评测流程",
-            "path": "docs/process-documents/multimodal-evaluation.md",
-            "type": "process-document",
+            "title": "AI模型性价比排行：2026年2月",
+            "path": "docs/conclusion-reports/cost-performance-2026.md",
+            "type": "conclusion-report",
             "date": "2026-02-21",
-            "tag": ["评测流程", "多模态", "跨模态"],
-            "description": "多模态AI模型的评测流程和注意事项"
+            "tag": ["性价比", "API定价", "成本"],
+            "description": "2026年2月AI模型性价比排行：Gemini 3.1 Pro成本仅为竞品一半"
         },
         {
             "id": 10,
-            "title": "MMLU评测报告2026",
-            "path": "docs/conclusion-reports/mmlu-report-2026.md",
+            "title": "Claude Sonnet 4.6 vs Opus 4.6 选择指南",
+            "path": "docs/conclusion-reports/sonnet-vs-opus.md",
             "type": "conclusion-report",
             "date": "2026-02-20",
-            "tag": ["评测报告", "MMLU", "基准测试"],
-            "description": "MMLU基准的最新评测结果和分析"
+            "tag": ["Claude", "Sonnet", "Opus", "选择指南"],
+            "description": "59%用户偏好Sonnet 4.6而非Opus 4.5，花小钱办大事"
         },
         {
             "id": 11,
-            "title": "HumanEval代码生成评测",
-            "path": "docs/conclusion-reports/humaneval-report.md",
-            "type": "conclusion-report",
+            "title": "Artificial Analysis AI指数评测解读",
+            "path": "docs/tool-descriptions/artificial-analysis.md",
+            "type": "tool-description",
             "date": "2026-02-19",
-            "tag": ["评测报告", "代码生成", "HumanEval"],
-            "description": "HumanEval代码生成评测任务的最新结果"
+            "tag": ["Artificial Analysis", "评测机构", "AI指数"],
+            "description": "独立AI评测机构Artificial Analysis的评测方法和指数排名"
         },
         {
             "id": 12,
-            "title": "GPT-4综合评测报告",
-            "path": "docs/conclusion-reports/gpt4-comprehensive-report.md",
-            "type": "conclusion-report",
+            "title": "302.AI基准实验室评测方法",
+            "path": "docs/tool-descriptions/302-benchmark-lab.md",
+            "type": "tool-description",
             "date": "2026-02-18",
-            "tag": ["评测报告", "GPT-4", "综合评测"],
-            "description": "GPT-4模型的全面评测报告"
+            "tag": ["302.AI", "基准测试", "独立评测"],
+            "description": "302.AI独立第三方AI模型评测实验室介绍"
         },
         {
             "id": 13,
-            "title": "Claude模型评测分析",
-            "path": "docs/conclusion-reports/claude-evaluation.md",
+            "title": "GLM-5 vs Kimi K2.5：中国AI力量崛起",
+            "path": "docs/conclusion-reports/glm-vs-kimi.md",
             "type": "conclusion-report",
             "date": "2026-02-17",
-            "tag": ["评测报告", "Claude", "安全性"],
-            "description": "Claude模型的安全性和能力评测分析"
+            "tag": ["GLM", "Kimi", "智谱", "月之暗面"],
+            "description": "智谱GLM-5与月之暗面K2.5深度对比"
         },
         {
             "id": 14,
-            "title": "LLM评测论文综述",
-            "path": "docs/other-related/llm-evaluation-survey.md",
-            "type": "other",
+            "title": "AI Agent评测：Computer Use能力对比",
+            "path": "docs/process-documents/agent-evaluation.md",
+            "type": "process-document",
             "date": "2026-02-16",
-            "tag": ["学术文献", "综述", "LLM"],
-            "description": "大语言模型评测领域的学术论文综述"
+            "tag": ["Agent", "Computer Use", "智能体", "自动化"],
+            "description": "主流AI模型的Agent能力对比：Sonnet 4.6保险业测试达94%准确率"
         },
         {
             "id": 15,
-            "title": "AI评测热点趋势分析",
-            "path": "docs/other-related/ai-rating-trends.md",
+            "title": "2026年AI评测趋势：低成本模型逆袭",
+            "path": "docs/other-related/trend-2026.md",
             "type": "other",
             "date": "2026-02-15",
-            "tag": ["趋势分析", "热点", "行业研究"],
-            "description": "AI评测领域的最新发展趋势分析"
+            "tag": ["趋势", "行业分析", "2026"],
+            "description": "2026年AI评测趋势分析：低端逆袭高端成为结构性趋势"
         }
     ]
 }
