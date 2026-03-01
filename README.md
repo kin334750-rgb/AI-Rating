@@ -1,14 +1,27 @@
-# 🤖 AI评测功能网站
+# 🤖 AI-Rating | 智能评测平台
 
-基于开源代码全流程自动化构建，整合多个高质量平台信息源，聚焦追踪最火评测专家、评测工具、评测流程、评测结构及结论等信息。
+> 追踪全球AI模型最新评测动态
+
+[![Website](https://img.shields.io/badge/Website-AI--Rating-blue)](https://kin334750-rgb.github.io/AI-Rating/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+## ✨ 关于
+
+AI-Rating 是一个实时追踪全球AI模型评测动态的平台，基于X（原Twitter）、B站、GitHub等权威信息源，整合最新最热的AI模型评测信息，包括：
+
+- 🏆 主流模型对比（GPT-5.2、Claude、Gemini等）
+- 📊 评测基准解读（SWE-bench、MMLU、ARC-AGI等）
+- 🔧 评测工具分析（OpenCompass、EvalScope等）
+- 📈 行业趋势分析
 
 ## ✨ 特性
 
-- 📊 **权威信息聚合** - 严格筛选多个高质量平台信息源
-- 📁 **结构化文件归档** - 按时间线、信息类型分类展示
+- 🌐 **实时信息聚合** - 追踪X、B站、GitHub等平台最新动态
+- 📊 **主流模型评测** - 覆盖GPT、Claude、Gemini、Kimi、DeepSeek等
+- 🔬 **Benchmark解读** - 详解各评测基准及2026趋势变化
+- 🛠️ **评测工具评测** - 主流评测工具功能对比分析
 - 🌐 **3D知识图谱** - 可视化呈现AI评测生态关联
-- 🚀 **GitHub Pages一键部署** - 纯静态网页架构
-- 🔄 **全流程可复现** - 配套开源代码Prompt和配置文件
+- 📁 **结构化归档** - 按类型、时间线分类展示
 
 ## 🏗️ 项目架构
 
@@ -18,62 +31,99 @@ AI-Rating/
 ├── assets/              # 静态资源
 │   ├── css/            # 样式文件
 │   ├── js/             # 交互脚本
-│   └── data/           # 核心数据
+│   └── data/           # 核心数据（3D图谱、文件索引）
 ├── docs/               # 归档文件
-│   ├── expert-profiles/      # 评测专家
-│   ├── tool-descriptions/   # 评测工具
-│   ├── process-documents/   # 评测流程
 │   ├── conclusion-reports/  # 评测报告
-│   └── other-related/       # 其他文档
+│   ├── tool-descriptions/  # 评测工具介绍
+│   ├── process-documents/   # 评测流程文档
+│   └── other-related/      # 其他文档
 ├── templates/          # 可复现模板
 ├── index.html          # 网站首页
 ├── 3d-graph.html       # 3D知识图谱
 └── file-browser.html   # 文件浏览器
 ```
 
+## 📈 追踪的AI模型（2026）
+
+| 厂商 | 模型 | 核心优势 |
+|------|------|---------|
+| OpenAI | GPT-5.2 Codex | 推理最强 (ARC-AGI-2: 52.9%) |
+| Anthropic | Claude Opus 4.6 | 编程最强 (SWE-bench: 80.9%) |
+| Anthropic | Claude Sonnet 4.6 | 性价比之王 (半价 opus 性能) |
+| Google | Gemini 3.1 Pro | 性价比称霸 (成本仅为竞品一半) |
+| 月之暗面 | Kimi K2.5 | 中国开源旗舰 |
+| DeepSeek | V3.2 | MIT开源、价格击穿底价 |
+| 阿里 | Qwen3 | 开源新秀 |
+| 智谱 | GLM-5 | 开源第一 |
+
+## 🔬 主流Benchmark
+
+| Benchmark | 用途 | 代表模型 |
+|-----------|------|---------|
+| SWE-bench | 编程/代码修复 | Claude Opus 4.6 (80.9%) |
+| ARC-AGI-2 | 抽象推理 | GPT-5.2 (52.9%) |
+| AIME 2025 | 数学竞赛 | GPT-5.2 (100%) |
+| GPQA | 科学研究 | Kimi K2.5 (87.6%) |
+| MMLU | 多任务理解 | 90%+ |
+
+> ⚠️ 2026变化：aysebench Verified已退役，新基准SWE-bench Pro/SWE-rebench崛起
+
+## 🛠️ 评测工具
+
+| 工具 | 类型 | 特点 |
+|------|------|------|
+| OpenCompass | 中国开源 | 70+数据集 |
+| EvalScope | 阿里 | 全类型评测 |
+| FlagEval | 智源 | 8万+题目 |
+| Artificial Analysis | 第三方 | AI指数排名 |
+| 302.AI | 第三方 | 独立实测 |
+
 ## 🚀 快速开始
 
 ### 1. 克隆项目
 ```bash
-git clone https://github.com/yourusername/ai-rating.git
-cd ai-rating
+git clone https://github.com/kin334750-rgb/AI-Rating.git
+cd AI-Rating
 ```
 
 ### 2. 本地预览
-使用任意静态服务器：
 ```bash
 # Python
 python -m http.server 8000
 
-# Node.js
+# 或 Node.js
 npx serve .
 ```
 
-### 3. 部署到GitHub Pages
-1. 推送代码到GitHub仓库
-2. 进入 Settings > Pages
-3. Source选择 "GitHub Actions"
-4. 等待自动部署完成
+### 3. 访问
+打开浏览器访问：http://localhost:8000
 
-## 📖 使用指南
+## 📖 功能使用
 
-### 文件浏览
-访问 `file-browser.html` 查看所有归档文件，支持按时间、类型、标签筛选。
+### 首页
+- 查看最新评测动态
+- 快速了解主流模型对比
+- 了解评测趋势
+
+### 文章列表
+- 按类型筛选（评测报告、工具介绍、趋势分析）
+- 按时间筛选
+- 标签搜索
 
 ### 3D知识图谱
-访问 `3d-graph.html` 交互式查看AI评测生态：
-- 🖱️ 左键拖拽：旋转图谱
-- 🔄 滚轮：缩放
-- ✋ 右键拖拽：平移
-- 👆 点击节点：查看详情
+- 交互式查看AI评测生态
+- 节点拖拽
+- 节点筛选
+- 点击查看详情
 
-## 🤝 贡献指南
+## 🔄 更新日志
 
-1. Fork本仓库
-2. 创建特性分支：`git checkout -b feature/xxx`
-3. 提交修改：`git commit -m "feat: 添加xx功能"`
-4. 推送分支：`git push origin feature/xxx`
-5. 发起Pull Request
+### 2026-03-01
+- 新增2026年AI模型终极对比
+- 新增评测工具全解析
+- 新增Benchmark趋势分析
+- 新增SWE-bench退役解读
+- 支持多语言
 
 ## 📄 许可证
 
@@ -81,6 +131,7 @@ MIT License - 允许自由使用、修改、分发
 
 ## 🙏 致谢
 
-- Three.js - 3D渲染库
-- marked.js - Markdown解析
-- GitHub Pages - 免费托管服务
+- [Three.js](https://threejs.org/) - 3D渲染
+- [marked.js](https://marked.js.org/) - Markdown解析
+- [GitHub Pages](https://pages.github.com/) - 免费托管
+- 各AI模型厂商及评测机构
