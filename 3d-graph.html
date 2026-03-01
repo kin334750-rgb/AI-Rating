@@ -3,86 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D知识图谱 - AI评测功能网站</title>
+    <title>3D知识图谱 | AI评测</title>
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="site-header">
-            <div>
-                <h1 class="site-title">🌐 3D知识图谱</h1>
-                <span class="site-subtitle">AI Evaluation Knowledge Graph</span>
+    <header class="site-header">
+        <div class="header-top">
+            <div class="container">
+                <span class="date">Sunday, March 1, 2026</span>
+                <span class="tagline">追踪AI评测每一次脉动</span>
             </div>
-            <nav class="site-nav">
-                <a href="index.html" class="nav-link">首页</a>
-                <a href="file-browser.html" class="nav-link">文件归档</a>
-                <a href="3d-graph.html" class="nav-link active">3D知识图谱</a>
-            </nav>
-        </header>
+        </div>
+        <div class="header-main">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <span class="logo-text">AI</span>
+                    <span class="logo-sub">评测</span>
+                </a>
+                <nav class="site-nav">
+                    <a href="index.html" class="nav-link">首页</a>
+                    <a href="file-browser.html" class="nav-link">文章</a>
+                    <a href="3d-graph.html" class="nav-link active">图谱</a>
+                    <a href="#" class="nav-link">关于</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-        <main class="main-content graph-page">
-            <div class="graph-controls">
-                <div class="control-group">
-                    <label>🔍</label>
-                    <input type="text" id="search-input" placeholder="搜索节点...">
+    <main class="main-content graph-page">
+        <div class="graph-controls">
+            <div class="control-group">
+                <label>🔍</label>
+                <input type="text" id="search-input" placeholder="搜索节点...">
+            </div>
+            <div class="control-group">
+                <label>📌</label>
+                <select id="type-filter">
+                    <option value="">全部类型</option>
+                    <option value="topic">AI评测热点</option>
+                    <option value="expert">评测专家</option>
+                    <option value="tool">评测工具</option>
+                    <option value="process">评测流程</option>
+                    <option value="conclusion">评测结论</option>
+                    <option value="literature">学术文献</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <button id="reset-view" class="btn btn-secondary">重置视角</button>
+            </div>
+        </div>
+
+        <div id="graph-container" class="graph-container"></div>
+
+        <div id="node-info" class="node-info-panel">
+            <div class="panel-header">
+                <h3>节点信息</h3>
+                <button id="close-panel" class="close-btn">×</button>
+            </div>
+            <div class="panel-content">
+                <div id="node-details"></div>
+            </div>
+        </div>
+
+        <div class="graph-legend">
+            <h4>图例</h4>
+            <div class="legend-items">
+                <div class="legend-item"><span class="legend-color" style="background: #ff6b6b;"></span> AI评测热点</div>
+                <div class="legend-item"><span class="legend-color" style="background: #4ecdc4;"></span> 评测专家</div>
+                <div class="legend-item"><span class="legend-color" style="background: #45b7d1;"></span> 评测工具</div>
+                <div class="legend-item"><span class="legend-color" style="background: #96ceb4;"></span> 评测流程</div>
+                <div class="legend-item"><span class="legend-color" style="background: #ffeaa7;"></span> 评测结论</div>
+                <div class="legend-item"><span class="legend-color" style="background: #a29bfe;"></span> 学术文献</div>
+            </div>
+        </div>
+
+        <div class="graph-instructions">
+            <h4>操作指南</h4>
+            <ul>
+                <li>🖱️ 左键拖拽: 旋转图谱</li>
+                <li>🔄 滚轮: 缩放图谱</li>
+                <li>✋ 右键拖拽: 平移视图</li>
+                <li>👆 拖拽节点: 移动位置</li>
+                <li>👆 点击节点: 查看详情</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-text">AI</span>
+                        <span class="logo-sub">评测</span>
+                    </div>
+                    <p>追踪AI评测每一次脉动</p>
                 </div>
-                <div class="control-group">
-                    <label>📌</label>
-                    <select id="type-filter">
-                        <option value="">全部类型</option>
-                        <option value="topic">AI评测热点</option>
-                        <option value="expert">评测专家</option>
-                        <option value="tool">评测工具</option>
-                        <option value="process">评测流程</option>
-                        <option value="conclusion">评测结论</option>
-                        <option value="literature">学术文献</option>
-                    </select>
+                <div class="footer-links">
+                    <h4>导航</h4>
+                    <a href="index.html">首页</a>
+                    <a href="file-browser.html">文章</a>
+                    <a href="3d-graph.html">图谱</a>
                 </div>
-                <div class="control-group">
-                    <button id="reset-view" class="btn btn-secondary">重置视角</button>
+                <div class="footer-links">
+                    <h4>分类</h4>
+                    <a href="file-browser.html?type=expert-profile">评测专家</a>
+                    <a href="file-browser.html?type=tool-description">评测工具</a>
+                    <a href="file-browser.html?type=conclusion-report">评测报告</a>
+                </div>
+                <div class="footer-links">
+                    <h4>资源</h4>
+                    <a href="#">GitHub</a>
+                    <a href="#">更新日志</a>
+                    <a href="#">贡献指南</a>
                 </div>
             </div>
-
-            <div id="graph-container" class="graph-container"></div>
-
-            <div id="node-info" class="node-info-panel">
-                <div class="panel-header">
-                    <h3>节点信息</h3>
-                    <button id="close-panel" class="close-btn">×</button>
-                </div>
-                <div class="panel-content">
-                    <div id="node-details"></div>
-                </div>
+            <div class="footer-bottom">
+                <p>© 2026 AI评测功能网站 · 开源项目 · MIT License</p>
             </div>
-
-            <div class="graph-legend">
-                <h4>图例</h4>
-                <div class="legend-items">
-                    <div class="legend-item"><span class="legend-color" style="background: #ff6b6b;"></span> AI评测热点</div>
-                    <div class="legend-item"><span class="legend-color" style="background: #4ecdc4;"></span> 评测专家</div>
-                    <div class="legend-item"><span class="legend-color" style="background: #45b7d1;"></span> 评测工具</div>
-                    <div class="legend-item"><span class="legend-color" style="background: #96ceb4;"></span> 评测流程</div>
-                    <div class="legend-item"><span class="legend-color" style="background: #ffeaa7;"></span> 评测结论</div>
-                    <div class="legend-item"><span class="legend-color" style="background: #a29bfe;"></span> 学术文献</div>
-                </div>
-            </div>
-
-            <div class="graph-instructions">
-                <h4>操作指南</h4>
-                <ul>
-                    <li>🖱️ 左键拖拽: 旋转图谱</li>
-                    <li>🔄 滚轮: 缩放图谱</li>
-                    <li>✋ 右键拖拽: 平移视图</li>
-                    <li>👆 拖拽节点: 移动位置</li>
-                    <li>👆 点击节点: 查看详情</li>
-                </ul>
-            </div>
-        </main>
-
-        <footer class="site-footer">
-            <p>© 2026 AI评测功能网站 - 开源项目 · MIT License</p>
-        </footer>
-    </div>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>

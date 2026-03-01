@@ -3,23 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文件归档 - AI评测功能网站</title>
+    <title>文章列表 | AI评测</title>
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="site-header">
-            <div>
-                <h1 class="site-title">📁 文件归档</h1>
-                <span class="site-subtitle">AI Evaluation File Archive</span>
+    <header class="site-header">
+        <div class="header-top">
+            <div class="container">
+                <span class="date">Sunday, March 1, 2026</span>
+                <span class="tagline">追踪AI评测每一次脉动</span>
             </div>
-            <nav class="site-nav">
-                <a href="index.html" class="nav-link">首页</a>
-                <a href="file-browser.html" class="nav-link active">文件归档</a>
-                <a href="3d-graph.html" class="nav-link">3D知识图谱</a>
-            </nav>
-        </header>
+        </div>
+        <div class="header-main">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <span class="logo-text">AI</span>
+                    <span class="logo-sub">评测</span>
+                </a>
+                <nav class="site-nav">
+                    <a href="index.html" class="nav-link">首页</a>
+                    <a href="file-browser.html" class="nav-link active">文章</a>
+                    <a href="3d-graph.html" class="nav-link">图谱</a>
+                    <a href="#" class="nav-link">关于</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
+    <main class="main-content">
         <div class="browser-controls">
             <div class="filter-group">
                 <label>📅</label>
@@ -46,36 +60,66 @@
                 <input type="text" id="tag-filter" placeholder="标签筛选...">
             </div>
             <div class="search-group">
-                <input type="text" id="search-input" placeholder="🔍 搜索文件...">
+                <input type="text" id="search-input" placeholder="🔍 搜索文章...">
             </div>
         </div>
 
         <div class="browser-content">
             <aside class="file-sidebar">
-                <div class="sidebar-header">📂 文件浏览器</div>
+                <div class="sidebar-header">📂 文章分类</div>
                 <div id="file-tree" class="file-tree"></div>
             </aside>
 
             <section class="file-viewer">
                 <div id="file-header" class="file-header">
-                    <h2>选择文件查看</h2>
+                    <h2>选择文章查看</h2>
                 </div>
                 <div id="file-content" class="file-content">
                     <div class="empty-state">
-                        <p>👈 从左侧选择一个文件开始浏览</p>
+                        <p>👈 从左侧选择一篇开始阅读</p>
                     </div>
                 </div>
                 <div id="file-actions" class="file-actions hidden">
                     <a id="download-btn" href="#" class="btn btn-secondary" download>📥 下载</a>
-                    <a id="edit-btn" href="#" class="btn btn-secondary" target="_blank">✏️ 编辑</a>
                 </div>
             </section>
         </div>
+    </main>
 
-        <footer class="site-footer">
-            <p>© 2026 AI评测功能网站 - 开源项目 · MIT License</p>
-        </footer>
-    </div>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-text">AI</span>
+                        <span class="logo-sub">评测</span>
+                    </div>
+                    <p>追踪AI评测每一次脉动</p>
+                </div>
+                <div class="footer-links">
+                    <h4>导航</h4>
+                    <a href="index.html">首页</a>
+                    <a href="file-browser.html">文章</a>
+                    <a href="3d-graph.html">图谱</a>
+                </div>
+                <div class="footer-links">
+                    <h4>分类</h4>
+                    <a href="file-browser.html?type=expert-profile">评测专家</a>
+                    <a href="file-browser.html?type=tool-description">评测工具</a>
+                    <a href="file-browser.html?type=conclusion-report">评测报告</a>
+                </div>
+                <div class="footer-links">
+                    <h4>资源</h4>
+                    <a href="#">GitHub</a>
+                    <a href="#">更新日志</a>
+                    <a href="#">贡献指南</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 AI评测功能网站 · 开源项目 · MIT License</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="assets/js/main.js"></script>

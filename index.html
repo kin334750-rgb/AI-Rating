@@ -3,100 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI评测功能网站 - AI Rating</title>
+    <title>AI评测 | Intelligence Evaluation Journal</title>
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="site-header">
-            <div>
-                <h1 class="site-title">🤖 AI评测功能网站</h1>
-                <span class="site-subtitle">AI Evaluation Platform - 追踪AI评测生态</span>
+    <header class="site-header">
+        <div class="header-top">
+            <div class="container">
+                <span class="date">Sunday, March 1, 2026</span>
+                <span class="tagline">追踪AI评测每一次脉动</span>
             </div>
-            <nav class="site-nav">
-                <a href="index.html" class="nav-link active">首页</a>
-                <a href="file-browser.html" class="nav-link">文件归档</a>
-                <a href="3d-graph.html" class="nav-link">3D知识图谱</a>
-            </nav>
-        </header>
+        </div>
+        <div class="header-main">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <span class="logo-text">AI</span>
+                    <span class="logo-sub">评测</span>
+                </a>
+                <nav class="site-nav">
+                    <a href="index.html" class="nav-link active">首页</a>
+                    <a href="file-browser.html" class="nav-link">文章</a>
+                    <a href="3d-graph.html" class="nav-link">图谱</a>
+                    <a href="#" class="nav-link">关于</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-        <main class="main-content">
-            <section class="hero-section">
-                <h2>欢迎来到AI评测功能工作流平台</h2>
-                <p>整合权威信息源，追踪评测专家、工具、流程与结论</p>
-                <div class="hero-actions">
-                    <a href="file-browser.html" class="btn btn-primary">📁 浏览文件</a>
-                    <a href="3d-graph.html" class="btn btn-secondary">🌐 3D知识图谱</a>
-                </div>
-            </section>
-
-            <section class="stats-section">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" id="expert-count">0</div>
-                        <div class="stat-label">评测专家</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="tool-count">0</div>
-                        <div class="stat-label">评测工具</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="process-count">0</div>
-                        <div class="stat-label">评测流程</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="report-count">0</div>
-                        <div class="stat-label">评测报告</div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="preview-section">
-                <div class="preview-grid">
-                    <div class="preview-card">
-                        <h3>📊 文件归档</h3>
-                        <p>按时间线、信息类型分类展示AI评测相关文件</p>
-                        <div id="recent-files" class="file-list"></div>
-                        <a href="file-browser.html" class="link-more">查看全部 →</a>
-                    </div>
-                    <div class="preview-card">
-                        <h3>🌐 3D知识图谱</h3>
-                        <p>可视化呈现AI评测生态关联逻辑，支持拖拽交互</p>
-                        <div id="graph-preview" class="graph-preview">
-                            <span>点击查看完整图谱 →</span>
+    <main class="main-content">
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-grid">
+                    <article class="hero-article">
+                        <div class="hero-image">
+                            <div class="image-placeholder gradient-1"></div>
                         </div>
-                        <a href="3d-graph.html" class="link-more">查看大图 →</a>
+                        <div class="hero-content">
+                            <span class="category-tag">封面专题</span>
+                            <h1>大语言模型评测新时代</h1>
+                            <p>全面解析2026年AI评测领域最新发展趋势，从基准测试到实际应用深度分析</p>
+                            <div class="meta">
+                                <span class="author">AI评测编辑部</span>
+                                <span class="separator">·</span>
+                                <span class="read-time">12 min read</span>
+                            </div>
+                        </div>
+                    </article>
+                    <aside class="hero-sidebar">
+                        <article class="sidebar-article">
+                            <span class="category-tag tag-hot">热门</span>
+                            <h3>GPT-4 vs Claude 3 评测对比</h3>
+                            <div class="meta"><span>2026-03-01</span></div>
+                        </article>
+                        <article class="sidebar-article">
+                            <span class="category-tag">深度</span>
+                            <h3>多模态模型评测方法论</h3>
+                            <div class="meta"><span>2026-02-28</span></div>
+                        </article>
+                        <article class="sidebar-article">
+                            <span class="category-tag">趋势</span>
+                            <h3>AI安全评测的未来</h3>
+                            <div class="meta"><span>2026-02-27</span></div>
+                        </article>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-bar">
+            <div class="container">
+                <div class="stats-flex">
+                    <div class="stat-item">
+                        <span class="stat-icon">👥</span>
+                        <span class="stat-label">评测专家</span>
+                        <span class="stat-number" id="expert-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🔧</span>
+                        <span class="stat-label">评测工具</span>
+                        <span class="stat-number" id="tool-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">📋</span>
+                        <span class="stat-label">评测流程</span>
+                        <span class="stat-number" id="process-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">📊</span>
+                        <span class="stat-label">评测报告</span>
+                        <span class="stat-number" id="report-count">0</span>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="categories-section">
-                <div class="categories-grid">
+        <section class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">最新文章</h2>
+                    <a href="file-browser.html" class="view-all">查看全部 →</a>
+                </div>
+                <div class="articles-grid" id="articles-grid">
+                    <article class="article-card">
+                        <div class="card-image gradient-2"></div>
+                        <div class="card-content">
+                            <span class="category-tag">评测工具</span>
+                            <h3>OpenAI Evals 深度解析</h3>
+                            <p>深入了解OpenAI官方开源评测框架的使用方法与最佳实践</p>
+                            <div class="meta">
+                                <span>2026-02-26</span>
+                                <span class="separator">·</span>
+                                <span>8 min</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="article-card">
+                        <div class="card-image gradient-3"></div>
+                        <div class="card-content">
+                            <span class="category-tag">评测流程</span>
+                            <h3>指令跟随评测完整指南</h3>
+                            <p>如何进行指令跟随能力的系统化评测</p>
+                            <div class="meta">
+                                <span>2026-02-23</span>
+                                <span class="separator">·</span>
+                                <span>10 min</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="article-card">
+                        <div class="card-image gradient-4"></div>
+                        <div class="card-content">
+                            <span class="category-tag">评测报告</span>
+                            <h3>MMLU 2026评测报告</h3>
+                            <p>MMLU基准的最新评测结果和分析</p>
+                            <div class="meta">
+                                <span>2026-02-20</span>
+                                <span class="separator">·</span>
+                                <span>6 min</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section section-light">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">3D知识图谱</h2>
+                    <a href="3d-graph.html" class="view-all">进入图谱 →</a>
+                </div>
+                <div class="graph-preview-container">
+                    <div class="graph-preview-card">
+                        <div class="graph-preview-visual">
+                            <div class="node-animation">
+                                <span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <div class="graph-preview-info">
+                            <h3>探索AI评测生态</h3>
+                            <p>可视化呈现评测专家、工具、流程与结论的关联逻辑</p>
+                            <ul class="feature-list">
+                                <li>✓ 20+ 评测节点</li>
+                                <li>✓ 30+ 关联关系</li>
+                                <li>✓ 交互式探索</li>
+                            </ul>
+                            <a href="3d-graph.html" class="btn btn-primary">开始探索</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="categories-row">
                     <a href="file-browser.html?type=expert-profile" class="category-card">
-                        <span class="category-icon">👤</span>
-                        <span class="category-name">评测专家</span>
+                        <span class="cat-icon">👤</span>
+                        <span class="cat-name">评测专家</span>
                     </a>
                     <a href="file-browser.html?type=tool-description" class="category-card">
-                        <span class="category-icon">🔧</span>
-                        <span class="category-name">评测工具</span>
+                        <span class="cat-icon">🔧</span>
+                        <span class="cat-name">评测工具</span>
                     </a>
                     <a href="file-browser.html?type=process-document" class="category-card">
-                        <span class="category-icon">📋</span>
-                        <span class="category-name">评测流程</span>
+                        <span class="cat-icon">📋</span>
+                        <span class="cat-name">评测流程</span>
                     </a>
                     <a href="file-browser.html?type=conclusion-report" class="category-card">
-                        <span class="category-icon">📊</span>
-                        <span class="category-name">评测报告</span>
+                        <span class="cat-icon">📊</span>
+                        <span class="cat-name">评测报告</span>
                     </a>
                 </div>
-            </section>
-        </main>
+            </div>
+        </section>
+    </main>
 
-        <footer class="site-footer">
-            <p>© 2026 AI评测功能网站 - 开源项目 · MIT License</p>
-            <p>基于GitHub Pages部署 · 全流程可复现</p>
-        </footer>
-    </div>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-text">AI</span>
+                        <span class="logo-sub">评测</span>
+                    </div>
+                    <p>追踪AI评测每一次脉动</p>
+                </div>
+                <div class="footer-links">
+                    <h4>导航</h4>
+                    <a href="index.html">首页</a>
+                    <a href="file-browser.html">文章</a>
+                    <a href="3d-graph.html">图谱</a>
+                </div>
+                <div class="footer-links">
+                    <h4>分类</h4>
+                    <a href="file-browser.html?type=expert-profile">评测专家</a>
+                    <a href="file-browser.html?type=tool-description">评测工具</a>
+                    <a href="file-browser.html?type=conclusion-report">评测报告</a>
+                </div>
+                <div class="footer-links">
+                    <h4>资源</h4>
+                    <a href="#">GitHub</a>
+                    <a href="#">更新日志</a>
+                    <a href="#">贡献指南</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 AI评测功能网站 · 开源项目 · MIT License</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="assets/js/main.js"></script>
