@@ -15,9 +15,24 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: var(--accent-green);
+            color: #00ff88;
             font-size: 18px;
             z-index: 9999;
+            text-align: center;
+        }
+        .loading-spinner::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 40px;
+            margin: 10px auto;
+            border: 3px solid rgba(0,255,136,0.3);
+            border-top-color: #00ff88;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -117,10 +132,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/3d-force-graph@1.7.5/dist/3d-force-graph.min.js"></script>
-    <script>
-        window.Three = window.THREE;
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/force-graph/dist/force-graph.min.js"></script>
     <script src="assets/js/3d-graph.js"></script>
 </body>
 </html>

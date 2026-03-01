@@ -169,57 +169,69 @@ function initGraph() {
     if (!container) return;
     
     function startGraph() {
-        if (typeof ForceGraph3D === 'undefined') {
-            setTimeout(startGraph, 100);
+        if (typeof ForceGraph === 'undefined') {
+            console.log('Waiting for ForceGraph...');
+            setTimeout(startGraph, 200);
             return;
         }
         
         try {
-            graph = ForceGraph3D()(container)
+            const Graph3D = ForceGraph3D ? ForceGraph3D() : ForceGraph();
+            
+            graph = Graph3D()(container)
                 .graphData(graphData)
                 .nodeLabel('name')
                 .nodeColor(node => node.group === 'company' ? (node.color || '#ffffff') : getCompanyColor(node.parent))
-                .nodeVal(node => node.group === 'company' ? 25 : 12 + (node.score || 0) / 10)
-                .linkColor(() => 'rgba(0, 255, 136, 0.2)')
+                .nodeRelSize(6)
+                .linkColor(() => 'rgba(0, 255, 136, 0.3)')
                 .linkWidth(1)
                 .linkDirectionalParticles(2)
                 .linkDirectionalParticleSpeed(0.005)
-                .linkDirectionalParticleColor(() => 'rgba(0, 255, 136, 0.5)')
+                .linkDirectionalParticleColor(() => 'rgba(0, 255, 136, 0.6)')
                 .backgroundColor('#0a0a0f')
                 .onNodeClick(handleNodeClick)
                 .nodeCanvasObject((node, ctx, globalScale) => {
-                    const r = node.group === 'company' ? 8 : 5;
+                    const r = node.group === 'company' ? 10 : 6;
                     ctx.beginPath();
                     ctx.arc(node.x, node.y, r, 0, 2 * Math.PI);
                     ctx.fillStyle = node.group === 'company' ? (node.color || '#ffffff') : getCompanyColor(node.parent);
                     ctx.fill();
-                    if (globalScale > 1.5) {
-                        ctx.font = `${14/globalScale}px Outfit, sans-serif`;
-                        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    
+                    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                    
+                    if (globalScale > 1.2) {
+                        ctx.font = `${12/globalScale}px Outfit, sans-serif`;
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
                         ctx.textAlign = 'center';
-                        ctx.fillText(node.name, node.x, node.y + r + 12/globalScale);
+                        ctx.fillText(node.name, node.x, node.y + r + 14/globalScale);
                     }
                 });
             
-            graph.d3Force('charge').strength(-400);
-            graph.d3Force('center').strength(0.1);
-            graph.d3Force('collision').strength(20);
+            graph.d3Force('charge').strength(-300);
+            graph.d3Force('center').strength(0.15);
+            graph.d3Force('collision').strength(15);
             
             if (loading) loading.style.display = 'none';
             
             setTimeout(() => {
-                if (graph) graph.zoomToFit(400);
+                if (graph) graph.zoomToFit(500);
             }, 1500);
             
             initSidebar();
             initControls();
         } catch (e) {
-            console.error('Graph initialization error:', e);
-            if (loading) loading.textContent = '加载失败，请刷新页面';
+            console.error('Graph error:', e);
+            if (loading) loading.textContent = '加载失败: ' + e.message;
         }
     }
     
-    startGraph();
+    if (typeof THREE !== 'undefined') {
+        startGraph();
+    } else {
+        setTimeout(startGraph, 500);
+    }
 }
 
 window.addEventListener('load', initGraph);
