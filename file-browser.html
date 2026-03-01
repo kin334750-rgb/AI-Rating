@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件归档 - AI评测功能网站</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <div>
+                <h1 class="site-title">📁 文件归档</h1>
+                <span class="site-subtitle">AI Evaluation File Archive</span>
+            </div>
+            <nav class="site-nav">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="file-browser.html" class="nav-link active">文件归档</a>
+                <a href="3d-graph.html" class="nav-link">3D知识图谱</a>
+            </nav>
+        </header>
+
+        <div class="browser-controls">
+            <div class="filter-group">
+                <label>📅</label>
+                <select id="date-filter">
+                    <option value="">全部时间</option>
+                    <option value="7">最近7天</option>
+                    <option value="30">最近30天</option>
+                    <option value="90">最近90天</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>📂</label>
+                <select id="type-filter">
+                    <option value="">全部类型</option>
+                    <option value="expert-profile">评测专家</option>
+                    <option value="tool-description">评测工具</option>
+                    <option value="process-document">评测流程</option>
+                    <option value="conclusion-report">评测报告</option>
+                    <option value="other">其他文档</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>🏷️</label>
+                <input type="text" id="tag-filter" placeholder="标签筛选...">
+            </div>
+            <div class="search-group">
+                <input type="text" id="search-input" placeholder="🔍 搜索文件...">
+            </div>
+        </div>
+
+        <div class="browser-content">
+            <aside class="file-sidebar">
+                <div class="sidebar-header">📂 文件浏览器</div>
+                <div id="file-tree" class="file-tree"></div>
+            </aside>
+
+            <section class="file-viewer">
+                <div id="file-header" class="file-header">
+                    <h2>选择文件查看</h2>
+                </div>
+                <div id="file-content" class="file-content">
+                    <div class="empty-state">
+                        <p>👈 从左侧选择一个文件开始浏览</p>
+                    </div>
+                </div>
+                <div id="file-actions" class="file-actions hidden">
+                    <a id="download-btn" href="#" class="btn btn-secondary" download>📥 下载</a>
+                    <a id="edit-btn" href="#" class="btn btn-secondary" target="_blank">✏️ 编辑</a>
+                </div>
+            </section>
+        </div>
+
+        <footer class="site-footer">
+            <p>© 2026 AI评测功能网站 - 开源项目 · MIT License</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initFileBrowser();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+.graph-page {
+    position: relative;
+}
+
+.graph-controls {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-group label {
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.control-group input,
+.control-group select {
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-small);
+    font-size: 0.95rem;
+    min-width: 180px;
+}
+
+.graph-container {
+    width: 100%;
+    height: calc(100vh - 350px);
+    min-height: 500px;
+    background: linear-gradient(180deg, #0a0a1a 0%, #1a1a2e 100%);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+}
+
+.node-info-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 320px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
+    z-index: 10;
+    display: none;
+}
+
+.node-info-panel.active {
+    display: block;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.panel-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-light);
+    line-height: 1;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.close-btn:hover {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.panel-content {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.node-detail-item {
+    margin-bottom: 15px;
+}
+
+.node-detail-label {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.node-detail-value {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.node-type-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: white;
+}
+
+.node-type-topic { background: #ff6b6b; }
+.node-type-expert { background: #4ecdc4; }
+.node-type-tool { background: #45b7d1; }
+.node-type-process { background: #96ceb4; }
+.node-type-conclusion { background: #f9ca24; color: #333; }
+.node-type-literature { background: #a29bfe; }
+
+.graph-legend {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 20px;
+    border-radius: var(--radius-small);
+    color: white;
+    z-index: 10;
+}
+
+.graph-legend h4 {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.graph-instructions {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 20px;
+    border-radius: var(--radius-small);
+    color: white;
+    z-index: 10;
+}
+
+.graph-instructions h4 {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.graph-instructions ul {
+    list-style: none;
+    font-size: 0.85rem;
+}
+
+.graph-instructions li {
+    margin-bottom: 5px;
+}
+
+/* Node colors */
+.node-sphere {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.node-sphere:hover {
+    transform: scale(1.2);
+}
+
+.node-label {
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    pointer-events: none;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    white-space: nowrap;
+}
+
+/* Loading state */
+.graph-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .graph-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .control-group {
+        width: 100%;
+    }
+    
+    .control-group input,
+    .control-group select {
+        width: 100%;
+    }
+    
+    .node-info-panel {
+        width: calc(100% - 40px);
+        left: 20px;
+        right: 20px;
+    }
+    
+    .graph-legend,
+    .graph-instructions {
+        display: none;
+    }
+    
+    .graph-container {
+        height: 60vh;
+        min-height: 400px;
+    }
+}

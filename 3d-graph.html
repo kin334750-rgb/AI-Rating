@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D知识图谱 - AI评测功能网站</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <div>
+                <h1 class="site-title">🌐 3D知识图谱</h1>
+                <span class="site-subtitle">AI Evaluation Knowledge Graph</span>
+            </div>
+            <nav class="site-nav">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="file-browser.html" class="nav-link">文件归档</a>
+                <a href="3d-graph.html" class="nav-link active">3D知识图谱</a>
+            </nav>
+        </header>
+
+        <main class="main-content graph-page">
+            <div class="graph-controls">
+                <div class="control-group">
+                    <label>🔍</label>
+                    <input type="text" id="search-input" placeholder="搜索节点...">
+                </div>
+                <div class="control-group">
+                    <label>📌</label>
+                    <select id="type-filter">
+                        <option value="">全部类型</option>
+                        <option value="topic">AI评测热点</option>
+                        <option value="expert">评测专家</option>
+                        <option value="tool">评测工具</option>
+                        <option value="process">评测流程</option>
+                        <option value="conclusion">评测结论</option>
+                        <option value="literature">学术文献</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <button id="reset-view" class="btn btn-secondary">重置视角</button>
+                </div>
+            </div>
+
+            <div id="graph-container" class="graph-container"></div>
+
+            <div id="node-info" class="node-info-panel">
+                <div class="panel-header">
+                    <h3>节点信息</h3>
+                    <button id="close-panel" class="close-btn">×</button>
+                </div>
+                <div class="panel-content">
+                    <div id="node-details"></div>
+                </div>
+            </div>
+
+            <div class="graph-legend">
+                <h4>图例</h4>
+                <div class="legend-items">
+                    <div class="legend-item"><span class="legend-color" style="background: #ff6b6b;"></span> AI评测热点</div>
+                    <div class="legend-item"><span class="legend-color" style="background: #4ecdc4;"></span> 评测专家</div>
+                    <div class="legend-item"><span class="legend-color" style="background: #45b7d1;"></span> 评测工具</div>
+                    <div class="legend-item"><span class="legend-color" style="background: #96ceb4;"></span> 评测流程</div>
+                    <div class="legend-item"><span class="legend-color" style="background: #ffeaa7;"></span> 评测结论</div>
+                    <div class="legend-item"><span class="legend-color" style="background: #a29bfe;"></span> 学术文献</div>
+                </div>
+            </div>
+
+            <div class="graph-instructions">
+                <h4>操作指南</h4>
+                <ul>
+                    <li>🖱️ 左键拖拽: 旋转图谱</li>
+                    <li>🔄 滚轮: 缩放图谱</li>
+                    <li>✋ 右键拖拽: 平移视图</li>
+                    <li>👆 拖拽节点: 移动位置</li>
+                    <li>👆 点击节点: 查看详情</li>
+                </ul>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <p>© 2026 AI评测功能网站 - 开源项目 · MIT License</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="assets/js/3d-graph.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('close-panel')?.addEventListener('click', function() {
+                document.getElementById('node-info').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

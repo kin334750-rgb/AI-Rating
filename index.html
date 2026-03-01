@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI评测功能网站 - AI Rating</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <div>
+                <h1 class="site-title">🤖 AI评测功能网站</h1>
+                <span class="site-subtitle">AI Evaluation Platform - 追踪AI评测生态</span>
+            </div>
+            <nav class="site-nav">
+                <a href="index.html" class="nav-link active">首页</a>
+                <a href="file-browser.html" class="nav-link">文件归档</a>
+                <a href="3d-graph.html" class="nav-link">3D知识图谱</a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <section class="hero-section">
+                <h2>欢迎来到AI评测功能工作流平台</h2>
+                <p>整合权威信息源，追踪评测专家、工具、流程与结论</p>
+                <div class="hero-actions">
+                    <a href="file-browser.html" class="btn btn-primary">📁 浏览文件</a>
+                    <a href="3d-graph.html" class="btn btn-secondary">🌐 3D知识图谱</a>
+                </div>
+            </section>
+
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="expert-count">0</div>
+                        <div class="stat-label">评测专家</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="tool-count">0</div>
+                        <div class="stat-label">评测工具</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="process-count">0</div>
+                        <div class="stat-label">评测流程</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="report-count">0</div>
+                        <div class="stat-label">评测报告</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="preview-section">
+                <div class="preview-grid">
+                    <div class="preview-card">
+                        <h3>📊 文件归档</h3>
+                        <p>按时间线、信息类型分类展示AI评测相关文件</p>
+                        <div id="recent-files" class="file-list"></div>
+                        <a href="file-browser.html" class="link-more">查看全部 →</a>
+                    </div>
+                    <div class="preview-card">
+                        <h3>🌐 3D知识图谱</h3>
+                        <p>可视化呈现AI评测生态关联逻辑，支持拖拽交互</p>
+                        <div id="graph-preview" class="graph-preview">
+                            <span>点击查看完整图谱 →</span>
+                        </div>
+                        <a href="3d-graph.html" class="link-more">查看大图 →</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categories-section">
+                <div class="categories-grid">
+                    <a href="file-browser.html?type=expert-profile" class="category-card">
+                        <span class="category-icon">👤</span>
+                        <span class="category-name">评测专家</span>
+                    </a>
+                    <a href="file-browser.html?type=tool-description" class="category-card">
+                        <span class="category-icon">🔧</span>
+                        <span class="category-name">评测工具</span>
+                    </a>
+                    <a href="file-browser.html?type=process-document" class="category-card">
+                        <span class="category-icon">📋</span>
+                        <span class="category-name">评测流程</span>
+                    </a>
+                    <a href="file-browser.html?type=conclusion-report" class="category-card">
+                        <span class="category-icon">📊</span>
+                        <span class="category-name">评测报告</span>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>© 2026 AI评测功能网站 - 开源项目 · MIT License</p>
+            <p>基于GitHub Pages部署 · 全流程可复现</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

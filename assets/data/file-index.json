@@ -1,0 +1,139 @@
+{
+    "files": [
+        {
+            "id": 1,
+            "title": "大语言模型评测方法综述",
+            "path": "docs/expert-profiles/llm-evaluation-methods.md",
+            "type": "expert-profile",
+            "date": "2026-03-01",
+            "tag": ["大语言模型", "评测方法", "综述"],
+            "description": "全面介绍当前主流的大语言模型评测方法和基准"
+        },
+        {
+            "id": 2,
+            "title": "评测专家 - 李开复",
+            "path": "docs/expert-profiles/li-kaifu.md",
+            "type": "expert-profile",
+            "date": "2026-02-28",
+            "tag": ["评测专家", "AI领域", "产业应用"],
+            "description": "创新工场创始人李开复的AI评测观点和贡献"
+        },
+        {
+            "id": 3,
+            "title": "评测专家 - 周志华",
+            "path": "docs/expert-profiles/zhou-zhihua.md",
+            "type": "expert-profile",
+            "date": "2026-02-27",
+            "tag": ["评测专家", "机器学习", "理论分析"],
+            "description": "南京大学教授周志华的机器学习评测研究"
+        },
+        {
+            "id": 4,
+            "title": "OpenAI Evals评测工具详解",
+            "path": "docs/tool-descriptions/openai-evals.md",
+            "type": "tool-description",
+            "date": "2026-02-26",
+            "tag": ["评测工具", "OpenAI", "开源框架"],
+            "description": "深入了解OpenAI官方开源评测框架的使用方法"
+        },
+        {
+            "id": 5,
+            "title": "LM-Eval统一评测基准",
+            "path": "docs/tool-descriptions/lm-eval.md",
+            "type": "tool-description",
+            "date": "2026-02-25",
+            "tag": ["评测工具", "基准测试", "标准化"],
+            "description": "LM-Eval统一评测框架的功能和使用指南"
+        },
+        {
+            "id": 6,
+            "title": "HELM评测框架介绍",
+            "path": "docs/tool-descriptions/helm.md",
+            "type": "tool-description",
+            "date": "2026-02-24",
+            "tag": ["评测工具", "斯坦福", "学术评测"],
+            "description": "斯坦福大学HELM评测框架的详细解析"
+        },
+        {
+            "id": 7,
+            "title": "指令跟随评测流程",
+            "path": "docs/process-documents/instruction-following.md",
+            "type": "process-document",
+            "date": "2026-02-23",
+            "tag": ["评测流程", "指令跟随", "能力评估"],
+            "description": "如何进行指令跟随能力的系统化评测"
+        },
+        {
+            "id": 8,
+            "title": "安全对齐评测方法",
+            "path": "docs/process-documents/safety-alignment.md",
+            "type": "process-document",
+            "date": "2026-02-22",
+            "tag": ["评测流程", "安全对齐", "风险评估"],
+            "description": "AI模型安全对齐的评测方法和流程"
+        },
+        {
+            "id": 9,
+            "title": "多模态评测流程",
+            "path": "docs/process-documents/multimodal-evaluation.md",
+            "type": "process-document",
+            "date": "2026-02-21",
+            "tag": ["评测流程", "多模态", "跨模态"],
+            "description": "多模态AI模型的评测流程和注意事项"
+        },
+        {
+            "id": 10,
+            "title": "MMLU评测报告2026",
+            "path": "docs/conclusion-reports/mmlu-report-2026.md",
+            "type": "conclusion-report",
+            "date": "2026-02-20",
+            "tag": ["评测报告", "MMLU", "基准测试"],
+            "description": "MMLU基准的最新评测结果和分析"
+        },
+        {
+            "id": 11,
+            "title": "HumanEval代码生成评测",
+            "path": "docs/conclusion-reports/humaneval-report.md",
+            "type": "conclusion-report",
+            "date": "2026-02-19",
+            "tag": ["评测报告", "代码生成", "HumanEval"],
+            "description": "HumanEval代码生成评测任务的最新结果"
+        },
+        {
+            "id": 12,
+            "title": "GPT-4综合评测报告",
+            "path": "docs/conclusion-reports/gpt4-comprehensive-report.md",
+            "type": "conclusion-report",
+            "date": "2026-02-18",
+            "tag": ["评测报告", "GPT-4", "综合评测"],
+            "description": "GPT-4模型的全面评测报告"
+        },
+        {
+            "id": 13,
+            "title": "Claude模型评测分析",
+            "path": "docs/conclusion-reports/claude-evaluation.md",
+            "type": "conclusion-report",
+            "date": "2026-02-17",
+            "tag": ["评测报告", "Claude", "安全性"],
+            "description": "Claude模型的安全性和能力评测分析"
+        },
+        {
+            "id": 14,
+            "title": "LLM评测论文综述",
+            "path": "docs/other-related/llm-evaluation-survey.md",
+            "type": "other",
+            "date": "2026-02-16",
+            "tag": ["学术文献", "综述", "LLM"],
+            "description": "大语言模型评测领域的学术论文综述"
+        },
+        {
+            "id": 15,
+            "title": "AI评测热点趋势分析",
+            "path": "docs/other-related/ai-rating-trends.md",
+            "type": "other",
+            "date": "2026-02-15",
+            "tag": ["趋势分析", "热点", "行业研究"],
+            "description": "AI评测领域的最新发展趋势分析"
+        }
+    ]
+}

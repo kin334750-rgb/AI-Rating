@@ -1,0 +1,234 @@
+{
+    "nodes": [
+        {
+            "id": 1,
+            "name": "大语言模型评测",
+            "type": "topic",
+            "description": "当前AI评测最热门的方向，涵盖GPT-4、Claude、Gemini等主流模型的评测研究",
+            "x": 0,
+            "y": 15,
+            "z": 0
+        },
+        {
+            "id": 2,
+            "name": "GPT-4评测",
+            "type": "topic",
+            "description": "OpenAI最新模型的评测研究，包括能力评估、安全性分析等",
+            "x": 20,
+            "y": 8,
+            "z": 15
+        },
+        {
+            "id": 3,
+            "name": "Claude评测",
+            "type": "topic",
+            "description": "Anthropic Claude模型的评测分析，专注对齐性与安全性",
+            "x": -20,
+            "y": 8,
+            "z": 15
+        },
+        {
+            "id": 4,
+            "name": "图像识别评测",
+            "type": "topic",
+            "description": "计算机视觉评测方向，包括目标检测、图像分割等任务",
+            "x": 0,
+            "y": -10,
+            "z": 25
+        },
+        {
+            "id": 5,
+            "name": "多模态评测",
+            "type": "topic",
+            "description": "评估模型对文本、图像、音频等多模态内容的理解与生成能力",
+            "x": 25,
+            "y": 0,
+            "z": -15
+        },
+        {
+            "id": 6,
+            "name": "李开复",
+            "type": "expert",
+            "description": "创新工场创始人，AI领域知名专家",
+            "expertise": ["大模型评测", "AI应用", "产业落地"],
+            "x": 30,
+            "y": 20,
+            "z": -10
+        },
+        {
+            "id": 7,
+            "name": "周志华",
+            "type": "expert",
+            "description": "南京大学教授，机器学习领域专家",
+            "expertise": ["算法评测", "机器学习", "理论分析"],
+            "x": -30,
+            "y": 20,
+            "z": -10
+        },
+        {
+            "id": 8,
+            "name": "张亚勤",
+            "type": "expert",
+            "description": "清华大学教授，智能产业研究院院长",
+            "expertise": ["AI评测", "自动驾驶", "云计算"],
+            "x": 0,
+            "y": 25,
+            "z": -20
+        },
+        {
+            "id": 9,
+            "name": "吴恩达",
+            "type": "expert",
+            "description": "斯坦福大学教授，AI教育先驱",
+            "expertise": ["深度学习", "AI教育", "自动驾驶"],
+            "x": 15,
+            "y": -20,
+            "z": 10
+        },
+        {
+            "id": 10,
+            "name": "OpenAI Evals",
+            "type": "tool",
+            "description": "OpenAI官方开源评测框架，支持自定义评测集",
+            "features": ["开源", "可定制", "自动化"],
+            "x": 35,
+            "y": 5,
+            "z": 10
+        },
+        {
+            "id": 11,
+            "name": "LM-Eval",
+            "type": "tool",
+            "description": "统一评测基准，支持100+评测任务",
+            "features": ["多模型支持", "标准化", "全面评测"],
+            "x": -35,
+            "y": 5,
+            "z": 10
+        },
+        {
+            "id": 12,
+            "name": "HELM",
+            "type": "tool",
+            "description": "斯坦福大学开发的全面评测框架",
+            "features": ["学术标准", "多维度评测", "透明性"],
+            "x": 20,
+            "y": -15,
+            "z": 20
+        },
+        {
+            "id": 13,
+            "name": "ChatArena",
+            "type": "tool",
+            "description": "对话模型竞技评测平台，支持ELO排名",
+            "features": ["竞技评测", "ELO排名", "实时更新"],
+            "x": -20,
+            "y": -15,
+            "z": 20
+        },
+        {
+            "id": 14,
+            "name": "指令跟随评测",
+            "type": "process",
+            "description": "评估模型对复杂指令的理解和执行能力",
+            "x": 15,
+            "y": 12,
+            "z": -25
+        },
+        {
+            "id": 15,
+            "name": "安全对齐评测",
+            "type": "process",
+            "description": "评估模型的安全性、对齐程度和潜在风险",
+            "x": -15,
+            "y": 12,
+            "z": -25
+        },
+        {
+            "id": 16,
+            "name": "知识蒸馏评测",
+            "type": "process",
+            "description": "评估模型知识蒸馏效果和效率",
+            "x": 0,
+            "y": -25,
+            "z": 0
+        },
+        {
+            "id": 17,
+            "name": "MMLU",
+            "type": "conclusion",
+            "description": "大规模多任务语言理解基准",
+            "accuracy": "85%+",
+            "tasks": 57,
+            "x": 40,
+            "y": 15,
+            "z": 0
+        },
+        {
+            "id": 18,
+            "name": "HumanEval",
+            "type": "conclusion",
+            "description": "代码生成评测基准",
+            "accuracy": "80%+",
+            "tasks": 164,
+            "x": -40,
+            "y": 15,
+            "z": 0
+        },
+        {
+            "id": 19,
+            "name": "MMMU",
+            "type": "conclusion",
+            "description": "多模态多学科理解评测",
+            "accuracy": "65%+",
+            "tasks": 30,
+            "x": 30,
+            "y": -5,
+            "z": -30
+        },
+        {
+            "id": 20,
+            "name": "LLM评测综述",
+            "type": "literature",
+            "title": "A Survey on Evaluation of Large Language Models",
+            "year": 2024,
+            "x": -30,
+            "y": -5,
+            "z": -30
+        }
+    ],
+    "links": [
+        { "source": 1, "target": 2 },
+        { "source": 1, "target": 3 },
+        { "source": 1, "target": 4 },
+        { "source": 1, "target": 5 },
+        { "source": 2, "target": 10 },
+        { "source": 2, "target": 17 },
+        { "source": 2, "target": 14 },
+        { "source": 3, "target": 10 },
+        { "source": 3, "target": 15 },
+        { "source": 4, "target": 12 },
+        { "source": 5, "target": 19 },
+        { "source": 5, "target": 13 },
+        { "source": 6, "target": 1 },
+        { "source": 6, "target": 14 },
+        { "source": 7, "target": 1 },
+        { "source": 7, "target": 17 },
+        { "source": 8, "target": 4 },
+        { "source": 8, "target": 16 },
+        { "source": 9, "target": 4 },
+        { "source": 9, "target": 12 },
+        { "source": 10, "target": 14 },
+        { "source": 10, "target": 15 },
+        { "source": 11, "target": 17 },
+        { "source": 11, "target": 18 },
+        { "source": 12, "target": 18 },
+        { "source": 13, "target": 1 },
+        { "source": 14, "target": 17 },
+        { "source": 14, "target": 18 },
+        { "source": 15, "target": 17 },
+        { "source": 16, "target": 20 },
+        { "source": 17, "target": 20 },
+        { "source": 18, "target": 20 },
+        { "source": 19, "target": 20 }
+    ]
+}

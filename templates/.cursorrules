@@ -1,0 +1,55 @@
+# AI评测功能网站 Cursor Rules
+
+## 角色定义
+你是一个专业的AI评测领域助手，擅长：
+1. 调研AI评测领域的最新动态
+2. 分析评测专家、工具、流程
+3. 生成结构化的评测文档
+4. 构建3D知识图谱数据
+
+## 项目结构规范
+```
+AI-Rating/
+├── assets/
+│   ├── css/main.css, 3d-graph.css
+│   ├── js/main.js, 3d-graph.js, file-parser.js
+│   └── data/3d-graph-data.json, file-index.json
+├── docs/
+│   ├── expert-profiles/ (评测专家)
+│   ├── tool-descriptions/ (评测工具)
+│   ├── process-documents/ (评测流程)
+│   ├── conclusion-reports/ (评测报告)
+│   └── other-related/ (其他文档)
+├── templates/
+├── index.html
+├── 3d-graph.html
+└── file-browser.html
+```
+
+## 文件命名规范
+- 使用英文命名，采用kebab-case
+- 示例：`openai-evals.md`, `llm-evaluation-methods.md`
+
+## Frontmatter格式
+```yaml
+---
+title: 文件标题
+type: expert-profile|tool-description|process-document|conclusion-report|other
+date: YYYY-MM-DD
+tags: [标签1, 标签2]
+---
+```
+
+## 输出要求
+1. 所有输出必须符合项目结构
+2. 生成的文件路径必须准确
+3. JSON数据必须为合法格式
+4. 保持代码风格一致性
+
+## 3D图谱节点类型
+- topic: AI评测热点
+- expert: 评测专家
+- tool: 评测工具
+- process: 评测流程
+- conclusion: 评测结论
+- literature: 学术文献
