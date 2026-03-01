@@ -115,11 +115,16 @@ const benchmarkData = {
 // Sidebar data
 const sidebarData = {
     experts: [
-        { name: '李开复', title: '创新工场CEO', desc: 'AI领域知名专家，曾任Google中国区总裁，深度关注AI评测发展', avatar: '👤' },
-        { name: '图灵的猫', title: 'B站科技UP主', desc: '专注于AI模型深度评测，拥有数十万科技爱好者关注', avatar: '🐱' },
-        { name: 'Jim Fan', title: 'NVIDIA AI Scientist', desc: '英伟达AI科学家，知名AI评测博主', avatar: '🔬' },
-        { name: 'Andrej Karpathy', title: 'AI Researcher', desc: 'OpenAI创始成员，AI教育家', avatar: '🧠' },
-        { name: 'Yann LeCun', title: 'Meta AI Chief', desc: '图灵奖得主，深度学习先驱', avatar: '🏆' }
+        { name: '李开复', title: '创新工场CEO', desc: 'AI领域知名专家，曾任Google中国区总裁，深度关注AI评测发展', avatar: '👤', links: [{ type: 'twitter', url: 'https://twitter.com/kaifulee' }, { type: 'web', url: 'https://www.chuangplus.com/' }] },
+        { name: '图灵的猫', title: 'B站科技UP主', desc: '专注于AI模型深度评测，拥有数十万科技爱好者关注，发布大量AI模型实测视频', avatar: '🐱', links: [{ type: 'bilibili', url: 'https://space.bilibili.com/203145865' }, { type: 'zhihu', url: 'https://www.zhihu.com/peopleTUringDeMao' }] },
+        { name: 'Jim Fan', title: 'NVIDIA AI Scientist', desc: '英伟达AI科学家，知名AI评测博主，经常发布AI模型对比评测视频', avatar: '🔬', links: [{ type: 'twitter', url: 'https://twitter.com/DrJimFan' }, { type: 'youtube', url: 'https://www.youtube.com/@JimFan' }] },
+        { name: 'Andrej Karpathy', title: 'AI Researcher', desc: 'OpenAI创始成员，AI教育家，创办Neural Networks迷你对课程', avatar: '🧠', links: [{ type: 'twitter', url: 'https://twitter.com/karpathy' }, { type: 'web', url: 'https://karpathy.ai/' }] },
+        { name: 'Yann LeCun', title: 'Meta AI Chief', desc: '图灵奖得主，深度学习先驱，Meta AI首席科学家', avatar: '🏆', links: [{ type: 'twitter', url: 'https://twitter.com/ylecun' }, { type: 'web', url: 'https://yann.lecun.com/' }] },
+        { name: 'Sam Altman', title: 'OpenAI CEO', desc: 'OpenAI首席执行官，AI领域最具影响力人物之一', avatar: '🚀', links: [{ type: 'twitter', url: 'https://twitter.com/sama' }, { type: 'web', url: 'https://openai.com/' }] },
+        { name: 'Dario Amodei', title: 'Anthropic CEO', desc: 'Anthropic联合创始人兼CEO，专注于AI安全研究', avatar: '💜', links: [{ type: 'twitter', url: 'https://twitter.com/dario_amodei' }, { type: 'web', url: 'https://www.anthropic.com/' }] },
+        { name: '周鸿祎', title: '360创始人', desc: '360集团创始人，AI领域知名投资人，经常发布AI评测观点', avatar: '👓', links: [{ type: 'weibo', url: 'https://weibo.com/zhouhongyi' }, { type: 'web', url: 'https://www.360.cn/' }] },
+        { name: 'Milo', title: 'OpenRouter CTO', desc: 'OpenRouter首席技术官，AI模型评测平台负责人', avatar: '🖥️', links: [{ type: 'twitter', url: 'https://twitter.com/milooprog' }, { type: 'web', url: 'https://openrouter.ai/' }] },
+        { name: '极客公园', title: '科技媒体', desc: '知名科技媒体，持续产出AI深度评测报道', avatar: '📱', links: [{ type: 'web', url: 'https://www.geekpark.net/' }, { type: 'weixin', url: 'https://mp.weixin.qq.com/s/geekpark' }] }
     ],
     tools: [
         { 
@@ -166,12 +171,85 @@ const sidebarData = {
         }
     ],
     reports: [
-        { title: 'GPT-5.2深度评测报告', date: '2026-03-01', desc: '推理能力登顶ARC-AGI-2，AIME 2025满分通过', company: 'OpenAI', views: 12500 },
-        { title: 'Claude 4.6编程实测', date: '2026-02-28', desc: 'SWE-bench达80.9%，编程能力最强', company: 'Anthropic', views: 9800 },
-        { title: 'Kimi K2.5国产之光', date: '2026-02-25', desc: 'GPQA科学评测全球第一，AIME数学第二', company: 'Moonshot', views: 8500 },
-        { title: 'DeepSeek V3.2开源评测', date: '2026-02-20', desc: '开源模型首次超越闭源，性价比之王', company: 'DeepSeek', views: 12000 },
-        { title: 'Gemini 3.1多模态评测', date: '2026-02-18', desc: 'MMMU多模态理解基准全球第一', company: 'Google', views: 7600 },
-        { title: 'Qwen3.5中文能力评测', date: '2026-02-15', desc: 'CMMLU中文评测领先，国产模型新高度', company: 'Alibaba', views: 6200 }
+        { 
+            title: 'GPT-5.2深度评测报告', 
+            date: '2026-03-01', 
+            desc: '推理能力登顶ARC-AGI-2，AIME 2025满分通过，综合评分97分', 
+            company: 'OpenAI', 
+            views: 12500,
+            content: 'GPT-5.2作为OpenAI最新旗舰模型，在多项基准测试中取得突破性进展。ARC-AGI-2抽象推理基准达到52.9%创下新纪录，AIME 2025数学竞赛基准满分通过。编程能力方面，SWEBench达85.3%，HumanEval达95%。多模态理解能力显著提升，MMMU基准达78.2%。',
+            benchmarks: [
+                { name: 'ARC-AGI-2', score: '52.9%', rank: 1, desc: '抽象推理基准' },
+                { name: 'AIME 2025', score: '100%', rank: 1, desc: '数学竞赛' },
+                { name: 'SWE-bench', score: '85.3%', rank: 1, desc: '软件工程' },
+                { name: 'HumanEval', score: '95%', rank: 1, desc: '代码生成' },
+                { name: 'MMLU Pro', score: '94.2%', rank: 1, desc: '多任务理解' }
+            ]
+        },
+        { 
+            title: 'Claude 4.6编程实测', 
+            date: '2026-02-28', 
+            desc: 'SWE-bench达80.9%，编程能力最强，综合评分95分', 
+            company: 'Anthropic', 
+            views: 9800,
+            content: 'Claude Opus 4.6延续了Anthropic在编程能力上的优势，SWEBench Pro评测达到80.9%创下了编程基准的新高。代码理解、bug修复、功能实现等能力全面提升。同时在长上下文处理和对话一致性方面表现优异。',
+            benchmarks: [
+                { name: 'SWE-bench Pro', score: '80.9%', rank: 1, desc: '软件工程专业评测' },
+                { name: 'HumanEval', score: '92%', rank: 2, desc: '代码生成测试' },
+                { name: 'MMLU', score: '88.5%', rank: 2, desc: '多任务理解' }
+            ]
+        },
+        { 
+            title: 'Kimi K2.5国产之光', 
+            date: '2026-02-25', 
+            desc: 'GPQA科学评测全球第一，AIME数学第二，综合评分91分', 
+            company: 'Moonshot', 
+            views: 8500,
+            content: '月之暗面的Kimi K2.5在多项国际基准测试中表现亮眼，GPQA科学研究基准达到87.6%位列第一，AIME数学竞赛达87.6%排名第二。MATH数学推理基准达92.3%。长上下文处理能力继续保持领先，支持200万token上下文。',
+            benchmarks: [
+                { name: 'GPQA', score: '87.6%', rank: 1, desc: '科学研究基准' },
+                { name: 'AIME 2025', score: '87.6%', rank: 2, desc: '数学竞赛' },
+                { name: 'MATH', score: '92.3%', rank: 1, desc: '数学推理' }
+            ]
+        },
+        { 
+            title: 'DeepSeek V3.2开源评测', 
+            date: '2026-02-20', 
+            desc: '开源模型首次超越闭源，性价比之王，综合评分87分', 
+            company: 'DeepSeek', 
+            views: 12000,
+            content: 'DeepSeek V3.2作为开源模型，首次在多项基准测试中超越闭源模型。API价格仅为$0.27/M，是行业最低。MIT开源协议允许商用。在MMLU达88.5%，HumanEval达85%，是当前最强开源模型。',
+            benchmarks: [
+                { name: 'MMLU', score: '88.5%', rank: 3, desc: '多任务理解' },
+                { name: 'HumanEval', score: '85%', rank: 3, desc: '代码生成' },
+                { name: 'API价格', score: '$0.27/M', rank: 1, desc: '性价比最优' }
+            ]
+        },
+        { 
+            title: 'Gemini 3.1多模态评测', 
+            date: '2026-02-18', 
+            desc: 'MMMU多模态理解基准全球第一，综合评分93分', 
+            company: 'Google', 
+            views: 7600,
+            content: 'Gemini 3.1 Pro在多模态领域继续保持领先优势，MMMU多模态理解基准达75.2%位列第一。GPQA科学研究基准达74.1%同样排名第一。视频理解和分析图像能力显著提升。',
+            benchmarks: [
+                { name: 'MMMU', score: '75.2%', rank: 1, desc: '多模态理解' },
+                { name: 'MMLU', score: '87.3%', rank: 2, desc: '多任务理解' },
+                { name: 'GPQA', score: '74.1%', rank: 1, desc: '科学研究' }
+            ]
+        },
+        { 
+            title: 'Qwen3.5中文能力评测', 
+            date: '2026-02-15', 
+            desc: 'CMMLU中文评测领先，国产模型新高度，综合评分85分', 
+            company: 'Alibaba', 
+            views: 6200,
+            content: '阿里Qwen3.5在中文评测方面表现突出，CMMLU达91.2%位列第一。MMLU达82.3%。作为开源模型，Qwen3.5支持商用，在中文AI应用生态中占据重要地位。',
+            benchmarks: [
+                { name: 'CMMLU', score: '91.2%', rank: 1, desc: '中文多任务' },
+                { name: 'MMLU', score: '82.3%', rank: 5, desc: '多任务理解' }
+            ]
+        }
     ],
     trends: {
         months: ['2025-10', '2025-11', '2025-12', '2026-01', '2026-02', '2026-03'],
@@ -285,6 +363,47 @@ function init() {
     window.addEventListener('resize', onResize);
     renderer.domElement.addEventListener('click', onClick);
     renderer.domElement.addEventListener('mousemove', onMouseMove);
+    
+    // Mobile touch support
+    let touchStartTime = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    
+    renderer.domElement.addEventListener('touchstart', (e) => {
+        touchStartTime = Date.now();
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    
+    renderer.domElement.addEventListener('touchend', (e) => {
+        const touchDuration = Date.now() - touchStartTime;
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const moveDistance = Math.sqrt(
+            Math.pow(touchEndX - touchStartX, 2) + 
+            Math.pow(touchEndY - touchStartY, 2)
+        );
+        
+        // If tap is short and didn't move much, treat as click
+        if (touchDuration < 300 && moveDistance < 10) {
+            // Simulate click at touch position
+            const rect = renderer.domElement.getBoundingClientRect();
+            const x = ((touchEndX - rect.left) / rect.width) * 2 - 1;
+            const y = -((touchEndY - rect.top) / rect.height) * 2 + 1;
+            
+            mouse.x = x;
+            mouse.y = y;
+            
+            raycaster.setFromCamera(mouse, camera);
+            const meshes = nodeMeshes.map(n => n.mesh).filter(m => m);
+            const intersects = raycaster.intersectObjects(meshes);
+            
+            if (intersects.length > 0) {
+                const node = intersects[0].object.userData.node;
+                showModelPopup(node);
+            }
+        }
+    }, { passive: true });
     
     // Animation
     animate();
@@ -764,16 +883,22 @@ function initSidebar() {
     });
     
     // Experts
-    document.getElementById('expert-list').innerHTML = sidebarData.experts.map(e => 
-        `<div class="expert-card">
+    document.getElementById('expert-list').innerHTML = sidebarData.experts.map(e => {
+        const linksHTML = e.links ? e.links.map(l => {
+            const icons = { twitter: '𝕏', bilibili: '📺', web: '🌐', youtube: '▶️', weibo: '📱', weixin: '💬', zhihu: '📝' };
+            return `<a href="${l.url}" target="_blank" class="expert-link" title="${l.type}">${icons[l.type] || '🔗'}</a>`;
+        }).join('') : '';
+        
+        return `<div class="expert-card">
             <div class="expert-avatar">${e.avatar}</div>
             <div class="expert-info">
                 <h4>${e.name}</h4>
                 <p class="expert-title">${e.title}</p>
                 <p class="expert-desc">${e.desc}</p>
+                ${linksHTML ? `<div class="expert-links">${linksHTML}</div>` : ''}
             </div>
-        </div>`
-    ).join('');
+        </div>`;
+    }).join('');
     
     // Tools
     document.getElementById('tool-list').innerHTML = sidebarData.tools.map(t => 
@@ -790,9 +915,9 @@ function initSidebar() {
         </div>`
     ).join('');
     
-    // Reports
-    document.getElementById('report-list').innerHTML = sidebarData.reports.map(r => 
-        `<div class="report-card">
+    // Reports - Clickable
+    document.getElementById('report-list').innerHTML = sidebarData.reports.map((r, idx) => 
+        `<div class="report-card" onclick="showReportPopup(${idx})">
             <div class="report-header">
                 <h4>${r.title}</h4>
                 <span class="report-company">${r.company}</span>
@@ -804,6 +929,70 @@ function initSidebar() {
             </div>
         </div>`
     ).join('');
+    
+    // Make showReportPopup global
+    window.showReportPopup = function(idx) {
+        const report = sidebarData.reports[idx];
+        if (!report) return;
+        
+        let popup = document.getElementById('report-popup');
+        if (!popup) {
+            popup = document.createElement('div');
+            popup.id = 'report-popup';
+            popup.className = 'report-popup';
+            popup.innerHTML = `
+                <button class="popup-close" onclick="closeReportPopup()">×</button>
+                <div class="report-popup-content"></div>
+            `;
+            document.body.appendChild(popup);
+            
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) closeReportPopup();
+            });
+        }
+        
+        const benchmarksHTML = report.benchmarks ? report.benchmarks.map(b => `
+            <div class="benchmark-row">
+                <span class="benchmark-name">${b.name}</span>
+                <span class="benchmark-score">${b.score}</span>
+                <span class="benchmark-rank">#${b.rank}</span>
+                <span class="benchmark-desc">${b.desc}</span>
+            </div>
+        `).join('') : '';
+        
+        popup.querySelector('.report-popup-content').innerHTML = `
+            <div class="report-popup-header">
+                <div class="report-popup-icon">${report.company.charAt(0)}</div>
+                <div class="report-popup-title">
+                    <h2>${report.title}</h2>
+                    <span class="report-popup-company">${report.company}</span>
+                </div>
+                <div class="report-popup-stats">
+                    <span class="stat-views">👁️ ${report.views}</span>
+                    <span class="stat-date">📅 ${report.date}</span>
+                </div>
+            </div>
+            <div class="report-popup-body">
+                <h3>评测概述</h3>
+                <p class="report-content">${report.content}</p>
+                <h3>详细评测数据</h3>
+                <div class="benchmark-table">
+                    ${benchmarksHTML}
+                </div>
+            </div>
+        `;
+        
+        popup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
+    
+    window.closeReportPopup = function() {
+        const popup = document.getElementById('report-popup');
+        if (popup) {
+            popup.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
     
     // Trends - Simple chart visualization
     const trendData = sidebarData.trends;
