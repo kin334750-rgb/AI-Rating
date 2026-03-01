@@ -9,34 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        .loading-spinner {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #00ff88;
-            font-size: 18px;
-            z-index: 9999;
-            text-align: center;
-        }
-        .loading-spinner::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 40px;
-            margin: 10px auto;
-            border: 3px solid rgba(0,255,136,0.3);
-            border-top-color: #00ff88;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-    </style>
 </head>
-<body class="graph-page">
+<body class="graph-page" onload="initGraph()">
     <div class="bg-pattern"></div>
     
     <header class="graph-header">
@@ -52,9 +26,7 @@
         </div>
     </header>
 
-    <div id="3d-graph" class="graph-container">
-        <div class="loading-spinner" id="loading">正在加载3D图谱...</div>
-    </div>
+    <div id="3d-graph" class="graph-container"></div>
 
     <div class="sidebar-toggle" id="sidebar-toggle">
         <span></span>
@@ -131,8 +103,8 @@
         <button class="control-btn" id="reset-view" title="重置">⟲</button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/force-graph/dist/force-graph.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="assets/js/3d-graph.js"></script>
 </body>
 </html>

@@ -1,4 +1,8 @@
-let graph;
+let scene, camera, renderer, controls;
+let nodes = [], edges = [];
+let raycaster, mouse;
+let selectedNode = null;
+let animationId;
 
 const graphData = {
     nodes: [
@@ -55,8 +59,7 @@ const benchmarkData = {
     ],
     'opus4.6': [
         { name: 'SWE-bench Pro', score: '80.9%', rank: 1, desc: '代码修复基准' },
-        { name: 'HumanEval', score: '92%', rank: 1, desc: '代码生成基准' },
-        { name: 'LongBench', score: '76%', rank: 1, desc: '长上下文理解' }
+        { name: 'HumanEval', score: '92%', rank: 1, desc: '代码生成基准' }
     ],
     'gemini3pro': [
         { name: '12项基准', score: '第一', rank: 1, desc: '综合评测' },
@@ -64,8 +67,7 @@ const benchmarkData = {
     ],
     'kimi2.5': [
         { name: 'GPQA', score: '87.6%', rank: 1, desc: '科学研究基准' },
-        { name: 'AIME 2025', score: '87.6%', rank: 2, desc: '数学竞赛基准' },
-        { name: '长上下文', score: '200万', rank: 1, desc: 'token上下文' }
+        { name: 'AIME 2025', score: '87.6%', rank: 2, desc: '数学竞赛基准' }
     ],
     'deepseekv3': [
         { name: 'API价格', score: '$0.27/M', rank: 1, desc: '行业最低' },
@@ -91,7 +93,7 @@ const sidebarData = {
 
 function getCompanyColor(companyId) {
     const company = graphData.nodes.find(n => n.id === companyId);
-    return company ? company.color : '#666666';
+    return company ? new THREE.Color(company.color) : new THREE.Color(0x666666);
 }
 
 function getCompanyName(companyId) {
@@ -99,11 +101,177 @@ function getCompanyName(companyId) {
     return company ? company.name : '';
 }
 
+function initGraph() {
+    const container = document.getElementById('3d-graph');
+    if (!container) return;
+    
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0a0a0f);
+    
+    camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 2000);
+    camera.position.z = 400;
+    
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(width, height);
+    container.appendChild(renderer.domElement);
+    
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.minDistance = 100;
+    controls.maxDistance = 800;
+    
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    
+    const pointLight = new THREE.PointLight(0x00ff88, 1, 1000);
+    pointLight.position.set(200, 200, 200);
+    scene.add(pointLight);
+    
+    initNodes();
+    initEdges();
+    initLabels();
+    
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2();
+    
+    window.addEventListener('resize', onWindowResize);
+    container.addEventListener('click', onMouseClick);
+    
+    animate();
+    
+    initSidebar();
+    initControls();
+}
+
+function initNodes() {
+    const companyGroups = {};
+    
+    graphData.nodes.forEach((node, index) => {
+        if (node.group === 'company') {
+            const angle = (index / 8) * Math.PI * 2;
+            const radius = 150;
+            node.x = Math.cos(angle) * radius;
+            node.y = Math.sin(angle) * radius * 0.6;
+            node.z = 0;
+            companyGroups[node.id] = { x: node.x, y: node.y, z: node.z };
+        }
+    });
+    
+    graphData.nodes.forEach(node => {
+        if (node.group === 'model') {
+            const parent = companyGroups[node.parent];
+            if (parent) {
+                const siblings = graphData.nodes.filter(n => n.parent === node.parent);
+                const idx = siblings.indexOf(node);
+                const angle = (idx / siblings.length) * Math.PI * 2;
+                const radius = 50 + Math.random() * 20;
+                node.x = parent.x + Math.cos(angle) * radius;
+                node.y = parent.y + Math.sin(angle) * radius;
+                node.z = (Math.random() - 0.5) * 30;
+            }
+        }
+        
+        const geometry = new THREE.SphereGeometry(
+            node.group === 'company' ? 15 : 8 + (node.score || 70) / 20, 
+            32, 32
+        );
+        const color = node.group === 'company' ? new THREE.Color(node.color) : getCompanyColor(node.parent);
+        const material = new THREE.MeshPhongMaterial({ 
+            color: color,
+            emissive: color,
+            emissiveIntensity: 0.2,
+            shininess: 100
+        });
+        
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(node.x || 0, node.y || 0, node.z || 0);
+        mesh.userData = { node: node };
+        
+        scene.add(mesh);
+        nodes.push(mesh);
+    });
+}
+
+function initEdges() {
+    const lineMaterial = new THREE.LineBasicMaterial({ 
+        color: 0x00ff88, 
+        transparent: true, 
+        opacity: 0.3 
+    });
+    
+    graphData.links.forEach(link => {
+        const sourceNode = graphData.nodes.find(n => n.id === link.source);
+        const targetNode = graphData.nodes.find(n => n.id === link.target);
+        
+        if (sourceNode && targetNode) {
+            const geometry = new THREE.BufferGeometry().setFromPoints([
+                new THREE.Vector3(sourceNode.x || 0, sourceNode.y || 0, sourceNode.z || 0),
+                new THREE.Vector3(targetNode.x || 0, targetNode.y || 0, targetNode.z || 0)
+            ]);
+            const line = new THREE.Line(geometry, lineMaterial);
+            scene.add(line);
+        }
+    });
+}
+
+function initLabels() {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    canvas.width = 256;
+    canvas.height = 64;
+    
+    graphData.nodes.forEach(node => {
+        context.clearRect(0, 0, 256, 64);
+        context.fillStyle = 'white';
+        context.font = 'bold 24px Outfit, sans-serif';
+        context.textAlign = 'center';
+        context.fillText(node.name, 128, 40);
+        
+        const texture = new THREE.CanvasTexture(canvas);
+        const spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: true });
+        const sprite = new THREE.Sprite(spriteMaterial);
+        sprite.scale.set(40, 10, 1);
+        sprite.position.set(node.x || 0, (node.y || 0) + 20, node.z || 0);
+        scene.add(sprite);
+    });
+}
+
+function onWindowResize() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+}
+
+function onMouseClick(event) {
+    const container = document.getElementById('3d-graph');
+    const rect = container.getBoundingClientRect();
+    
+    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+    
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(nodes);
+    
+    if (intersects.length > 0) {
+        const node = intersects[0].object.userData.node;
+        showModelPopup(node);
+    }
+}
+
 function showModelPopup(node) {
     const popup = document.getElementById('node-popup');
     if (!popup) return;
     
-    const benchmarks = benchmarkData[node.id] || [{ name: 'MMLU', score: (node.score || 80) + '%', rank: 3, desc: '多任务语言理解' }];
+    const benchmarks = benchmarkData[node.id] || [
+        { name: 'MMLU', score: (node.score || 80) + '%', rank: 3, desc: '多任务语言理解' }
+    ];
     
     document.getElementById('popup-model-name').textContent = node.name;
     document.getElementById('popup-company').textContent = getCompanyName(node.parent);
@@ -124,8 +292,18 @@ function showModelPopup(node) {
     popup.classList.add('active');
 }
 
-function handleNodeClick(node) {
-    showModelPopup(node);
+function animate() {
+    animationId = requestAnimationFrame(animate);
+    controls.update();
+    
+    const time = Date.now() * 0.001;
+    nodes.forEach((node, i) => {
+        if (graphData.nodes[i] && graphData.nodes[i].group === 'company') {
+            node.rotation.y = time * 0.2;
+        }
+    });
+    
+    renderer.render(scene, camera);
 }
 
 function initSidebar() {
@@ -148,90 +326,42 @@ function initSidebar() {
         });
     });
     
-    document.getElementById('expert-list').innerHTML = sidebarData.experts.map(e => `<div class="expert-card"><h4>${e.name}</h4><p><strong>${e.title}</strong></p><p>${e.desc}</p></div>`).join('');
-    document.getElementById('tool-list').innerHTML = sidebarData.tools.map(t => `<div class="tool-card"><h4>${t.name}</h4><p>${t.desc}</p></div>`).join('');
-    document.getElementById('report-list').innerHTML = sidebarData.reports.map(r => `<div class="report-card"><h4>${r.title}</h4><p>${r.desc}</p><div class="report-date">${r.date}</div></div>`).join('');
+    document.getElementById('expert-list').innerHTML = sidebarData.experts.map(e => 
+        `<div class="expert-card"><h4>${e.name}</h4><p><strong>${e.title}</strong></p><p>${e.desc}</p></div>`
+    ).join('');
+    
+    document.getElementById('tool-list').innerHTML = sidebarData.tools.map(t => 
+        `<div class="tool-card"><h4>${t.name}</h4><p>${t.desc}</p></div>`
+    ).join('');
+    
+    document.getElementById('report-list').innerHTML = sidebarData.reports.map(r => 
+        `<div class="report-card"><h4>${r.title}</h4><p>${r.desc}</p><div class="report-date">${r.date}</div></div>`
+    ).join('');
+    
     document.getElementById('trend-chart').innerHTML = '<p>📈 趋势图表展示区<br><br><span style="color: var(--text-muted);">近期GPT系列评分稳定上升</span></p>';
 }
 
 function initControls() {
-    document.getElementById('zoom-in')?.addEventListener('click', () => { if (graph) graph.zoom(graph.zoom() * 1.3, 300); });
-    document.getElementById('zoom-out')?.addEventListener('click', () => { if (graph) graph.zoom(graph.zoom() / 1.3, 300); });
-    document.getElementById('reset-view')?.addEventListener('click', () => { if (graph) { graph.zoomToFit(400); graph.cameraPosition({ x: 0, y: 0, z: 400 }); } });
-    document.getElementById('popup-close')?.addEventListener('click', () => document.getElementById('node-popup').classList.remove('active'));
-    document.getElementById('node-popup')?.addEventListener('click', (e) => { if (e.target.id === 'node-popup') document.getElementById('node-popup').classList.remove('active'); });
-}
-
-function initGraph() {
-    const container = document.getElementById('3d-graph');
-    const loading = document.getElementById('loading');
+    document.getElementById('zoom-in')?.addEventListener('click', () => {
+        camera.position.multiplyScalar(0.8);
+    });
     
-    if (!container) return;
+    document.getElementById('zoom-out')?.addEventListener('click', () => {
+        camera.position.multiplyScalar(1.2);
+    });
     
-    function startGraph() {
-        if (typeof ForceGraph === 'undefined') {
-            console.log('Waiting for ForceGraph...');
-            setTimeout(startGraph, 200);
-            return;
+    document.getElementById('reset-view')?.addEventListener('click', () => {
+        camera.position.set(0, 0, 400);
+        controls.reset();
+    });
+    
+    document.getElementById('popup-close')?.addEventListener('click', () => {
+        document.getElementById('node-popup').classList.remove('active');
+    });
+    
+    document.getElementById('node-popup')?.addEventListener('click', (e) => {
+        if (e.target.id === 'node-popup') {
+            document.getElementById('node-popup').classList.remove('active');
         }
-        
-        try {
-            const Graph3D = ForceGraph3D ? ForceGraph3D() : ForceGraph();
-            
-            graph = Graph3D()(container)
-                .graphData(graphData)
-                .nodeLabel('name')
-                .nodeColor(node => node.group === 'company' ? (node.color || '#ffffff') : getCompanyColor(node.parent))
-                .nodeRelSize(6)
-                .linkColor(() => 'rgba(0, 255, 136, 0.3)')
-                .linkWidth(1)
-                .linkDirectionalParticles(2)
-                .linkDirectionalParticleSpeed(0.005)
-                .linkDirectionalParticleColor(() => 'rgba(0, 255, 136, 0.6)')
-                .backgroundColor('#0a0a0f')
-                .onNodeClick(handleNodeClick)
-                .nodeCanvasObject((node, ctx, globalScale) => {
-                    const r = node.group === 'company' ? 10 : 6;
-                    ctx.beginPath();
-                    ctx.arc(node.x, node.y, r, 0, 2 * Math.PI);
-                    ctx.fillStyle = node.group === 'company' ? (node.color || '#ffffff') : getCompanyColor(node.parent);
-                    ctx.fill();
-                    
-                    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                    
-                    if (globalScale > 1.2) {
-                        ctx.font = `${12/globalScale}px Outfit, sans-serif`;
-                        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                        ctx.textAlign = 'center';
-                        ctx.fillText(node.name, node.x, node.y + r + 14/globalScale);
-                    }
-                });
-            
-            graph.d3Force('charge').strength(-300);
-            graph.d3Force('center').strength(0.15);
-            graph.d3Force('collision').strength(15);
-            
-            if (loading) loading.style.display = 'none';
-            
-            setTimeout(() => {
-                if (graph) graph.zoomToFit(500);
-            }, 1500);
-            
-            initSidebar();
-            initControls();
-        } catch (e) {
-            console.error('Graph error:', e);
-            if (loading) loading.textContent = '加载失败: ' + e.message;
-        }
-    }
-    
-    if (typeof THREE !== 'undefined') {
-        startGraph();
-    } else {
-        setTimeout(startGraph, 500);
-    }
+    });
 }
-
-window.addEventListener('load', initGraph);
