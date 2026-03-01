@@ -1,172 +1,151 @@
-# 🤖 AI-Rating | 智能评测平台
+# 🤖 AI-Rating | AI评测信息实时收集平台
 
-> 追踪全球AI模型最新评测动态
+> English follows below | English version below
 
 [![Website](https://img.shields.io/badge/Website-AI--Rating-blue)](https://kin334750-rgb.github.io/AI-Rating/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-## ✨ 关于
+---
 
-**AI-Rating** 是一个实时追踪全球AI模型评测动态的平台，旨在为AI研究者、开发者和爱好者提供最新、最全面的评测信息。
+## ✨ 关于 | About
 
-### 🎯 网站介绍
+**AI-Rating** 是一个AI评测信息实时收集平台，实时追踪全球AI模型的评测动态。
 
-AI-Rating 通过实时抓取和整合以下平台的信息：
+**AI-Rating** is a real-time AI evaluation information collection platform that tracks global AI model evaluation dynamics.
 
-| 信息来源 | 内容类型 |
-|---------|---------|
-| X (Twitter) | 热门讨论、专家观点 |
-| B站 | 评测视频、深度解析 |
-| GitHub | 开源模型、评测工具 |
-| 独立评测机构 | Artificial Analysis、302.AI等 |
-| AI资讯网站 | 行业动态、技术解读 |
+### 🎯 功能特点 | Features
 
-### 📱 主要功能
-
-1. **模型对比** - 实时更新GPT、Claude、Gemini、Kimi等主流AI模型评测数据
-2. **Benchmark解读** - 详解SWE-bench、MMLU、ARC-AGI等评测基准
-3. **工具评测** - 对比OpenCompass、EvalScope等主流评测工具
-4. **趋势分析** - 追踪AI评测领域最新发展趋势
-5. **3D图谱** - 可视化呈现AI评测生态关联
-
-### 🌟 特色内容
-
-- 2026年AI模型终极对比：GPT-5.2 vs Claude Opus 4.6 vs Gemini 3.1 Pro
-- Claude Sonnet 4.6性价比之王分析
-- SWE-bench退役与新基准解读
-- 中国开源模型崛起：Kimi K2.5、DeepSeek V3.2、GLM-5
-
-### 📊 数据更新
-
-每次用户发送需求，我们将：
-1. 实时搜索最新评测信息（X、B站、GitHub等）
-2. 整理分析关键数据
-3. 生成结构化文档
-4. 更新3D知识图谱
-5. 保存到本地并推送至GitHub
+| 功能 | Feature |
+|------|---------|
+| 实时信息源面板 | Real-time information source panel |
+| AI模型综合评分 | AI model comprehensive scoring |
+| 3D球形拓扑图 | 3D spherical topology graph |
+| 评测专家/工具/报告 | Evaluation experts/tools/reports |
+| 趋势分析 | Trend analysis |
 
 ---
 
-**每次更新耗时约5-10分钟，确保信息的时效性和准确性**
+## 📱 主要页面 | Main Pages
 
-## ✨ 特性
+### 页面1：首页 | Page 1: Home
+- 顶部：网站标题 + 简介（多源实时抓取、综合能力打分、行业趋势分析）
+- Top: Website title + introduction
+- 左侧：实时信息源面板（B站/GitHub/X/知乎等）
+- Left: Real-time information panel (Bilibili/GitHub/X/Zhihu)
+- 右侧：AI模型综合评分条形图
+- Right: AI model comprehensive scoring bar chart
+- 底部：「Click here 了解更多」按钮
+- Bottom: "Click here to learn more" button
 
-- 🌐 **实时信息聚合** - 追踪X、B站、GitHub等平台最新动态
-- 📊 **主流模型评测** - 覆盖GPT、Claude、Gemini、Kimi、DeepSeek等
-- 🔬 **Benchmark解读** - 详解各评测基准及2026趋势变化
-- 🛠️ **评测工具评测** - 主流评测工具功能对比分析
-- 🌐 **3D知识图谱** - 可视化呈现AI评测生态关联
-- 📁 **结构化归档** - 按类型、时间线分类展示
+### 页面2：3D球形拓扑图 | Page 2: 3D Graph
+- 球形力导向布局，可旋转/拖拽/缩放
+- Spherical force-directed layout, rotatable/draggable/zoomable
+- 同一家公司模型自动聚合成群落
+- Models from the same company automatically clustered
+- 点击模型弹出详细信息浮层
+- Click model to show detailed popup
+- 左侧侧边栏：评测专家/工具/报告/趋势
+- Left sidebar: experts/tools/reports/trends
 
-## 🏗️ 项目架构
+---
 
-```
-AI-Rating/
-├── .github/workflows/    # GitHub Actions部署配置
-├── assets/              # 静态资源
-│   ├── css/            # 样式文件
-│   ├── js/             # 交互脚本
-│   └── data/           # 核心数据（3D图谱、文件索引）
-├── docs/               # 归档文件
-│   ├── conclusion-reports/  # 评测报告
-│   ├── tool-descriptions/  # 评测工具介绍
-│   ├── process-documents/   # 评测流程文档
-│   └── other-related/      # 其他文档
-├── templates/          # 可复现模板
-├── index.html          # 网站首页
-├── 3d-graph.html       # 3D知识图谱
-└── file-browser.html   # 文件浏览器
-```
+## 📊 追踪的AI模型 | Tracked AI Models (2026)
 
-## 📈 追踪的AI模型（2026）
+| 厂商 | Company | 模型 | Model | 核心优势 | Core Strength |
+|------|---------|------|-------|----------|---------------|
+| OpenAI | OpenAI | GPT-5.2 Codex | GPT-5.2 Codex | 推理最强 (ARC-AGI-2: 52.9%) | Best reasoning |
+| Anthropic | Anthropic | Claude Opus 4.6 | Claude Opus 4.6 | 编程最强 (SWE-bench: 80.9%) | Best coding |
+| Anthropic | Anthropic | Claude Sonnet 4.6 | Claude Sonnet 4.6 | 性价比之王 | Best cost-performance |
+| Google | Google | Gemini 3.1 Pro | Gemini 3.1 Pro | 12项基准第一 | 12 benchmarks #1 |
+| 月之暗面 | Moonshot AI | Kimi K2.5 | Kimi K2.5 | 中国开源旗舰 | China flagship |
+| DeepSeek | DeepSeek | V3.2 | V3.2 | MIT开源/价格最低 | MIT open source/lowest price |
+| 阿里云 | Alibaba Cloud | Qwen3 | Qwen3 | 生态最完善 | Best ecosystem |
+| 智谱AI | Zhipu AI | GLM-5 | GLM-5 | 学术能力强 | Strong academic |
 
-| 厂商 | 模型 | 核心优势 |
-|------|------|---------|
-| OpenAI | GPT-5.2 Codex | 推理最强 (ARC-AGI-2: 52.9%) |
-| Anthropic | Claude Opus 4.6 | 编程最强 (SWE-bench: 80.9%) |
-| Anthropic | Claude Sonnet 4.6 | 性价比之王 (半价 opus 性能) |
-| Google | Gemini 3.1 Pro | 性价比称霸 (成本仅为竞品一半) |
-| 月之暗面 | Kimi K2.5 | 中国开源旗舰 |
-| DeepSeek | V3.2 | MIT开源、价格击穿底价 |
-| 阿里 | Qwen3 | 开源新秀 |
-| 智谱 | GLM-5 | 开源第一 |
+---
 
-## 🔬 主流Benchmark
+## 🔬 主流Benchmark | Main Benchmarks
 
-| Benchmark | 用途 | 代表模型 |
-|-----------|------|---------|
-| SWE-bench | 编程/代码修复 | Claude Opus 4.6 (80.9%) |
-| ARC-AGI-2 | 抽象推理 | GPT-5.2 (52.9%) |
-| AIME 2025 | 数学竞赛 | GPT-5.2 (100%) |
-| GPQA | 科学研究 | Kimi K2.5 (87.6%) |
-| MMLU | 多任务理解 | 90%+ |
+| Benchmark | 用途 | Usage | 代表模型 | Representative Model |
+|-----------|------|-------|---------|---------------------|
+| SWE-bench Pro | 编程/代码修复 | Coding/Fix | Claude Opus 4.6 (80.9%) |
+| ARC-AGI-2 | 抽象推理 | Abstract Reasoning | GPT-5.2 (52.9%) |
+| AIME 2025 | 数学竞赛 | Math Competition | GPT-5.2 (100%) |
+| GPQA | 科学研究 | Scientific Research | Kimi K2.5 (87.6%) |
+| MMLU | 多任务理解 | Multi-task | 90%+ |
 
 > ⚠️ 2026变化：SWE-bench Verified已退役，新基准SWE-bench Pro/SWE-rebench崛起
 
-## 🛠️ 评测工具
+---
 
-| 工具 | 类型 | 特点 |
-|------|------|------|
-| OpenCompass | 中国开源 | 70+数据集 |
-| EvalScope | 阿里 | 全类型评测 |
-| FlagEval | 智源 | 8万+题目 |
-| Artificial Analysis | 第三方 | AI指数排名 |
-| 302.AI | 第三方 | 独立实测 |
+## 🛠️ 评测工具 | Evaluation Tools
 
-## 🚀 快速开始
+| 工具 | Tool | 类型 | Type | 特点 | Features |
+|------|------|------|------|------|----------|
+| OpenCompass | OpenCompass | 中国开源 | China Open Source | 70+数据集 | 70+ datasets |
+| EvalScope | EvalScope | 阿里 | Alibaba | 全类型评测 | Full type evaluation |
+| FlagEval | FlagEval | 智源 | Beijing AI | 8万+题目 | 80k+ questions |
+| Artificial Analysis | Artificial Analysis | 第三方 | Third Party | AI指数排名 | AI index ranking |
+| 302.AI | 302.AI | 第三方 | Third Party | 独立实测 | Independent testing |
 
-### 1. 克隆项目
+---
+
+## 🚀 快速开始 | Quick Start
+
 ```bash
+# 克隆项目 | Clone project
 git clone https://github.com/kin334750-rgb/AI-Rating.git
 cd AI-Rating
-```
 
-### 2. 本地预览
-```bash
-# Python
+# 本地预览 | Local preview
 python -m http.server 8000
-
-# 或 Node.js
+# 或 | or
 npx serve .
+
+# 访问 | Visit
+# http://localhost:8000
 ```
 
-### 3. 访问
-打开浏览器访问：http://localhost:8000
+---
 
-## 📖 功能使用
+## 📁 项目结构 | Project Structure
 
-### 首页
-- 查看最新评测动态
-- 快速了解主流模型对比
-- 了解评测趋势
+```
+AI-Rating/
+├── index.html          # 首页 | Home page
+├── 3d-graph.html      # 3D拓扑图 | 3D topology graph
+├── assets/
+│   ├── css/          # 样式 | Styles
+│   ├── js/           # 脚本 | Scripts
+│   └── data/         # 数据 | Data
+├── docs/             # 文档 | Documents
+└── README.md         # 说明 | Documentation
+```
 
-### 文章列表
-- 按类型筛选（评测报告、工具介绍、趋势分析）
-- 按时间筛选
-- 标签搜索
+---
 
-### 3D知识图谱
-- 交互式查看AI评测生态
-- 节点拖拽
-- 节点筛选
-- 点击查看详情
+## 🖥️ 技术栈 | Tech Stack
 
-## 🔄 更新日志
+- **Three.js** + **3d-force-graph** - 3D可视化 | 3D visualization
+- **Vanilla JS** - 前端逻辑 | Frontend logic
+- **CSS3** - 现代UI样式 | Modern UI styling
+- **GitHub Pages** - 免费托管 | Free hosting
 
-### 2026-03-01
-- 新增2026年AI模型终极对比
-- 新增评测工具全解析
-- 新增Benchmark趋势分析
-- 新增SWE-bench退役解读
-- 支持多语言
+---
 
-## 📄 许可证
+## 📄 许可证 | License
 
-MIT License - 允许自由使用、修改、分发
+MIT License - 允许自由使用、修改、分发 | Free to use, modify, distribute
 
-## 🙏 致谢
+---
 
-- [Three.js](https://threejs.org/) - 3D渲染
-- [marked.js](https://marked.js.org/) - Markdown解析
-- [GitHub Pages](https://pages.github.com/) - 免费托管
-- 各AI模型厂商及评测机构
+## 🙏 致谢 | Acknowledgments
+
+- [Three.js](https://threejs.org/) - 3D渲染 | 3D rendering
+- [3d-force-graph](https://github.com/vasturiano/3d-force-graph) - 力导向图 | Force graph
+- [GitHub Pages](https://pages.github.com/) - 免费托管 | Free hosting
+- 各AI模型厂商及评测机构 | AI model vendors and evaluation institutions
+
+---
+
+**更新于 | Updated**: 2026-03-01
