@@ -80,14 +80,29 @@ a {
 
 .logo {
     display: flex;
-    align-items: baseline;
-    font-family: 'Playfair Display', serif;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--accent) 0%, #667eea 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    font-size: 14px;
 }
 
 .logo-text {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
     color: var(--primary);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.5px;
 }
 
 .logo-sub {
@@ -558,6 +573,166 @@ a {
 .footer-bottom p {
     font-size: 13px;
     opacity: 0.6;
+}
+
+/* Tools Grid */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.tool-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: var(--transition);
+}
+
+.tool-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.tool-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.tool-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.tool-card p {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.tool-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 4px 10px;
+    background: var(--bg);
+    border-radius: 20px;
+    color: var(--text-muted);
+}
+
+/* Benchmark Table */
+.benchmark-table {
+    background: var(--bg-white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.benchmark-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.benchmark-table th,
+.benchmark-table td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.benchmark-table th {
+    background: var(--bg);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+}
+
+.benchmark-table td {
+    font-size: 14px;
+    color: var(--text);
+}
+
+.benchmark-table tr:last-child td {
+    border-bottom: none;
+}
+
+.benchmark-table tr:hover {
+    background: var(--bg);
+}
+
+.trend-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.trend-badge.hot {
+    background: #ff6b6b;
+    color: white;
+}
+
+.trend-badge.new {
+    background: #4ecdc4;
+    color: white;
+}
+
+/* Trends */
+.trends-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.trend-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: var(--transition);
+}
+
+.trend-card:hover {
+    border-color: var(--accent);
+}
+
+.trend-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.trend-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.trend-card p {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Language Switcher */
+.lang-switch {
+    font-size: 12px;
+}
+
+.lang-switch a {
+    color: rgba(255,255,255,0.7);
+    transition: var(--transition);
+}
+
+.lang-switch a:hover {
+    color: white;
 }
 
 /* Responsive */

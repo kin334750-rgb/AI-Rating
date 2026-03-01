@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI评测 | Intelligence Evaluation Journal</title>
+    <title>AI-Rating | 智能评测</title>
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,20 +14,22 @@
         <div class="header-top">
             <div class="container">
                 <span class="date">Sunday, March 1, 2026</span>
-                <span class="tagline">追踪AI评测每一次脉动</span>
+                <div class="lang-switch">
+                    <a href="?lang=zh">中文</a> | <a href="?lang=en">EN</a>
+                </div>
             </div>
         </div>
         <div class="header-main">
             <div class="container">
                 <a href="index.html" class="logo">
-                    <span class="logo-text">AI</span>
-                    <span class="logo-sub">评测</span>
+                    <div class="logo-img"></div>
+                    <span class="logo-text">AI-Rating</span>
                 </a>
                 <nav class="site-nav">
                     <a href="index.html" class="nav-link active">首页</a>
                     <a href="file-browser.html" class="nav-link">文章</a>
                     <a href="3d-graph.html" class="nav-link">图谱</a>
-                    <a href="#" class="nav-link">关于</a>
+                    <a href="docs/other-related/benchmark-tools-2026.md" class="nav-link">评测工具</a>
                 </nav>
             </div>
         </div>
@@ -38,35 +40,33 @@
             <div class="container">
                 <div class="hero-grid">
                     <article class="hero-article">
-                        <div class="hero-image">
-                            <div class="image-placeholder gradient-1"></div>
-                        </div>
+                        <div class="hero-image gradient-1"></div>
                         <div class="hero-content">
-                            <span class="category-tag">封面专题</span>
-                            <h1>大语言模型评测新时代</h1>
-                            <p>全面解析2026年AI评测领域最新发展趋势，从基准测试到实际应用深度分析</p>
+                            <span class="category-tag">Featured</span>
+                            <h1>2026 AI模型评测终极指南</h1>
+                            <p>追踪全球AI模型最新评测动态，GPT-5.2 vs Claude Opus 4.6 vs Gemini 3.1 Pro 巅峰对决</p>
                             <div class="meta">
-                                <span class="author">AI评测编辑部</span>
+                                <span class="author">AI-Rating Team</span>
                                 <span class="separator">·</span>
-                                <span class="read-time">12 min read</span>
+                                <span class="read-time">15 min read</span>
                             </div>
                         </div>
                     </article>
                     <aside class="hero-sidebar">
                         <article class="sidebar-article">
-                            <span class="category-tag tag-hot">热门</span>
-                            <h3>GPT-4 vs Claude 3 评测对比</h3>
-                            <div class="meta"><span>2026-03-01</span></div>
+                            <span class="category-tag tag-hot">Trending</span>
+                            <h3>SWE-bench Verified 退役</h3>
+                            <div class="meta"><span>Feb 26, 2026</span></div>
                         </article>
                         <article class="sidebar-article">
-                            <span class="category-tag">深度</span>
-                            <h3>多模态模型评测方法论</h3>
-                            <div class="meta"><span>2026-02-28</span></div>
+                            <span class="category-tag">Benchmark</span>
+                            <h3>SWE-bench Pro 新榜单发布</h3>
+                            <div class="meta"><span>Feb 2026</span></div>
                         </article>
                         <article class="sidebar-article">
-                            <span class="category-tag">趋势</span>
-                            <h3>AI安全评测的未来</h3>
-                            <div class="meta"><span>2026-02-27</span></div>
+                            <span class="category-tag">Analysis</span>
+                            <h3>2026评测趋势：低成本逆袭</h3>
+                            <div class="meta"><span>Feb 2026</span></div>
                         </article>
                     </aside>
                 </div>
@@ -77,24 +77,24 @@
             <div class="container">
                 <div class="stats-flex">
                     <div class="stat-item">
-                        <span class="stat-icon">👥</span>
-                        <span class="stat-label">评测专家</span>
-                        <span class="stat-number" id="expert-count">0</span>
+                        <span class="stat-icon">📊</span>
+                        <span class="stat-label">Models Tracked</span>
+                        <span class="stat-number" id="expert-count">15+</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-icon">🔧</span>
-                        <span class="stat-label">评测工具</span>
-                        <span class="stat-number" id="tool-count">0</span>
+                        <span class="stat-label">Benchmark Tools</span>
+                        <span class="stat-number" id="tool-count">20+</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-icon">📋</span>
-                        <span class="stat-label">评测流程</span>
-                        <span class="stat-number" id="process-count">0</span>
+                        <span class="stat-icon">📈</span>
+                        <span class="stat-label">Reports</span>
+                        <span class="stat-number" id="process-count">50+</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-icon">📊</span>
-                        <span class="stat-label">评测报告</span>
-                        <span class="stat-number" id="report-count">0</span>
+                        <span class="stat-icon">🌍</span>
+                        <span class="stat-label">Data Sources</span>
+                        <span class="stat-number" id="report-count">100+</span>
                     </div>
                 </div>
             </div>
@@ -103,47 +103,140 @@
         <section class="content-section">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">最新文章</h2>
+                    <h2 class="section-title">主流评测工具</h2>
+                    <a href="docs/other-related/benchmark-tools-2026.md" class="view-all">了解更多 →</a>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <div class="tool-icon">🔬</div>
+                        <h3>OpenCompass</h3>
+                        <p>上海人工智能实验室开源，70+数据集覆盖知识推理、代码生成、数学、长文本等</p>
+                        <span class="tool-tag">中国开源</span>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🧪</div>
+                        <h3>EvalScope</h3>
+                        <p>阿里魔搭社区开源，支持LLM/多模态/Embedding/AIGC全类型评测</p>
+                        <span class="tool-tag">阿里</span>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">⚖️</div>
+                        <h3>FlagEval</h3>
+                        <p>智源研究院推出，22个数据集8万+评测题目，科学公正</p>
+                        <span class="tool-tag">中国开源</span>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">📝</div>
+                        <h3>LM-Eval</h3>
+                        <p>EleutherAI开源，标准化评测基准，支持100+评测任务</p>
+                        <span class="tool-tag">开源标准</span>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🤖</div>
+                        <h3>Artificial Analysis</h3>
+                        <p>独立AI评测机构，AI指数排名，性价比分析</p>
+                        <span class="tool-tag">第三方</span>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🔍</div>
+                        <h3>302.AI 基准实验室</h3>
+                        <p>独立第三方评测，实测案例分析，选型参考</p>
+                        <span class="tool-tag">第三方</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section section-light">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Benchmark 评测基准</h2>
+                </div>
+                <div class="benchmark-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Benchmark</th>
+                                <th>用途</th>
+                                <th>代表模型</th>
+                                <th>2026变化</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>SWE-bench</strong></td>
+                                <td>编程/代码修复</td>
+                                <td>Claude Opus 4.6 (80.9%)</td>
+                                <td><span class="trend-badge new">退役→Pro</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ARC-AGI-2</strong></td>
+                                <td>抽象推理</td>
+                                <td>GPT-5.2 (52.9%)</td>
+                                <td><span class="trend-badge hot">新增</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>AIME 2025</strong></td>
+                                <td>数学竞赛</td>
+                                <td>GPT-5.2 (100%)</td>
+                                <td><span class="trend-badge">满分</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>MMLU</strong></td>
+                                <td>多任务理解</td>
+                                <td>90%+</td>
+                                <td><span class="trend-badge">稳定</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>GPQA</strong></td>
+                                <td>科学研究</td>
+                                <td>Kimi K2.5 (87.6%)</td>
+                                <td><span class="trend-badge">提升</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>SWE-rebench</strong></td>
+                                <td>实时编程</td>
+                                <td>Claude (63.3%)</td>
+                                <td><span class="trend-badge hot">新基准</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">最新评测报告</h2>
                     <a href="file-browser.html" class="view-all">查看全部 →</a>
                 </div>
                 <div class="articles-grid" id="articles-grid">
                     <article class="article-card">
                         <div class="card-image gradient-2"></div>
                         <div class="card-content">
-                            <span class="category-tag">评测工具</span>
-                            <h3>OpenAI Evals 深度解析</h3>
-                            <p>深入了解OpenAI官方开源评测框架的使用方法与最佳实践</p>
-                            <div class="meta">
-                                <span>2026-02-26</span>
-                                <span class="separator">·</span>
-                                <span>8 min</span>
-                            </div>
+                            <span class="category-tag">Comparison</span>
+                            <h3>2026三大旗舰对比</h3>
+                            <p>GPT-5.2 vs Claude Opus 4.6 vs Gemini 3.1 Pro 终极对决</p>
+                            <div class="meta"><span>2026-03-01</span></div>
                         </div>
                     </article>
                     <article class="article-card">
                         <div class="card-image gradient-3"></div>
                         <div class="card-content">
-                            <span class="category-tag">评测流程</span>
-                            <h3>指令跟随评测完整指南</h3>
-                            <p>如何进行指令跟随能力的系统化评测</p>
-                            <div class="meta">
-                                <span>2026-02-23</span>
-                                <span class="separator">·</span>
-                                <span>10 min</span>
-                            </div>
+                            <span class="category-tag">Benchmark</span>
+                            <h3>SWE-bench退役解读</h3>
+                            <p>OpenAI停用真相与新评测标准SWE-bench Pro解析</p>
+                            <div class="meta"><span>2026-02-26</span></div>
                         </div>
                     </article>
                     <article class="article-card">
                         <div class="card-image gradient-4"></div>
                         <div class="card-content">
-                            <span class="category-tag">评测报告</span>
-                            <h3>MMLU 2026评测报告</h3>
-                            <p>MMLU基准的最新评测结果和分析</p>
-                            <div class="meta">
-                                <span>2026-02-20</span>
-                                <span class="separator">·</span>
-                                <span>6 min</span>
-                            </div>
+                            <span class="category-tag">Tools</span>
+                            <h3>主流评测工具全解析</h3>
+                            <p>OpenCompass/EvalScope/FlagEval等工具功能对比</p>
+                            <div class="meta"><span>2026-02-25</span></div>
                         </div>
                     </article>
                 </div>
@@ -153,50 +246,29 @@
         <section class="content-section section-light">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">3D知识图谱</h2>
-                    <a href="3d-graph.html" class="view-all">进入图谱 →</a>
+                    <h2 class="section-title">评测趋势2026</h2>
                 </div>
-                <div class="graph-preview-container">
-                    <div class="graph-preview-card">
-                        <div class="graph-preview-visual">
-                            <div class="node-animation">
-                                <span></span><span></span><span></span><span></span><span></span>
-                            </div>
-                        </div>
-                        <div class="graph-preview-info">
-                            <h3>探索AI评测生态</h3>
-                            <p>可视化呈现评测专家、工具、流程与结论的关联逻辑</p>
-                            <ul class="feature-list">
-                                <li>✓ 20+ 评测节点</li>
-                                <li>✓ 30+ 关联关系</li>
-                                <li>✓ 交互式探索</li>
-                            </ul>
-                            <a href="3d-graph.html" class="btn btn-primary">开始探索</a>
-                        </div>
+                <div class="trends-grid">
+                    <div class="trend-card">
+                        <div class="trend-icon">📉</div>
+                        <h3>低成本逆袭</h3>
+                        <p>Gemini 3.1 Pro以不到竞品一半的成本实现12项基准第一，性价比成为核心竞争力</p>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section">
-            <div class="container">
-                <div class="categories-row">
-                    <a href="file-browser.html?type=expert-profile" class="category-card">
-                        <span class="cat-icon">👤</span>
-                        <span class="cat-name">评测专家</span>
-                    </a>
-                    <a href="file-browser.html?type=tool-description" class="category-card">
-                        <span class="cat-icon">🔧</span>
-                        <span class="cat-name">评测工具</span>
-                    </a>
-                    <a href="file-browser.html?type=process-document" class="category-card">
-                        <span class="cat-icon">📋</span>
-                        <span class="cat-name">评测流程</span>
-                    </a>
-                    <a href="file-browser.html?type=conclusion-report" class="category-card">
-                        <span class="cat-icon">📊</span>
-                        <span class="cat-name">评测报告</span>
-                    </a>
+                    <div class="trend-card">
+                        <div class="trend-icon">🔄</div>
+                        <h3>Benchmark退役潮</h3>
+                        <p>SWE-bench Verified停用，数据污染问题暴露，新基准SWE-bench Pro/rebench崛起</p>
+                    </div>
+                    <div class="trend-card">
+                        <div class="trend-icon">🧠</div>
+                        <h3>Agent元年</h3>
+                        <p>从文本生成到智能体执行，Computer Use能力成新焦点，Sonnet 4.6达94%准确率</p>
+                    </div>
+                    <div class="trend-card">
+                        <div class="trend-icon">🌏</div>
+                        <h3>中国模型崛起</h3>
+                        <p>Kimi K2.5、DeepSeek V3.2、GLM-5、Qwen3开源模型性能逼近闭源</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -207,10 +279,9 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="logo">
-                        <span class="logo-text">AI</span>
-                        <span class="logo-sub">评测</span>
+                        <span class="logo-text">AI-Rating</span>
                     </div>
-                    <p>追踪AI评测每一次脉动</p>
+                    <p>追踪全球AI模型评测动态</p>
                 </div>
                 <div class="footer-links">
                     <h4>导航</h4>
@@ -219,20 +290,18 @@
                     <a href="3d-graph.html">图谱</a>
                 </div>
                 <div class="footer-links">
-                    <h4>分类</h4>
-                    <a href="file-browser.html?type=expert-profile">评测专家</a>
-                    <a href="file-browser.html?type=tool-description">评测工具</a>
-                    <a href="file-browser.html?type=conclusion-report">评测报告</a>
+                    <h4>评测工具</h4>
+                    <a href="docs/other-related/benchmark-tools-2026.md">工具汇总</a>
+                    <a href="docs/process-documents/benchmark-2026.md">基准详解</a>
                 </div>
                 <div class="footer-links">
                     <h4>资源</h4>
                     <a href="#">GitHub</a>
-                    <a href="#">更新日志</a>
                     <a href="#">贡献指南</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 AI评测功能网站 · 开源项目 · MIT License</p>
+                <p>© 2026 AI-Rating · Open Source · MIT License</p>
             </div>
         </div>
     </footer>
