@@ -1,661 +1,204 @@
-class ForceGraph {
-    constructor(container) {
-        this.container = container;
-        this.width = container.clientWidth;
-        this.height = container.clientHeight;
-        this.nodes = [];
-        this.links = [];
-        this.selectedNode = null;
-        this.hoveredNode = null;
-        this.isDragging = false;
-        this.draggedNode = null;
-        
-        this.colors = {
-            'topic': '#ff6b6b',
-            'expert': '#4ecdc4',
-            'tool': '#45b7d1',
-            'process': '#96ceb4',
-            'conclusion': '#ffeaa7',
-            'literature': '#a29bfe'
-        };
-        
-        this.init();
-    }
+let graph;
 
-    init() {
-        this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0x1a1a2e);
+const graphData = {
+    nodes: [
+        { id: 'openai', name: 'OpenAI', group: 'company', color: '#00d4ff' },
+        { id: 'gpt5.2', name: 'GPT-5.2 Codex', group: 'model', parent: 'openai', score: 97 },
+        { id: 'gpt5', name: 'GPT-5', group: 'model', parent: 'openai', score: 95 },
+        { id: 'o1', name: 'o1 Pro', group: 'model', parent: 'openai', score: 93 },
         
-        this.camera = new THREE.PerspectiveCamera(60, this.width / this.height, 0.1, 1000);
-        this.camera.position.set(0, 0, 100);
+        { id: 'anthropic', name: 'Anthropic', group: 'company', color: '#a855f7' },
+        { id: 'opus4.6', name: 'Claude Opus 4.6', group: 'model', parent: 'anthropic', score: 95 },
+        { id: 'sonnet4.6', name: 'Claude Sonnet 4.6', group: 'model', parent: 'anthropic', score: 89 },
         
-        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        this.renderer.setSize(this.width, this.height);
-        this.renderer.setPixelRatio(window.devicePixelRatio);
-        this.container.appendChild(this.renderer.domElement);
+        { id: 'google', name: 'Google', group: 'company', color: '#00ff88' },
+        { id: 'gemini3pro', name: 'Gemini 3.1 Pro', group: 'model', parent: 'google', score: 93 },
+        { id: 'gemini2.5', name: 'Gemini 2.5 Pro', group: 'model', parent: 'google', score: 90 },
         
-        this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
-        this.controls.enableDamping = true;
-        this.controls.dampingFactor = 0.05;
-        this.controls.minDistance = 20;
-        this.controls.maxDistance = 300;
-        this.controls.enablePan = true;
+        { id: 'moonshot', name: 'Moonshot AI', group: 'company', color: '#ff6b35' },
+        { id: 'kimi2.5', name: 'Kimi K2.5', group: 'model', parent: 'moonshot', score: 91 },
+        { id: 'kimi2', name: 'Kimi K2', group: 'model', parent: 'moonshot', score: 85 },
         
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-        this.scene.add(ambientLight);
+        { id: 'deepseek', name: 'DeepSeek', group: 'company', color: '#ff3d8a' },
+        { id: 'deepseekv3', name: 'DeepSeek V3.2', group: 'model', parent: 'deepseek', score: 87 },
+        { id: 'deepr1', name: 'DeepSeek R1', group: 'model', parent: 'deepseek', score: 86 },
         
-        const pointLight = new THREE.PointLight(0xffffff, 0.5);
-        pointLight.position.set(50, 50, 50);
-        this.scene.add(pointLight);
+        { id: 'alibaba', name: '阿里云', group: 'company', color: '#fbbf24' },
+        { id: 'qwen3.5', name: 'Qwen3.5', group: 'model', parent: 'alibaba', score: 85 },
+        { id: 'qwen2.5', name: 'Qwen2.5', group: 'model', parent: 'alibaba', score: 80 },
         
-        this.raycaster = new THREE.Raycaster();
-        this.raycaster.params.Points.threshold = 5;
-        this.mouse = new THREE.Vector2();
-        this.mouseNDC = new THREE.Vector2();
+        { id: 'zhipu', name: '智谱AI', group: 'company', color: '#3b82f6' },
+        { id: 'glm5', name: 'GLM-5', group: 'model', parent: 'zhipu', score: 82 },
         
-        this.setupEventListeners();
-        this.createStarfield();
-        this.animate();
-    }
+        { id: 'baidu', name: '百度', group: 'company', color: '#22c55e' },
+        { id: 'wenxin4', name: '文心一言4.0', group: 'model', parent: 'baidu', score: 78 },
+        
+        { id: 'xai', name: 'xAI', group: 'company', color: '#f97316' },
+        { id: 'grok4', name: 'Grok 4', group: 'model', parent: 'xai', score: 80 }
+    ],
+    links: [
+        { source: 'gpt5.2', target: 'openai' }, { source: 'gpt5', target: 'openai' }, { source: 'o1', target: 'openai' },
+        { source: 'opus4.6', target: 'anthropic' }, { source: 'sonnet4.6', target: 'anthropic' },
+        { source: 'gemini3pro', target: 'google' }, { source: 'gemini2.5', target: 'google' },
+        { source: 'kimi2.5', target: 'moonshot' }, { source: 'kimi2', target: 'moonshot' },
+        { source: 'deepseekv3', target: 'deepseek' }, { source: 'deepr1', target: 'deepseek' },
+        { source: 'qwen3.5', target: 'alibaba' }, { source: 'qwen2.5', target: 'alibaba' },
+        { source: 'glm5', target: 'zhipu' }, { source: 'wenxin4', target: 'baidu' }, { source: 'grok4', target: 'xai' }
+    ]
+};
 
-    createStarfield() {
-        const starGeometry = new THREE.BufferGeometry();
-        const starCount = 2000;
-        const positions = new Float32Array(starCount * 3);
-        const colors = new Float32Array(starCount * 3);
-        
-        for (let i = 0; i < starCount * i + 3; i += 3) {
-            positions[i] = (Math.random() - 0.5) * 600;
-            positions[i + 1] = (Math.random() - 0.5) * 600;
-            positions[i + 2] = (Math.random() - 0.5) * 600;
-            
-            const color = new THREE.Color();
-            color.setHSL(Math.random() * 0.2 + 0.5, 0.8, 0.8);
-            colors[i] = color.r;
-            colors[i + 1] = color.g;
-            colors[i + 2] = color.b;
-        }
-        
-        starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        starGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-        
-        const starMaterial = new THREE.PointsMaterial({
-            size: 0.5,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.6
-        });
-        
-        this.stars = new THREE.Points(starGeometry, starMaterial);
-        this.scene.add(this.stars);
-    }
+const benchmarkData = {
+    'gpt5.2': [
+        { name: 'ARC-AGI-2', score: '52.9%', rank: 1, desc: '抽象推理基准' },
+        { name: 'AIME 2025', score: '100%', rank: 1, desc: '数学竞赛基准' },
+        { name: 'MMLU', score: '92%', rank: 1, desc: '多任务语言理解' }
+    ],
+    'opus4.6': [
+        { name: 'SWE-bench Pro', score: '80.9%', rank: 1, desc: '代码修复基准' },
+        { name: 'HumanEval', score: '92%', rank: 1, desc: '代码生成基准' },
+        { name: 'LongBench', score: '76%', rank: 1, desc: '长上下文理解' }
+    ],
+    'gemini3pro': [
+        { name: '12项基准', score: '第一', rank: 1, desc: '综合评测' },
+        { name: '编程成本', score: '<50%', rank: 1, desc: '性价比最优' }
+    ],
+    'kimi2.5': [
+        { name: 'GPQA', score: '87.6%', rank: 1, desc: '科学研究基准' },
+        { name: 'AIME 2025', score: '87.6%', rank: 2, desc: '数学竞赛基准' },
+        { name: '长上下文', score: '200万', rank: 1, desc: 'token上下文' }
+    ],
+    'deepseekv3': [
+        { name: 'API价格', score: '$0.27/M', rank: 1, desc: '行业最低' },
+        { name: '开源协议', score: 'MIT', rank: 1, desc: '完全开源' }
+    ]
+};
 
-    setupEventListeners() {
-        this.container.addEventListener('mousedown', (e) => this.onMouseDown(e));
-        this.container.addEventListener('mousemove', (e) => this.onMouseMove(e));
-        this.container.addEventListener('mouseup', (e) => this.onMouseUp(e));
-        this.container.addEventListener('click', (e) => this.onClick(e));
-        window.addEventListener('resize', () => this.onResize());
-        
-        const searchInput = document.getElementById('search-input');
-        const typeFilter = document.getElementById('type-filter');
-        
-        if (searchInput) searchInput.addEventListener('input', (e) => this.filterNodes(e.target.value));
-        if (typeFilter) typeFilter.addEventListener('change', (e) => this.filterByType(e.target.value));
-        
-        const resetBtn = document.getElementById('reset-view');
-        if (resetBtn) resetBtn.addEventListener('click', () => this.resetView());
-    }
+const sidebarData = {
+    experts: [
+        { name: '李开复', title: '创新工场CEO', desc: 'AI领域知名专家' },
+        { name: '图灵的猫', title: 'B站科技UP主', desc: 'AI模型深度评测' }
+    ],
+    tools: [
+        { name: 'OpenCompass', desc: '上海人工智能实验室开源' },
+        { name: 'EvalScope', desc: '阿里魔搭社区开源' },
+        { name: 'FlagEval', desc: '智源研究院评测' }
+    ],
+    reports: [
+        { title: 'GPT-5.2深度评测', date: '2026-03-01', desc: '推理能力登顶' },
+        { title: 'Claude 4.6编程实测', date: '2026-02-28', desc: 'SWE-bench达80.9%' }
+    ]
+};
 
-    loadData(data) {
-        this.clearGraph();
-        
-        const nodeSizeMap = { 'topic': 3, 'expert': 2.5, 'tool': 2, 'process': 1.8, 'conclusion': 1.5, 'literature': 1.2 };
-        
-        data.nodes.forEach((nodeData, index) => {
-            const size = nodeSizeMap[nodeData.type] || 1.5;
-            const geometry = new THREE.SphereGeometry(size, 32, 32);
-            const color = this.colors[nodeData.type] || 0xcccccc;
-            
-            const material = new THREE.MeshPhongMaterial({
-                color: color,
-                shininess: 80,
-                emissive: color,
-                emissiveIntensity: 0.15
-            });
-            
-            const mesh = new THREE.Mesh(geometry, material);
-            
-            const radius = 30 + Math.random() * 20;
-            const theta = Math.random() * Math.PI * 2;
-            const phi = Math.random() * Math.PI;
-            
-            mesh.position.x = radius * Math.sin(phi) * Math.cos(theta);
-            mesh.position.y = radius * Math.sin(phi) * Math.sin(theta);
-            mesh.position.z = radius * Math.cos(phi);
-            
-            mesh.userData = { ...nodeData, originalColor: color };
-            
-            const spriteMaterial = new THREE.SpriteMaterial({
-                map: this.createTextTexture(nodeData.name),
-                transparent: true
-            });
-            const sprite = new THREE.Sprite(spriteMaterial);
-            sprite.position.copy(mesh.position);
-            sprite.position.y += size + 1;
-            sprite.scale.set(8, 4, 1);
-            mesh.userData.sprite = sprite;
-            
-            this.scene.add(mesh);
-            this.scene.add(sprite);
-            
-            this.nodes.push({
-                mesh: mesh,
-                sprite: sprite,
-                data: nodeData,
-                velocity: new THREE.Vector3(
-                    (Math.random() - 0.5) * 0.1,
-                    (Math.random() - 0.5) * 0.1,
-                    (Math.random() - 0.5) * 0.1
-                ),
-                fixed: false,
-                originalPosition: mesh.position.clone()
-            });
-        });
-        
-        const nodeMap = {};
-        this.nodes.forEach(n => nodeMap[n.data.id] = n);
-        
-        data.links.forEach(linkData => {
-            const sourceNode = nodeMap[linkData.source];
-            const targetNode = nodeMap[linkData.target];
-            
-            if (sourceNode && targetNode) {
-                const points = [sourceNode.mesh.position.clone(), targetNode.mesh.position.clone()];
-                const geometry = new THREE.BufferGeometry().setFromPoints(points);
-                const material = new THREE.LineBasicMaterial({
-                    color: 0x4a90d9,
-                    transparent: true,
-                    opacity: 0.3
-                });
-                const line = new THREE.Line(geometry, material);
-                this.scene.add(line);
-                
-                this.links.push({
-                    line: line,
-                    source: sourceNode,
-                    target: targetNode
-                });
-            }
-        });
-        
-        this.startForceLayout();
-    }
-
-    createTextTexture(text) {
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        canvas.width = 256;
-        canvas.height = 128;
-        
-        context.fillStyle = 'rgba(0,0,0,0)';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        
-        context.font = 'bold 24px -apple-system, BlinkMacSystemFont, sans-serif';
-        context.fillStyle = '#ffffff';
-        context.textAlign = 'center';
-        context.textBaseline = 'middle';
-        
-        const maxWidth = 240;
-        let fontSize = 24;
-        do {
-            context.font = `bold ${fontSize}px -apple-system, BlinkMacSystemFont, sans-serif`;
-            fontSize--;
-        } while (context.measureText(text).width > maxWidth && fontSize > 12);
-        
-        context.fillText(text, canvas.width / 2, canvas.height / 2);
-        
-        const texture = new THREE.CanvasTexture(canvas);
-        return texture;
-    }
-
-    clearGraph() {
-        this.nodes.forEach(node => {
-            this.scene.remove(node.mesh);
-            if (node.sprite) this.scene.remove(node.sprite);
-        });
-        this.links.forEach(link => this.scene.remove(link.line));
-        this.nodes = [];
-        this.links = [];
-    }
-
-    startForceLayout() {
-        const center = new THREE.Vector3(0, 0, 0);
-        const repulsion = 150;
-        const attraction = 0.02;
-        const damping = 0.95;
-        
-        const runSimulation = () => {
-            this.nodes.forEach(node => {
-                if (node.fixed) return;
-                
-                const force = new THREE.Vector3(0, 0, 0);
-                
-                this.nodes.forEach(other => {
-                    if (node === other) return;
-                    const diff = new THREE.Vector3().subVectors(node.mesh.position, other.mesh.position);
-                    const dist = diff.length();
-                    if (dist < 0.1) return;
-                    
-                    const repulsionForce = repulsion / (dist * dist);
-                    diff.normalize().multiplyScalar(repulsionForce);
-                    force.add(diff);
-                });
-                
-                const toCenter = new THREE.Vector3().subVectors(center, node.mesh.position);
-                force.add(toCenter.multiplyScalar(attraction));
-                
-                this.links.forEach(link => {
-                    if (link.source === node) {
-                        const diff = new THREE.Vector3().subVectors(link.target.mesh.position, node.mesh.position);
-                        force.add(diff.multiplyScalar(attraction * 2));
-                    } else if (link.target === node) {
-                        const diff = new THREE.Vector3().subVectors(link.source.mesh.position, node.mesh.position);
-                        force.add(diff.multiplyScalar(attraction * 2));
-                    }
-                });
-                
-                node.velocity.add(force.multiplyScalar(0.01));
-                node.velocity.multiplyScalar(damping);
-                node.mesh.position.add(node.velocity);
-                
-                if (node.sprite) {
-                    node.sprite.position.copy(node.mesh.position);
-                    node.sprite.position.y += node.mesh.geometry.parameters.radius + 1;
-                }
-            });
-            
-            this.updateLinks();
-            
-            if (!this.simulationStopped) {
-                requestAnimationFrame(runSimulation);
-            }
-        };
-        
-        this.simulationStopped = false;
-        runSimulation();
-    }
-
-    updateLinks() {
-        this.links.forEach(link => {
-            const positions = link.line.geometry.attributes.position.array;
-            positions[0] = link.source.mesh.position.x;
-            positions[1] = link.source.mesh.position.y;
-            positions[2] = link.source.mesh.position.z;
-            positions[3] = link.target.mesh.position.x;
-            positions[4] = link.target.mesh.position.y;
-            positions[5] = link.target.mesh.position.z;
-            link.line.geometry.attributes.position.needsUpdate = true;
-        });
-    }
-
-    onMouseDown(event) {
-        const rect = this.container.getBoundingClientRect();
-        this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-        this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-        
-        this.raycaster.setFromCamera(this.mouse, camera = this.camera, this.camera);
-        
-        const meshes = this.nodes.map(n => n.mesh);
-        const intersects = this.raycaster.intersectObjects(meshes);
-        
-        if (intersects.length > 0) {
-            this.isDragging = true;
-            this.draggedNode = this.nodes.find(n => n.mesh === intersects[0].object);
-            if (this.draggedNode) {
-                this.draggedNode.fixed = true;
-                this.controls.enabled = false;
-            }
-        }
-    }
-
-    onMouseMove(event) {
-        const rect = this.container.getBoundingClientRect();
-        this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-        this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-        
-        this.raycaster.setFromCamera(this.mouse, this.camera);
-        
-        const meshes = this.nodes.map(n => n.mesh);
-        const intersects = this.raycaster.intersectObjects(meshes);
-        
-        if (intersects.length > 0) {
-            this.container.style.cursor = 'pointer';
-            if (!this.isDragging) {
-                const hovered = this.nodes.find(n => n.mesh === intersects[0].object);
-                if (hovered && hovered !== this.hoveredNode) {
-                    this.highlightNode(hovered, true);
-                    this.hoveredNode = hovered;
-                }
-            }
-        } else {
-            this.container.style.cursor = 'grab';
-            if (this.hoveredNode) {
-                this.highlightNode(this.hoveredNode, false);
-                this.hoveredNode = null;
-            }
-        }
-        
-        if (this.isDragging && this.draggedNode) {
-            const vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 0.5);
-            vector.unproject(this.camera);
-            const dir = vector.sub(this.camera.position).normalize();
-            const distance = -this.camera.position.z / dir.z;
-            const pos = this.camera.position.clone().add(dir.multiplyScalar(distance));
-            
-            this.draggedNode.mesh.position.copy(pos);
-            this.draggedNode.sprite.position.copy(pos);
-            this.draggedNode.sprite.position.y += this.draggedNode.mesh.geometry.parameters.radius + 1;
-            this.draggedNode.originalPosition.copy(pos);
-            this.updateLinks();
-        }
-    }
-
-    onMouseUp(event) {
-        if (this.draggedNode) {
-            this.draggedNode.fixed = false;
-            this.draggedNode = null;
-        }
-        this.isDragging = false;
-        this.controls.enabled = true;
-    }
-
-    onClick(event) {
-        const rect = this.container.getBoundingClientRect();
-        this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-        this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-        
-        this.raycaster.setFromCamera(this.mouse, this.camera);
-        
-        const meshes = this.nodes.map(n => n.mesh);
-        const intersects = this.raycaster.intersectObjects(meshes);
-        
-        if (intersects.length > 0) {
-            const clickedNode = this.nodes.find(n => n.mesh === intersects[0].object);
-            this.selectNode(clickedNode);
-        } else {
-            this.deselectNode();
-        }
-    }
-
-    highlightNode(node, highlight) {
-        if (!node) return;
-        
-        if (highlight) {
-            node.mesh.scale.set(1.5, 1.5, 1.5);
-            node.mesh.material.emissiveIntensity = 0.5;
-            if (node.sprite) node.sprite.visible = true;
-        } else {
-            node.mesh.scale.set(1, 1, 1);
-            node.mesh.material.emissiveIntensity = 0.15;
-            if (node.sprite && node !== this.selectedNode) node.sprite.visible = false;
-        }
-    }
-
-    selectNode(node) {
-        if (this.selectedNode) {
-            this.highlightNode(this.selectedNode, false);
-        }
-        
-        this.selectedNode = node;
-        this.highlightNode(node, true);
-        
-        if (node.sprite) node.sprite.visible = true;
-        
-        this.showNodeInfo(node.data);
-        this.highlightConnectedNodes(node);
-    }
-
-    deselectNode() {
-        if (this.selectedNode) {
-            this.highlightNode(this.selectedNode, false);
-            this.selectedNode = null;
-        }
-        this.hideNodeInfo();
-        this.resetNodeStyles();
-    }
-
-    highlightConnectedNodes(node) {
-        this.resetNodeStyles();
-        
-        const connectedIds = new Set();
-        connectedIds.add(node.data.id);
-        
-        this.links.forEach(link => {
-            if (link.source === node) {
-                connectedIds.add(link.target.data.id);
-                link.line.material.opacity = 0.8;
-                link.line.material.color.setHex(0xffffff);
-            } else if (link.target === node) {
-                connectedIds.add(link.source.data.id);
-                link.line.material.opacity = 0.8;
-                link.line.material.color.setHex(0xffffff);
-            }
-        });
-        
-        this.nodes.forEach(n => {
-            if (!connectedIds.has(n.data.id)) {
-                n.mesh.material.opacity = 0.2;
-                n.mesh.material.transparent = true;
-                if (n.sprite) n.sprite.visible = false;
-            }
-        });
-    }
-
-    resetNodeStyles() {
-        this.nodes.forEach(n => {
-            n.mesh.material.opacity = 1;
-            n.mesh.material.transparent = false;
-            if (n.sprite && n !== this.selectedNode && n !== this.hoveredNode) {
-                n.sprite.visible = false;
-            }
-        });
-        
-        this.links.forEach(link => {
-            link.line.material.opacity = 0.3;
-            link.line.material.color.setHex(0x4a90d9);
-        });
-    }
-
-    showNodeInfo(nodeData) {
-        const panel = document.getElementById('node-info');
-        const details = document.getElementById('node-details');
-        
-        if (!panel || !details) return;
-        
-        const typeNames = {
-            'topic': 'AI评测热点',
-            'expert': '评测专家',
-            'tool': '评测工具',
-            'process': '评测流程',
-            'conclusion': '评测结论',
-            'literature': '学术文献'
-        };
-        
-        let content = `
-            <div class="node-detail-item">
-                <span class="node-type-tag node-type-${nodeData.type}">${typeNames[nodeData.type]}</span>
-            </div>
-            <div class="node-detail-item">
-                <div class="node-detail-label">名称</div>
-                <div class="node-detail-value">${nodeData.name}</div>
-            </div>
-        `;
-        
-        if (nodeData.description) {
-            content += `
-                <div class="node-detail-item">
-                    <div class="node-detail-label">描述</div>
-                    <div class="node-detail-value">${nodeData.description}</div>
-                </div>
-            `;
-        }
-        
-        if (nodeData.expertise) {
-            content += `
-                <div class="node-detail-item">
-                    <div class="node-detail-label">专业领域</div>
-                    <div class="node-detail-value">${Array.isArray(nodeData.expertise) ? nodeData.expertise.join(', ') : nodeData.expertise}</div>
-                </div>
-            `;
-        }
-        
-        if (nodeData.features) {
-            content += `
-                <div class="node-detail-item">
-                    <div class="node-detail-label">主要特性</div>
-                    <div class="node-detail-value">${Array.isArray(nodeData.features) ? nodeData.features.join(', ') : nodeData.features}</div>
-                </div>
-            `;
-        }
-        
-        if (nodeData.accuracy) {
-            content += `
-                <div class="node-detail-item">
-                    <div class="node-detail-label">准确率</div>
-                    <div class="node-detail-value">${nodeData.accuracy}</div>
-                </div>
-            `;
-        }
-        
-        details.innerHTML = content;
-        panel.classList.add('active');
-    }
-
-    hideNodeInfo() {
-        const panel = document.getElementById('node-info');
-        if (panel) panel.classList.remove('active');
-    }
-
-    filterNodes(searchTerm) {
-        searchTerm = searchTerm.toLowerCase();
-        
-        this.nodes.forEach(node => {
-            const matches = !searchTerm || 
-                node.data.name.toLowerCase().includes(searchTerm) ||
-                (node.data.description && node.data.description.toLowerCase().includes(searchTerm));
-            
-            node.mesh.visible = matches;
-            if (node.sprite) node.sprite.visible = matches;
-        });
-        
-        this.links.forEach(link => {
-            link.line.visible = link.source.mesh.visible && link.target.mesh.visible;
-        });
-    }
-
-    filterByType(type) {
-        this.nodes.forEach(node => {
-            const matches = !type || node.data.type === type;
-            node.mesh.visible = matches;
-            if (node.sprite) node.sprite.visible = matches;
-        });
-        
-        this.links.forEach(link => {
-            link.line.visible = link.source.mesh.visible && link.target.mesh.visible;
-        });
-    }
-
-    resetView() {
-        this.camera.position.set(0, 0, 100);
-        this.camera.lookAt(0, 0, 0);
-        this.controls.reset();
-        this.deselectNode();
-    }
-
-    onResize() {
-        this.width = this.container.clientWidth;
-        this.height = this.container.clientHeight;
-        
-        this.camera.aspect = this.width / this.height;
-        this.camera.updateProjectionMatrix();
-        this.renderer.setSize(this.width, this.height);
-    }
-
-    animate() {
-        requestAnimationFrame(() => this.animate());
-        
-        this.controls.update();
-        
-        if (this.stars) {
-            this.stars.rotation.y += 0.0002;
-            this.stars.rotation.x += 0.0001;
-        }
-        
-        this.renderer.render(this.scene, this.camera);
-    }
-
-    stopSimulation() {
-        this.simulationStopped = true;
-    }
-
-    dispose() {
-        this.stopSimulation();
-        this.clearGraph();
-        this.renderer.dispose();
-        this.container.removeChild(this.renderer.domElement);
-    }
-}
-
-let graph = null;
-
-function init3DGraph() {
-    const container = document.getElementById('graph-container');
+function initGraph() {
+    const container = document.getElementById('3d-graph');
     if (!container) return;
     
-    graph = new ForceGraph(container);
+    graph = ForceGraph3D()(container)
+        .graphData(graphData)
+        .nodeLabel('name')
+        .nodeColor(node => node.group === 'company' ? (node.color || '#ffffff') : getCompanyColor(node.parent))
+        .nodeVal(node => node.group === 'company' ? 25 : 12 + (node.score || 0) / 10)
+        .linkColor(() => 'rgba(0, 255, 136, 0.2)')
+        .linkWidth(1)
+        .linkDirectionalParticles(2)
+        .linkDirectionalParticleSpeed(0.005)
+        .linkDirectionalParticleColor(() => 'rgba(0, 255, 136, 0.5)')
+        .backgroundColor('#0a0a0f')
+        .onNodeClick(handleNodeClick)
+        .nodeCanvasObject((node, ctx, globalScale) => {
+            const r = node.group === 'company' ? 8 : 5;
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, r, 0, 2 * Math.PI);
+            ctx.fillStyle = node.group === 'company' ? (node.color || '#ffffff') : getCompanyColor(node.parent);
+            ctx.fill();
+            if (globalScale > 1.5) {
+                ctx.font = `${14/globalScale}px Outfit, sans-serif`;
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.textAlign = 'center';
+                ctx.fillText(node.name, node.x, node.y + r + 12/globalScale);
+            }
+        });
     
-    loadGraphData().then(data => {
-        graph.loadData(data);
-    });
+    graph.d3Force('charge').strength(-400);
+    graph.d3Force('center').strength(0.1);
+    graph.d3Force('collision').strength(20);
+    
+    setTimeout(() => graph.zoomToFit(400), 1000);
+    initSidebar();
+    initControls();
 }
 
-async function loadGraphData() {
-    try {
-        const response = await fetch('assets/data/3d-graph-data.json');
-        return await response.json();
-    } catch (error) {
-        console.warn('加载图谱数据失败，使用默认数据');
-        return getDefaultGraphData();
+function getCompanyColor(companyId) {
+    const company = graphData.nodes.find(n => n.id === companyId);
+    return company ? company.color : '#666666';
+}
+
+function handleNodeClick(node) {
+    showModelPopup(node);
+}
+
+function showModelPopup(node) {
+    const popup = document.getElementById('node-popup');
+    if (!popup) return;
+    
+    const benchmarks = benchmarkData[node.id] || [{ name: 'MMLU', score: (node.score || 80) + '%', rank: 3, desc: '多任务语言理解' }];
+    
+    document.getElementById('popup-model-name').textContent = node.name;
+    document.getElementById('popup-company').textContent = getCompanyName(node.parent);
+    document.getElementById('popup-score').textContent = node.score || '--';
+    document.getElementById('popup-icon').textContent = node.name.charAt(0);
+    
+    document.getElementById('benchmark-list').innerHTML = benchmarks.map(b => `
+        <div class="benchmark-item">
+            <div class="benchmark-header">
+                <span class="benchmark-name">${b.name}</span>
+                <span class="benchmark-score">${b.score}</span>
+            </div>
+            <div class="benchmark-desc">${b.desc}</div>
+            <div class="benchmark-meta"><span>热度排名 #${b.rank}</span></div>
+        </div>
+    `).join('');
+    
+    popup.classList.add('active');
+}
+
+function getCompanyName(companyId) {
+    const company = graphData.nodes.find(n => n.id === companyId);
+    return company ? company.name : '';
+}
+
+function initSidebar() {
+    const toggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    
+    if (toggle && sidebar) {
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            sidebar.classList.toggle('active');
+        });
     }
+    
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.panel-item').forEach(p => p.classList.remove('active'));
+            item.classList.add('active');
+            document.getElementById('panel-' + item.dataset.panel).classList.add('active');
+        });
+    });
+    
+    document.getElementById('expert-list').innerHTML = sidebarData.experts.map(e => `<div class="expert-card"><h4>${e.name}</h4><p><strong>${e.title}</strong></p><p>${e.desc}</p></div>`).join('');
+    document.getElementById('tool-list').innerHTML = sidebarData.tools.map(t => `<div class="tool-card"><h4>${t.name}</h4><p>${t.desc}</p></div>`).join('');
+    document.getElementById('report-list').innerHTML = sidebarData.reports.map(r => `<div class="report-card"><h4>${r.title}</h4><p>${r.desc}</p><div class="report-date">${r.date}</div></div>`).join('');
+    document.getElementById('trend-chart').innerHTML = '<p>📈 趋势图表展示区<br><br><span style="color: var(--text-muted);">近期GPT系列评分稳定上升</span></p>';
 }
 
-function getDefaultGraphData() {
-    return {
-        nodes: [
-            { id: 1, name: '大语言模型评测', type: 'topic', description: '当前AI评测最热门的方向' },
-            { id: 2, name: 'GPT-4评测', type: 'topic', description: 'OpenAI最新模型的评测研究' },
-            { id: 3, name: 'Claude评测', type: 'topic', description: 'Anthropic模型的评测分析' },
-            { id: 4, name: '图像识别评测', type: 'topic', description: '计算机视觉评测方向' },
-            { id: 5, name: '李开复', type: 'expert', description: 'AI领域知名专家', expertise: ['大模型评测', 'AI应用'] },
-            { id: 6, name: '周志华', type: 'expert', description: '机器学习领域专家', expertise: ['算法评测', '理论分析'] },
-            { id: 7, name: 'OpenAI Evals', type: 'tool', description: '官方评测框架', features: ['开源', '可定制'] },
-            { id: 8, name: 'LM-Eval', type: 'tool', description: '统一评测基准', features: ['多模型支持', '标准化'] },
-            { id: 9, name: 'HELM', type: 'tool', description: '斯坦福评测工具', features: ['全面评测', '学术标准'] },
-            { id: 10, name: '指令跟随评测', type: 'process', description: '评估模型指令理解能力' },
-            { id: 11, name: '安全对齐评测', type: 'process', description: '评估模型安全性' },
-            { id: 12, name: 'MMLU评测', type: 'conclusion', description: '大规模多任务理解', accuracy: '85%' },
-            { id: 13, name: 'HumanEval', type: 'conclusion', description: '代码生成评测', accuracy: '80%' }
-        ],
-        links: [
-            { source: 1, target: 2 }, { source: 1, target: 3 }, { source: 1, target: 4 },
-            { source: 2, target: 7 }, { source: 2, target: 8 }, { source: 3, target: 7 },
-            { source: 4, target: 9 }, { source: 5, target: 1 }, { source: 5, target: 10 },
-            { source: 6, target: 1 }, { source: 6, target: 12 }, { source: 7, target: 10 },
-            { source: 8, target: 12 }, { source: 9, target: 13 }, { source: 10, target: 12 },
-            { source: 11, target: 13 }
-        ]
-    };
+function initControls() {
+    document.getElementById('zoom-in')?.addEventListener('click', () => graph.zoom(graph.zoom() * 1.3, 300));
+    document.getElementById('zoom-out')?.addEventListener('click', () => graph.zoom(graph.zoom() / 1.3, 300));
+    document.getElementById('reset-view')?.addEventListener('click', () => { graph.zoomToFit(400); graph.cameraPosition({ x: 0, y: 0, z: 400 }); });
+    document.getElementById('popup-close')?.addEventListener('click', () => document.getElementById('node-popup').classList.remove('active'));
+    document.getElementById('node-popup')?.addEventListener('click', (e) => { if (e.target.id === 'node-popup') document.getElementById('node-popup').classList.remove('active'); });
 }
 
-document.addEventListener('DOMContentLoaded', init3DGraph);
+window.addEventListener('load', initGraph);

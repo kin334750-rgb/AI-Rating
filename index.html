@@ -3,316 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Rating | 智能评测</title>
+    <title>AI-Rating | AI评测信息实时收集平台</title>
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="bg-pattern"></div>
+    
     <header class="site-header">
-        <div class="header-top">
-            <div class="container">
-                <span class="date">Sunday, March 1, 2026</span>
-                <div class="lang-switch">
-                    <a href="?lang=zh">中文</a> | <a href="?lang=en">EN</a>
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 40 40" fill="none">
+                        <circle cx="20" cy="20" r="18" stroke="url(#logoGradient)" stroke-width="2"/>
+                        <circle cx="20" cy="20" r="8" fill="url(#logoGradient)"/>
+                        <circle cx="20" cy="20" r="3" fill="#0a0a0f"/>
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#00ff88"/>
+                                <stop offset="100%" stop-color="#00d4ff"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>AI-Rating</h1>
+                    <p class="tagline">AI评测信息实时收集平台</p>
                 </div>
             </div>
-        </div>
-        <div class="header-main">
-            <div class="container">
-                <a href="index.html" class="logo">
-                    <div class="logo-img"></div>
-                    <span class="logo-text">AI-Rating</span>
-                </a>
-                <nav class="site-nav">
-                    <a href="index.html" class="nav-link active">首页</a>
-                    <a href="file-browser.html" class="nav-link">文章</a>
-                    <a href="3d-graph.html" class="nav-link">图谱</a>
-                    <a href="docs/other-related/benchmark-tools-2026.md" class="nav-link">评测工具</a>
-                </nav>
+            <div class="header-desc">
+                <span class="badge">多源实时抓取</span>
+                <span class="badge">综合能力打分</span>
+                <span class="badge">行业趋势分析</span>
             </div>
         </div>
     </header>
 
     <main class="main-content">
-        <section class="hero-section">
-            <div class="container">
-                <div class="hero-grid">
-                    <article class="hero-article">
-                        <div class="hero-image gradient-1"></div>
-                        <div class="hero-content">
-                            <span class="category-tag">Featured</span>
-                            <h1>2026 AI模型评测终极指南</h1>
-                            <p>追踪全球AI模型最新评测动态，GPT-5.2 vs Claude Opus 4.6 vs Gemini 3.1 Pro 巅峰对决</p>
-                            <div class="meta">
-                                <span class="author">AI-Rating Team</span>
-                                <span class="separator">·</span>
-                                <span class="read-time">15 min read</span>
-                            </div>
-                        </div>
-                    </article>
-                    <aside class="hero-sidebar">
-                        <article class="sidebar-article">
-                            <span class="category-tag tag-hot">Trending</span>
-                            <h3>SWE-bench Verified 退役</h3>
-                            <div class="meta"><span>Feb 26, 2026</span></div>
-                        </article>
-                        <article class="sidebar-article">
-                            <span class="category-tag">Benchmark</span>
-                            <h3>SWE-bench Pro 新榜单发布</h3>
-                            <div class="meta"><span>Feb 2026</span></div>
-                        </article>
-                        <article class="sidebar-article">
-                            <span class="category-tag">Analysis</span>
-                            <h3>2026评测趋势：低成本逆袭</h3>
-                            <div class="meta"><span>Feb 2026</span></div>
-                        </article>
-                    </aside>
+        <section class="hero-stats">
+            <div class="stat-card">
+                <div class="stat-icon">🟢</div>
+                <div class="stat-info">
+                    <span class="stat-value" id="total-models">28</span>
+                    <span class="stat-label">追踪模型</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📡</div>
+                <div class="stat-info">
+                    <span class="stat-value" id="total-sources">12</span>
+                    <span class="stat-label">信息源</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-info">
+                    <span class="stat-value" id="total-benchmarks">18</span>
+                    <span class="stat-label">评测基准</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-info">
+                    <span class="stat-value" id="last-update">--:--</span>
+                    <span class="stat-label">最后更新</span>
                 </div>
             </div>
         </section>
 
-        <section class="stats-bar">
-            <div class="container">
-                <div class="stats-flex">
-                    <div class="stat-item">
-                        <span class="stat-icon">📊</span>
-                        <span class="stat-label">Models Tracked</span>
-                        <span class="stat-number" id="expert-count">15+</span>
+        <section class="main-grid">
+            <div class="left-panel">
+                <div class="panel-header">
+                    <h2><span class="pulse"></span>实时信息源</h2>
+                    <div class="panel-tabs">
+                        <button class="tab-btn active" data-source="all">全部</button>
+                        <button class="tab-btn" data-source="bilibili">B站</button>
+                        <button class="tab-btn" data-source="github">GitHub</button>
+                        <button class="tab-btn" data-source="twitter">X</button>
+                        <button class="tab-btn" data-source="zhihu">知乎</button>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">🔧</span>
-                        <span class="stat-label">Benchmark Tools</span>
-                        <span class="stat-number" id="tool-count">25+</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">📈</span>
-                        <span class="stat-label">Reports</span>
-                        <span class="stat-number" id="process-count">60+</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">🌍</span>
-                        <span class="stat-label">Data Sources</span>
-                        <span class="stat-number" id="report-count">120+</span>
-                    </div>
+                </div>
+                <div class="feed-container">
+                    <div class="feed-content" id="feed-content"></div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="panel-header">
+                    <h2>🏆 AI模型综合评分</h2>
+                    <span class="update-time">实时更新</span>
+                </div>
+                <div class="ranking-container">
+                    <div class="ranking-list" id="ranking-list"></div>
                 </div>
             </div>
         </section>
 
-        <section class="content-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">主流评测工具</h2>
-                    <a href="docs/other-related/benchmark-tools-2026.md" class="view-all">了解更多 →</a>
-                </div>
-                <div class="tools-grid">
-                    <div class="tool-card">
-                        <div class="tool-icon">🔬</div>
-                        <h3>OpenCompass</h3>
-                        <p>上海人工智能实验室开源，70+数据集覆盖知识推理、代码生成、数学、长文本等</p>
-                        <span class="tool-tag">中国开源</span>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon">🧪</div>
-                        <h3>EvalScope</h3>
-                        <p>阿里魔搭社区开源，支持LLM/多模态/Embedding/AIGC全类型评测</p>
-                        <span class="tool-tag">阿里</span>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon">⚖️</div>
-                        <h3>FlagEval</h3>
-                        <p>智源研究院推出，22个数据集8万+评测题目，科学公正</p>
-                        <span class="tool-tag">中国开源</span>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon">📝</div>
-                        <h3>LM-Eval</h3>
-                        <p>EleutherAI开源，标准化评测基准，支持100+评测任务</p>
-                        <span class="tool-tag">开源标准</span>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon">🤖</div>
-                        <h3>Artificial Analysis</h3>
-                        <p>独立AI评测机构，AI指数排名，性价比分析</p>
-                        <span class="tool-tag">第三方</span>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon">🔍</div>
-                        <h3>302.AI 基准实验室</h3>
-                        <p>独立第三方评测，实测案例分析，选型参考</p>
-                        <span class="tool-tag">第三方</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section section-light">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Benchmark 评测基准</h2>
-                </div>
-                <div class="benchmark-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Benchmark</th>
-                                <th>用途</th>
-                                <th>代表模型</th>
-                                <th>2026变化</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>SWE-bench Pro</strong></td>
-                                <td>编程/代码修复</td>
-                                <td>Claude Opus 4.6 (80.9%)</td>
-                                <td><span class="trend-badge new">新基准</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>ARC-AGI-2</strong></td>
-                                <td>抽象推理</td>
-                                <td>GPT-5.2 (52.9%)</td>
-                                <td><span class="trend-badge hot">新增</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>AIME 2025</strong></td>
-                                <td>数学竞赛</td>
-                                <td>GPT-5.2 (100%)</td>
-                                <td><span class="trend-badge">满分</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>MMLU</strong></td>
-                                <td>多任务理解</td>
-                                <td>90%+</td>
-                                <td><span class="trend-badge">稳定</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>GPQA</strong></td>
-                                <td>科学研究</td>
-                                <td>Kimi K2.5 (87.6%)</td>
-                                <td><span class="trend-badge">提升</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>SWE-rebench</strong></td>
-                                <td>实时编程</td>
-                                <td>Claude (63.3%)</td>
-                                <td><span class="trend-badge hot">新基准</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>HumanEval</strong></td>
-                                <td>代码生成</td>
-                                <td>Claude/Gemini (85%+)</td>
-                                <td><span class="trend-badge">稳定</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">最新评测报告</h2>
-                    <a href="file-browser.html" class="view-all">查看全部 →</a>
-                </div>
-                <div class="articles-grid" id="articles-grid">
-                    <article class="article-card">
-                        <div class="card-image gradient-2"></div>
-                        <div class="card-content">
-                            <span class="category-tag">Comparison</span>
-                            <h3>2026三大旗舰对比</h3>
-                            <p>GPT-5.2 vs Claude Opus 4.6 vs Gemini 3.1 Pro 终极对决</p>
-                            <div class="meta"><span>2026-03-01</span></div>
-                        </div>
-                    </article>
-                    <article class="article-card">
-                        <div class="card-image gradient-3"></div>
-                        <div class="card-content">
-                            <span class="category-tag">Benchmark</span>
-                            <h3>SWE-bench退役解读</h3>
-                            <p>OpenAI停用真相与新评测标准SWE-bench Pro解析</p>
-                            <div class="meta"><span>2026-02-26</span></div>
-                        </div>
-                    </article>
-                    <article class="article-card">
-                        <div class="card-image gradient-4"></div>
-                        <div class="card-content">
-                            <span class="category-tag">Tools</span>
-                            <h3>主流评测工具全解析</h3>
-                            <p>OpenCompass/EvalScope/FlagEval等工具功能对比</p>
-                            <div class="meta"><span>2026-02-25</span></div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section section-light">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">评测趋势2026</h2>
-                </div>
-                <div class="trends-grid">
-                    <div class="trend-card">
-                        <div class="trend-icon">📉</div>
-                        <h3>低成本逆袭</h3>
-                        <p>Gemini 3.1 Pro以不到竞品一半的成本实现12项基准第一，性价比成为核心竞争力</p>
-                    </div>
-                    <div class="trend-card">
-                        <div class="trend-icon">🔄</div>
-                        <h3>Benchmark退役潮</h3>
-                        <p>SWE-bench Verified停用，数据污染问题暴露，新基准SWE-bench Pro/rebench崛起</p>
-                    </div>
-                    <div class="trend-card">
-                        <div class="trend-icon">🧠</div>
-                        <h3>Agent元年</h3>
-                        <p>从文本生成到智能体执行，Computer Use能力成新焦点，Sonnet 4.6达94%准确率</p>
-                    </div>
-                    <div class="trend-card">
-                        <div class="trend-icon">🌏</div>
-                        <h3>中国模型崛起</h3>
-                        <p>Kimi K2.5、DeepSeek V3、Qwen3开源模型性能逼近闭源，DeepSeek价格刷新底线</p>
-                    </div>
-                </div>
-            </div>
+        <section class="cta-section">
+            <a href="3d-graph.html" class="cta-button">
+                <span class="cta-text">Click here 了解更多</span>
+                <span class="cta-arrow">→</span>
+            </a>
         </section>
     </main>
 
     <footer class="site-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="logo">
-                        <span class="logo-text">AI-Rating</span>
-                    </div>
-                    <p>追踪全球AI模型评测动态</p>
-                </div>
-                <div class="footer-links">
-                    <h4>导航</h4>
-                    <a href="index.html">首页</a>
-                    <a href="file-browser.html">文章</a>
-                    <a href="3d-graph.html">图谱</a>
-                </div>
-                <div class="footer-links">
-                    <h4>评测工具</h4>
-                    <a href="docs/other-related/benchmark-tools-2026.md">工具汇总</a>
-                    <a href="docs/process-documents/benchmark-2026.md">基准详解</a>
-                </div>
-                <div class="footer-links">
-                    <h4>资源</h4>
-                    <a href="#">GitHub</a>
-                    <a href="#">贡献指南</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2026 AI-Rating · Open Source · MIT License</p>
-            </div>
+        <div class="footer-content">
+            <p>AI-Rating © 2026 | 数据来源：B站、GitHub、X、知乎、arXiv</p>
+            <p class="footer-note">本页面数据仅供演示，实际信息需配置API</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 </html>
