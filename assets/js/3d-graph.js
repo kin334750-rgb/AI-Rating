@@ -89,52 +89,14 @@ const sidebarData = {
     ]
 };
 
-function initGraph() {
-    const container = document.getElementById('3d-graph');
-    if (!container) return;
-    
-    graph = ForceGraph3D()(container)
-        .graphData(graphData)
-        .nodeLabel('name')
-        .nodeColor(node => node.group === 'company' ? (node.color || '#ffffff') : getCompanyColor(node.parent))
-        .nodeVal(node => node.group === 'company' ? 25 : 12 + (node.score || 0) / 10)
-        .linkColor(() => 'rgba(0, 255, 136, 0.2)')
-        .linkWidth(1)
-        .linkDirectionalParticles(2)
-        .linkDirectionalParticleSpeed(0.005)
-        .linkDirectionalParticleColor(() => 'rgba(0, 255, 136, 0.5)')
-        .backgroundColor('#0a0a0f')
-        .onNodeClick(handleNodeClick)
-        .nodeCanvasObject((node, ctx, globalScale) => {
-            const r = node.group === 'company' ? 8 : 5;
-            ctx.beginPath();
-            ctx.arc(node.x, node.y, r, 0, 2 * Math.PI);
-            ctx.fillStyle = node.group === 'company' ? (node.color || '#ffffff') : getCompanyColor(node.parent);
-            ctx.fill();
-            if (globalScale > 1.5) {
-                ctx.font = `${14/globalScale}px Outfit, sans-serif`;
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.textAlign = 'center';
-                ctx.fillText(node.name, node.x, node.y + r + 12/globalScale);
-            }
-        });
-    
-    graph.d3Force('charge').strength(-400);
-    graph.d3Force('center').strength(0.1);
-    graph.d3Force('collision').strength(20);
-    
-    setTimeout(() => graph.zoomToFit(400), 1000);
-    initSidebar();
-    initControls();
-}
-
 function getCompanyColor(companyId) {
     const company = graphData.nodes.find(n => n.id === companyId);
     return company ? company.color : '#666666';
 }
 
-function handleNodeClick(node) {
-    showModelPopup(node);
+function getCompanyName(companyId) {
+    const company = graphData.nodes.find(n => n.id === companyId);
+    return company ? company.name : '';
 }
 
 function showModelPopup(node) {
@@ -162,9 +124,8 @@ function showModelPopup(node) {
     popup.classList.add('active');
 }
 
-function getCompanyName(companyId) {
-    const company = graphData.nodes.find(n => n.id === companyId);
-    return company ? company.name : '';
+function handleNodeClick(node) {
+    showModelPopup(node);
 }
 
 function initSidebar() {
@@ -194,11 +155,71 @@ function initSidebar() {
 }
 
 function initControls() {
-    document.getElementById('zoom-in')?.addEventListener('click', () => graph.zoom(graph.zoom() * 1.3, 300));
-    document.getElementById('zoom-out')?.addEventListener('click', () => graph.zoom(graph.zoom() / 1.3, 300));
-    document.getElementById('reset-view')?.addEventListener('click', () => { graph.zoomToFit(400); graph.cameraPosition({ x: 0, y: 0, z: 400 }); });
+    document.getElementById('zoom-in')?.addEventListener('click', () => { if (graph) graph.zoom(graph.zoom() * 1.3, 300); });
+    document.getElementById('zoom-out')?.addEventListener('click', () => { if (graph) graph.zoom(graph.zoom() / 1.3, 300); });
+    document.getElementById('reset-view')?.addEventListener('click', () => { if (graph) { graph.zoomToFit(400); graph.cameraPosition({ x: 0, y: 0, z: 400 }); } });
     document.getElementById('popup-close')?.addEventListener('click', () => document.getElementById('node-popup').classList.remove('active'));
     document.getElementById('node-popup')?.addEventListener('click', (e) => { if (e.target.id === 'node-popup') document.getElementById('node-popup').classList.remove('active'); });
+}
+
+function initGraph() {
+    const container = document.getElementById('3d-graph');
+    const loading = document.getElementById('loading');
+    
+    if (!container) return;
+    
+    function startGraph() {
+        if (typeof ForceGraph3D === 'undefined') {
+            setTimeout(startGraph, 100);
+            return;
+        }
+        
+        try {
+            graph = ForceGraph3D()(container)
+                .graphData(graphData)
+                .nodeLabel('name')
+                .nodeColor(node => node.group === 'company' ? (node.color || '#ffffff') : getCompanyColor(node.parent))
+                .nodeVal(node => node.group === 'company' ? 25 : 12 + (node.score || 0) / 10)
+                .linkColor(() => 'rgba(0, 255, 136, 0.2)')
+                .linkWidth(1)
+                .linkDirectionalParticles(2)
+                .linkDirectionalParticleSpeed(0.005)
+                .linkDirectionalParticleColor(() => 'rgba(0, 255, 136, 0.5)')
+                .backgroundColor('#0a0a0f')
+                .onNodeClick(handleNodeClick)
+                .nodeCanvasObject((node, ctx, globalScale) => {
+                    const r = node.group === 'company' ? 8 : 5;
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, r, 0, 2 * Math.PI);
+                    ctx.fillStyle = node.group === 'company' ? (node.color || '#ffffff') : getCompanyColor(node.parent);
+                    ctx.fill();
+                    if (globalScale > 1.5) {
+                        ctx.font = `${14/globalScale}px Outfit, sans-serif`;
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(node.name, node.x, node.y + r + 12/globalScale);
+                    }
+                });
+            
+            graph.d3Force('charge').strength(-400);
+            graph.d3Force('center').strength(0.1);
+            graph.d3Force('collision').strength(20);
+            
+            if (loading) loading.style.display = 'none';
+            
+            setTimeout(() => {
+                if (graph) graph.zoomToFit(400);
+            }, 1500);
+            
+            initSidebar();
+            initControls();
+        } catch (e) {
+            console.error('Graph initialization error:', e);
+            if (loading) loading.textContent = '加载失败，请刷新页面';
+        }
+    }
+    
+    startGraph();
 }
 
 window.addEventListener('load', initGraph);
