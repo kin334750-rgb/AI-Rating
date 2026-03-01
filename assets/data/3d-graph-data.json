@@ -1,48 +1,68 @@
 {
     "nodes": [
-        {"id": 1, "name": "AI模型评测格局", "type": "topic", "description": "2026年AI模型评测最新格局", "x": 0, "y": 20, "z": 0},
+        {"id": 1, "name": "AI模型评测", "type": "topic", "description": "2026年AI模型评测最新格局", "x": 0, "y": 20, "z": 0},
         
-        {"id": 2, "name": "GPT-5.2 Codex", "type": "topic", "description": "OpenAI最新旗舰模型", "x": 30, "y": 10, "z": 15},
-        {"id": 3, "name": "Claude Opus 4.6", "type": "topic", "description": "Anthropic旗舰模型，编程能力最强", "x": -30, "y": 10, "z": 15},
-        {"id": 4, "name": "Gemini 3.1 Pro", "type": "topic", "description": "Google DeepMind旗舰，编码新王", "x": 0, "y": -15, "z": 25},
-        {"id": 5, "name": "Claude Sonnet 4.6", "type": "topic", "description": "性价比之王，半价 opus 性能", "x": -20, "y": 25, "z": 0},
+        {"id": 2, "name": "GPT-5.2 Codex", "type": "topic", "description": "OpenAI最新旗舰，推理能力最强", "x": 30, "y": 10, "z": 15},
+        {"id": 3, "name": "Claude Opus 4.6", "type": "topic", "description": "Anthropic旗舰，编程能力最强", "x": -30, "y": 10, "z": 15},
+        {"id": 4, "name": "Gemini 3.1 Pro", "type": "topic", "description": "Google DeepMind，性价比之王", "x": 0, "y": -15, "z": 25},
+        {"id": 5, "name": "Claude Sonnet 4.6", "type": "topic", "description": "性价比之选，半价 opus 性能", "x": -20, "y": 25, "z": 0},
         
-        {"id": 6, "name": "Kimi K2.5", "type": "topic", "description": "月之暗面Moonshot AI万亿参数旗舰", "x": 25, "y": -10, "z": -20},
-        {"id": 7, "name": "DeepSeek V3.2", "type": "topic", "description": "打破定价底的MIT开源模型", "x": 35, "y": 0, "z": -15},
-        {"id": 8, "name": "Qwen3", "type": "topic", "description": "阿里通义千问开源系列", "x": -35, "y": -5, "z": -20},
-        {"id": 9, "name": "GLM-5", "type": "topic", "description": "智谱AI开源模型", "x": 15, "y": 30, "z": -10},
+        {"id": 6, "name": "Kimi K2.5", "type": "topic", "description": "月之暗面Moonshot AI，基准最强", "x": 25, "y": -10, "z": -20},
+        {"id": 7, "name": "DeepSeek V3.2", "type": "topic", "description": "MIT开源，价格最低", "x": 35, "y": 0, "z": -15},
+        {"id": 8, "name": "Qwen3.5", "type": "topic", "description": "阿里通义千问，生态最完善", "x": -35, "y": -5, "z": -20},
+        {"id": 9, "name": "GLM-5", "type": "topic", "description": "智谱AI，学术能力强", "x": 15, "y": 30, "z": -10},
         {"id": 10, "name": "MiniMax M2.5", "type": "topic", "description": "MiniMax海螺AI", "x": -25, "y": -25, "z": 10},
+        
+        {"id": 11, "name": "Grok 4", "type": "topic", "description": "xAI最新模型", "x": 40, "y": 15, "z": 0},
+        {"id": 12, "name": "文心一言4.0", "type": "topic", "description": "百度最新模型", "x": -40, "y": 15, "z": 0},
 
-        {"id": 11, "name": "SWE-bench Verified", "type": "conclusion", "description": "编程基准测试", "accuracy": "Gemini 3.1 Pro: 72.1%"},
-        {"id": 12, "name": "ARC-AGI-2", "type": "conclusion", "description": "抽象推理基准", "accuracy": "GPT-5.2: 52.9%"},
-        {"id": 13, "name": "AIME 2025", "type": "conclusion", "description": "数学竞赛基准", "accuracy": "GPT-5.2: 100%"},
-        {"id": 14, "name": "GPQA Diamond", "type": "conclusion", "description": "科学研究基准", "accuracy": "Kimi K2.5: 87.6%"},
-        {"id": 15, "name": "MMLU", "type": "conclusion", "description": "多任务语言理解", "accuracy": "90%+"},
+        {"id": 20, "name": "SWE-bench Pro", "type": "conclusion", "description": "编程基准", "accuracy": "Claude Opus 4.6: 80.9%"},
+        {"id": 21, "name": "SWE-rebench", "type": "conclusion", "description": "实时编程基准", "accuracy": "Claude: 63.3%"},
+        {"id": 13, "name": "ARC-AGI-2", "type": "conclusion", "description": "抽象推理基准", "accuracy": "GPT-5.2: 52.9%"},
+        {"id": 14, "name": "AIME 2025", "type": "conclusion", "description": "数学竞赛基准", "accuracy": "GPT-5.2: 100%"},
+        {"id": 15, "name": "GPQA", "type": "conclusion", "description": "科学研究基准", "accuracy": "Kimi K2.5: 87.6%"},
+        {"id": 16, "name": "MMLU", "type": "conclusion", "description": "多任务语言理解", "accuracy": "90%+"},
+        {"id": 17, "name": "HumanEval", "type": "conclusion", "description": "代码生成基准", "accuracy": "85%+"},
 
-        {"id": 16, "name": "OpenAI Evals", "type": "tool", "description": "官方评测框架"},
-        {"id": 17, "name": "LM-Eval", "type": "tool", "description": "统一评测基准"},
-        {"id": 18, "name": "HELM", "type": "tool", "description": "斯坦福评测工具"},
-        {"id": 19, "name": "Artificial Analysis", "type": "tool", "description": "AI指数评测机构"},
-        {"id": 20, "name": "302.AI基准实验室", "type": "tool", "description": "独立第三方评测"}
+        {"id": 30, "name": "OpenCompass", "type": "tool", "description": "上海人工智能实验室开源"},
+        {"id": 31, "name": "EvalScope", "type": "tool", "description": "阿里魔搭社区开源"},
+        {"id": 32, "name": "FlagEval", "type": "tool", "description": "智源研究院评测"},
+        {"id": 33, "name": "LM-Eval", "type": "tool", "description": "EleutherAI开源"},
+        {"id": 34, "name": "Artificial Analysis", "type": "tool", "description": "独立AI评测机构"},
+        {"id": 35, "name": "302.AI基准实验室", "type": "tool", "description": "独立第三方评测"},
+
+        {"id": 40, "name": "OpenAI", "type": "expert", "description": "ChatGPT开发公司"},
+        {"id": 41, "name": "Anthropic", "type": "expert", "description": "Claude开发公司"},
+        {"id": 42, "name": "Google DeepMind", "type": "expert", "description": "Gemini开发公司"},
+        {"id": 43, "name": "Moonshot AI", "type": "expert", "description": "Kimi开发公司"},
+        {"id": 44, "name": "深度求索", "type": "expert", "description": "DeepSeek开发公司"},
+        {"id": 45, "name": "阿里云", "type": "expert", "description": "Qwen开发公司"}
 
     ],
     "links": [
         {"source": 1, "target": 2}, {"source": 1, "target": 3}, {"source": 1, "target": 4},
         {"source": 1, "target": 5}, {"source": 1, "target": 6}, {"source": 1, "target": 7},
         {"source": 1, "target": 8}, {"source": 1, "target": 9}, {"source": 1, "target": 10},
+        {"source": 1, "target": 11}, {"source": 1, "target": 12},
         
-        {"source": 2, "target": 12}, {"source": 2, "target": 13},
-        {"source": 3, "target": 11}, {"source": 3, "target": 15},
-        {"source": 4, "target": 11}, {"source": 4, "target": 19},
-        {"source": 5, "target": 11}, {"source": 5, "target": 15},
+        {"source": 2, "target": 13}, {"source": 2, "target": 14}, {"source": 2, "target": 16},
+        {"source": 3, "target": 20}, {"source": 3, "target": 16}, {"source": 3, "target": 41},
+        {"source": 4, "target": 20}, {"source": 4, "target": 34}, {"source": 4, "target": 42},
+        {"source": 5, "target": 20}, {"source": 5, "target": 16}, {"source": 5, "target": 41},
         
-        {"source": 6, "target": 14}, {"source": 6, "target": 7},
-        {"source": 7, "target": 19},
-        {"source": 8, "target": 6},
-        {"source": 9, "target": 15},
+        {"source": 6, "target": 15}, {"source": 6, "target": 14}, {"source": 6, "target": 43},
+        {"source": 7, "target": 34}, {"source": 7, "target": 44},
+        {"source": 8, "target": 16}, {"source": 8, "target": 45},
+        {"source": 9, "target": 16},
         
-        {"source": 11, "target": 16}, {"source": 11, "target": 17},
-        {"source": 12, "target": 18}, {"source": 13, "target": 20},
-        {"source": 14, "target": 20}, {"source": 15, "target": 19}
+        {"source": 11, "target": 40},
+        
+        {"source": 20, "target": 30}, {"source": 20, "target": 31},
+        {"source": 13, "target": 32}, {"source": 14, "target": 35},
+        {"source": 15, "target": 35}, {"source": 16, "target": 34},
+        
+        {"source": 40, "target": 2}, {"source": 41, "target": 3},
+        {"source": 42, "target": 4}, {"source": 43, "target": 6},
+        {"source": 44, "target": 7}, {"source": 45, "target": 8}
     ]
 }

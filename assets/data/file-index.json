@@ -29,111 +29,75 @@
         },
         {
             "id": 4,
-            "title": "Kimi K2.5 vs DeepSeek V3.2：中国开源模型巅峰对决",
-            "path": "docs/conclusion-reports/kimi-vs-deepseek.md",
+            "title": "中国开源AI模型崛起：Kimi K2.5 vs DeepSeek V3 vs Qwen3",
+            "path": "docs/conclusion-reports/chinese-ai-models-2026.md",
             "type": "conclusion-report",
             "date": "2026-02-26",
-            "tag": ["Kimi", "DeepSeek", "开源", "MoE", "中国模型"],
-            "description": "两大中国开源MoE模型对比：K2.5基准更强，DeepSeek V3.2价格更低"
+            "tag": ["Kimi", "DeepSeek", "Qwen", "中国模型", "开源"],
+            "description": "中国开源MoE模型对比：K2.5基准最强，DeepSeek价格最低，Qwen生态最完善"
         },
         {
             "id": 5,
-            "title": "GPT-5.2 Codex深度评测：推理能力登顶",
-            "path": "docs/conclusion-reports/gpt-5-2-review.md",
+            "title": "MMLU 2026评测报告：大模型知识能力全面提升",
+            "path": "docs/conclusion-reports/mmlu-report-2026.md",
             "type": "conclusion-report",
-            "date": "2026-02-25",
-            "tag": ["GPT-5", "OpenAI", "推理", "ARC-AGI"],
-            "description": "GPT-5.2在ARC-AGI-2上取得52.9%成绩，数学能力达100% AIME 2025"
+            "date": "2026-02-20",
+            "tag": ["MMLU", "基准测试", "知识理解", "2026"],
+            "description": "2026年MMLU基准评测结果解读，主流模型准确率突破90%"
         },
         {
             "id": 6,
-            "title": "Claude Opus 4.6实测：百万上下文注入",
-            "path": "docs/conclusion-reports/opus-4-6-review.md",
-            "type": "conclusion-report",
-            "date": "2026-02-24",
-            "tag": ["Claude", "Opus 4.6", "编程", "长上下文"],
-            "description": "Claude Opus 4.6支持100万token上下文，长文检索准确率76%，编程能力提升83%"
+            "title": "2026年主流评测工具全解析",
+            "path": "docs/other-related/benchmark-tools-2026.md",
+            "type": "tool-description",
+            "date": "2026-02-15",
+            "tag": ["评测工具", "OpenCompass", "EvalScope", "FlagEval"],
+            "description": "主流AI评测工具对比：OpenCompass、EvalScope、FlagEval等"
         },
         {
             "id": 7,
-            "title": "Qwen3 vs Kimi K2.5 开源模型对比",
-            "path": "docs/conclusion-reports/qwen3-vs-kimi.md",
-            "type": "conclusion-report",
-            "date": "2026-02-23",
-            "tag": ["Qwen", "Kimi", "开源", "对比"],
-            "description": "阿里Qwen3与月之暗面K2.5开源模型全方位对比"
+            "title": "AI评测趋势报告2026",
+            "path": "docs/other-related/ai-rating-trends.md",
+            "type": "other",
+            "date": "2026-02-10",
+            "tag": ["趋势", "行业分析", "2026"],
+            "description": "2026年AI评测领域发展趋势分析"
         },
         {
             "id": 8,
-            "title": "2026年AI模型评测基准全解析",
-            "path": "docs/process-documents/benchmark-2026.md",
-            "type": "process-document",
-            "date": "2026-02-22",
-            "tag": ["基准测试", "SWE-bench", "MMLU", "ARC-AGI", "AIME"],
-            "description": "2026年主流AI评测基准详解：SWE-bench、ARC-AGI、MMLU、GPQA、AIME等"
+            "title": "LLM评测方法论",
+            "path": "docs/expert-profiles/llm-evaluation-methods.md",
+            "type": "expert-profile",
+            "date": "2026-02-05",
+            "tag": ["评测方法", "方法论", "最佳实践"],
+            "description": "大语言模型评测方法论详解"
         },
         {
             "id": 9,
-            "title": "AI模型性价比排行：2026年2月",
-            "path": "docs/conclusion-reports/cost-performance-2026.md",
-            "type": "conclusion-report",
-            "date": "2026-02-21",
-            "tag": ["性价比", "API定价", "成本"],
-            "description": "2026年2月AI模型性价比排行：Gemini 3.1 Pro成本仅为竞品一半"
+            "title": "李开复：AI评测行业思考",
+            "path": "docs/expert-profiles/li-kaifu.md",
+            "type": "expert-profile",
+            "date": "2026-01-20",
+            "tag": ["李开复", "专家观点", "行业思考"],
+            "description": "创新工场李开复对AI评测行业的思考和展望"
         },
         {
             "id": 10,
-            "title": "Claude Sonnet 4.6 vs Opus 4.6 选择指南",
-            "path": "docs/conclusion-reports/sonnet-vs-opus.md",
-            "type": "conclusion-report",
-            "date": "2026-02-20",
-            "tag": ["Claude", "Sonnet", "Opus", "选择指南"],
-            "description": "59%用户偏好Sonnet 4.6而非Opus 4.5，花小钱办大事"
+            "title": "OpenAI Evals评测框架",
+            "path": "docs/tool-descriptions/openai-evals.md",
+            "type": "tool-description",
+            "date": "2026-01-15",
+            "tag": ["OpenAI", "评测框架", "开源"],
+            "description": "OpenAI官方评测框架Evals介绍"
         },
         {
             "id": 11,
-            "title": "Artificial Analysis AI指数评测解读",
-            "path": "docs/tool-descriptions/artificial-analysis.md",
-            "type": "tool-description",
-            "date": "2026-02-19",
-            "tag": ["Artificial Analysis", "评测机构", "AI指数"],
-            "description": "独立AI评测机构Artificial Analysis的评测方法和指数排名"
-        },
-        {
-            "id": 12,
-            "title": "302.AI基准实验室评测方法",
-            "path": "docs/tool-descriptions/302-benchmark-lab.md",
-            "type": "tool-description",
-            "date": "2026-02-18",
-            "tag": ["302.AI", "基准测试", "独立评测"],
-            "description": "302.AI独立第三方AI模型评测实验室介绍"
-        },
-        {
-            "id": 13,
-            "title": "GLM-5 vs Kimi K2.5：中国AI力量崛起",
-            "path": "docs/conclusion-reports/glm-vs-kimi.md",
-            "type": "conclusion-report",
-            "date": "2026-02-17",
-            "tag": ["GLM", "Kimi", "智谱", "月之暗面"],
-            "description": "智谱GLM-5与月之暗面K2.5深度对比"
-        },
-        {
-            "id": 14,
-            "title": "AI Agent评测：Computer Use能力对比",
-            "path": "docs/process-documents/agent-evaluation.md",
+            "title": "指令跟随评测详解",
+            "path": "docs/process-documents/instruction-following.md",
             "type": "process-document",
-            "date": "2026-02-16",
-            "tag": ["Agent", "Computer Use", "智能体", "自动化"],
-            "description": "主流AI模型的Agent能力对比：Sonnet 4.6保险业测试达94%准确率"
-        },
-        {
-            "id": 15,
-            "title": "2026年AI评测趋势：低成本模型逆袭",
-            "path": "docs/other-related/trend-2026.md",
-            "type": "other",
-            "date": "2026-02-15",
-            "tag": ["趋势", "行业分析", "2026"],
-            "description": "2026年AI评测趋势分析：低端逆袭高端成为结构性趋势"
+            "date": "2026-01-10",
+            "tag": ["指令跟随", "评测流程", "方法论"],
+            "description": "AI模型指令跟随能力评测方法详解"
         }
     ]
 }
